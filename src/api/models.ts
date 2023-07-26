@@ -43,6 +43,7 @@ export type ChatTurn = {
 };
 
 export type ChatRequest = {
+    question: string;
     history: ChatTurn[];
     approach: Approaches;
     overrides?: AskRequestOverrides;

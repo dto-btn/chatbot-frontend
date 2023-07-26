@@ -25,16 +25,16 @@ const Layout = () => {
                     </Link>
                     <nav>
                         <ul className={styles.headerNavList}>
-                            <li>
+                            {/* <li>
                                 <NavLink to="/" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
                                     Chat
                                 </NavLink>
-                            </li>
-                            <li className={styles.headerNavLeftMargin}>
+                            </li> */}
+                            {/* <li className={styles.headerNavLeftMargin}>
                                 <NavLink to="/qa" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
                                     Ask a question
                                 </NavLink>
-                            </li>
+                            </li> */}
                             <li className={styles.headerNavLeftMargin}>
                                 <a href="https://github.com/dto-btn/chatbot-frontend" target={"_blank"} title="Github repository link">
                                     <img

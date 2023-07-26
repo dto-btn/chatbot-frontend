@@ -25,26 +25,18 @@ export async function askApi(options: AskRequest): Promise<AskResponse> {
 }
 
 export async function chatApi(options: ChatRequest): Promise<AskResponse> {
-    const response = await fetch("/chat", {
+    const response = await fetch("/query", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            history: options.history,
-            approach: options.approach,
-            overrides: {
-                retrieval_mode: options.overrides?.retrievalMode,
-                semantic_ranker: options.overrides?.semanticRanker,
-                semantic_captions: options.overrides?.semanticCaptions,
-                top: options.overrides?.top,
-                temperature: options.overrides?.temperature,
-                prompt_template: options.overrides?.promptTemplate,
-                prompt_template_prefix: options.overrides?.promptTemplatePrefix,
-                prompt_template_suffix: options.overrides?.promptTemplateSuffix,
-                exclude_category: options.overrides?.excludeCategory,
-                suggest_followup_questions: options.overrides?.suggestFollowupQuestions
-            }
+            query: options.question,
+            temp: options.overrides?.temperature,
+            k: options.overrides?.top,
+            lang: "en",
+            pretty: "false",
+            index: "2023-07-19",
         })
     });
 
