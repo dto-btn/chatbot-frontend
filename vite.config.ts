@@ -9,7 +9,7 @@ export default defineConfig(({command, mode}) => {
     return {
         plugins: [react()],
         build: {
-            outDir: "../backend/static",
+            outDir: "dist",
             emptyOutDir: true,
             sourcemap: true,
             rollupOptions: {
