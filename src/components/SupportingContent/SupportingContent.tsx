@@ -9,16 +9,25 @@ interface Props {
 export const SupportingContent = ({ supportingContent }: Props) => {
     return (
         <ul className={styles.supportingContentNavList}>
-            {supportingContent.map((x, i) => {
-                const parsed = parseSupportingContentItem(x);
+            <li className={styles.supportingContentItem}>
+                <ul>
+                {supportingContent.map((x, i) => {
+                    const parsed = parseSupportingContentItem(x);
+                    const Rexp = /(\b(https?|ftp|file):\/\/([-A-Z0-9+&@#%?=~_|!:,.;]*)([-A-Z0-9+&@#%?\/=~_|!:,.;]*)[-A-Z0-9+&@#\/%=~_|])/ig;
+                    const isLink = Rexp.test(parsed.title)
 
-                return (
-                    <li className={styles.supportingContentItem}>
-                        <h4 className={styles.supportingContentItemHeader}>{parsed.title}</h4>
-                        <p className={styles.supportingContentItemText}>{parsed.content}</p>
-                    </li>
-                );
-            })}
+                    return isLink ? (
+                        <li>
+                          <a href={parsed.title} target="_blank">{parsed.title}</a>
+                        </li>
+                    ):
+                    (<li>
+                        {parsed.title}
+                      </li>
+                    );
+                })}
+                </ul>
+            </li>
         </ul>
     );
 };

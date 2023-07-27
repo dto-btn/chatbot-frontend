@@ -54,6 +54,12 @@ const Layout = () => {
             </header>
 
             <Outlet />
+
+            <footer className={styles.header}>
+                <div className={styles.headerContainer}>
+                    <a href="https://forms.office.com/r/dPvsZykMSy" target="_blank" className={styles.headerTitleContainer}><h4 className={styles.headerRightText}>Feedback</h4></a>
+                </div>
+            </footer>
         </div>
     );
 };

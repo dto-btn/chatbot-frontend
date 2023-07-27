@@ -11,7 +11,7 @@ export async function askApi(options: AskRequest): Promise<AskResponse> {
             temp: options.overrides?.temperature,
             k: options.overrides?.top,
             lang: "en",
-            pretty: "false",
+            pretty: "true",
             index: "2023-07-19",
         })
     });
@@ -35,7 +35,7 @@ export async function chatApi(options: ChatRequest): Promise<AskResponse> {
             temp: options.overrides?.temperature,
             k: options.overrides?.top,
             lang: "en",
-            pretty: "false",
+            pretty: "true",
             index: "2023-07-19",
         })
     });

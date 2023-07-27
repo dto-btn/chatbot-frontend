@@ -188,7 +188,7 @@ const Chat = () => {
                     <div className={styles.chatInput}>
                         <QuestionInput
                             clearOnSend
-                            placeholder="Type a new question (e.g. does my plan cover annual eye exams?)"
+                            placeholder="Type a new question (e.g. what is the URL to reach the Archibus app and make a reservation)?"
                             disabled={isLoading}
                             onSend={question => makeApiRequest(question)}
                         />
@@ -215,24 +215,24 @@ const Chat = () => {
                     onRenderFooterContent={() => <DefaultButton onClick={() => setIsConfigPanelOpen(false)}>Close</DefaultButton>}
                     isFooterAtBottom={true}
                 >
-                    <TextField
+                    {/* <TextField
                         className={styles.chatSettingsSeparator}
                         defaultValue={promptTemplate}
                         label="Override prompt template"
                         multiline
                         autoAdjustHeight
                         onChange={onPromptTemplateChange}
-                    />
+                    /> */}
 
                     <SpinButton
                         className={styles.chatSettingsSeparator}
                         label="Retrieve this many documents from search:"
                         min={1}
-                        max={50}
+                        max={5}
                         defaultValue={retrieveCount.toString()}
                         onChange={onRetrieveCountChange}
                     />
-                    <TextField className={styles.chatSettingsSeparator} label="Exclude category" onChange={onExcludeCategoryChanged} />
+                    {/* <TextField className={styles.chatSettingsSeparator} label="Exclude category" onChange={onExcludeCategoryChanged} />
                     <Checkbox
                         className={styles.chatSettingsSeparator}
                         checked={useSemanticRanker}
@@ -262,7 +262,7 @@ const Chat = () => {
                         ]}
                         required
                         onChange={onRetrievalModeChange}
-                    />
+                    /> */}
                 </Panel>
             </div>
         </div>

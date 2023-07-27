@@ -34,7 +34,7 @@ export type AskResponse = {
     chat_history: string | null;
     logs?: string[];
     error?: string;
-    metadata: {}
+    metadata: string[]
 };
 
 export type ChatTurn = {
