@@ -14,6 +14,8 @@ echo ""
 echo "Building frontend"
 echo ""
 
+echo "VITE_API_BACKEND=$VITE_API_BACKEND" > .env.production
+
 npm run build
 if [ $? -ne 0 ]; then
     echo "Failed to build frontend"

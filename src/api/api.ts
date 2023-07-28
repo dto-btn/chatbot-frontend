@@ -1,7 +1,8 @@
 import { AskRequest, AskResponse, ChatRequest } from "./models";
+import { loadEnv } from "vite";
 
 export async function askApi(options: AskRequest): Promise<AskResponse> {
-    const response = await fetch("/query", {
+    const response = await fetch(import.meta.env.VITE_API_BACKEND + "/query", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -25,7 +26,8 @@ export async function askApi(options: AskRequest): Promise<AskResponse> {
 }
 
 export async function chatApi(options: ChatRequest): Promise<AskResponse> {
-    const response = await fetch("/query", {
+    console.log(import.meta.env.MODE)
+    const response = await fetch(import.meta.env.VITE_API_BACKEND + "/query", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
