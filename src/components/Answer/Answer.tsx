@@ -8,6 +8,11 @@ import { AskResponse, getCitationFilePath } from "../../api";
 import { parseAnswerToHtml } from "./AnswerParser";
 import { AnswerIcon } from "./AnswerIcon";
 
+import { useTranslation } from "react-i18next";
+
+import { IIconProps } from '@fluentui/react';
+import { ActionButton } from '@fluentui/react/lib/Button';
+
 interface Props {
     answer: AskResponse;
     isSelected?: boolean;
@@ -17,6 +22,8 @@ interface Props {
     onFollowupQuestionClicked?: (question: string) => void;
     showFollowupQuestions?: boolean;
 }
+
+const sourceIcon: IIconProps = { iconName: 'Source' };
 
 export const Answer = ({
     answer,
@@ -32,12 +39,14 @@ export const Answer = ({
     const Rexp = /(\b(https?|ftp|file):\/\/([-A-Z0-9+&@#%?=~_|!:,.;]*)([-A-Z0-9+&@#%?\/=~_|!:,.;]*)[-A-Z0-9+&@#\/%=~_|])/ig;
     const sanitizedAnswerHtml = sanitizedAnswerHtmlPre.replace(Rexp, "<a href='$1' target='_blank'>$1</a>");
 
+    const { t } = useTranslation();
+
     return (
         <Stack className={`${styles.answerContainer} ${isSelected && styles.selected}`} verticalAlign="space-between">
             <Stack.Item>
                 <Stack horizontal horizontalAlign="space-between">
                     <AnswerIcon />
-                    <div>
+                    <div className={styles.sourcesContainer}>
                         {/* <IconButton
                             style={{ color: "black" }}
                             iconProps={{ iconName: "Lightbulb" }}
@@ -46,14 +55,9 @@ export const Answer = ({
                             onClick={() => onThoughtProcessClicked()}
                             disabled={!answer.thoughts}
                         /> */}
-                        <IconButton
-                            style={{ color: "black" }}
-                            iconProps={{ iconName: "ClipboardList" }}
-                            title="Show supporting content"
-                            ariaLabel="Show supporting content"
-                            onClick={() => onSupportingContentClicked()}
-                            disabled={!answer.metadata.length}
-                        />
+                        <ActionButton iconProps={sourceIcon} allowDisabledFocus disabled={!answer.metadata.length} onClick={() => onSupportingContentClicked()} title={t("supporting")} ariaLabel={t("supporting")}>
+                        Source(s)
+                        </ActionButton>
                     </div>
                 </Stack>
             </Stack.Item>

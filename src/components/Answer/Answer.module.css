@@ -133,3 +133,8 @@ sup {
     content: "";
     animation: loading 1s infinite;
 }
+
+.sourcesContainer{
+    display: flex;
+    align-items: center;
+}

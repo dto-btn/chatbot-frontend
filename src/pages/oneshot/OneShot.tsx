@@ -12,6 +12,8 @@ import { SettingsButton } from "../../components/SettingsButton/SettingsButton";
 
 import { SparkleFilled } from "@fluentui/react-icons";
 
+import { useTranslation } from "react-i18next"
+
 export function Component(): JSX.Element {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
     const [approach, setApproach] = useState<Approaches>(Approaches.RetrieveThenRead);
@@ -32,6 +34,8 @@ export function Component(): JSX.Element {
 
     const [activeCitation, setActiveCitation] = useState<string>();
     const [activeAnalysisPanelTab, setActiveAnalysisPanelTab] = useState<AnalysisPanelTabs | undefined>(undefined);
+
+    const { i18n } = useTranslation(); 
 
     const makeApiRequest = async (question: string) => {
         lastQuestionRef.current = question;
@@ -56,7 +60,7 @@ export function Component(): JSX.Element {
                     semanticCaptions: useSemanticCaptions
                 }
             };
-            const result = await askApi(request);
+            const result = await askApi(request, i18n.language);
             setAnswer(result);
         } catch (e) {
             setError(e);

@@ -13,5 +13,7 @@
     "menu.title": "Configurer la génération de réponses",
     "menu.desc": "Quantité de documents à rechercher:",
     "menu.button": "Paramètres du développeur",
-    "clearchat.button": "Effacer l’historique des discussions"
+    "clearchat.button": "Effacer l’historique des discussions",
+    "generating": "Génération de réponse",
+    "supporting": "Contenu de soutien"
 }

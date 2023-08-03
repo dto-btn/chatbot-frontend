@@ -37,7 +37,10 @@ const Chat = () => {
     const [selectedAnswer, setSelectedAnswer] = useState<number>(0);
     const [answers, setAnswers] = useState<[user: string, response: AskResponse][]>([]);
 
+    const { t, i18n } = useTranslation();
+
     const makeApiRequest = async (question: string) => {
+        
         lastQuestionRef.current = question;
 
         error && setError(undefined);
@@ -61,7 +64,7 @@ const Chat = () => {
                     suggestFollowupQuestions: useSuggestFollowupQuestions
                 }
             };
-            const result = await chatApi(request);
+            const result = await chatApi(request, i18n.language);
             setAnswers([...answers, [question, result]]);
         } catch (e) {
             setError(e);
@@ -133,9 +136,8 @@ const Chat = () => {
         setSelectedAnswer(index);
     };
 
-    const { t } = useTranslation();
-
     return (
+        
         <div className={styles.container}>
             <div className={styles.commandsContainer}>
                 <ClearChatButton className={styles.commandButton} onClick={clearChat} disabled={!lastQuestionRef.current || isLoading} />

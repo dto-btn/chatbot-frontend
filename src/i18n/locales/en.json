@@ -13,5 +13,7 @@
     "menu.title": "Configure answer generation",
     "menu.desc": "Retrieve this many documents from search:",
     "menu.button": "Developer settings",
-    "clearchat.button": "Clear chat"
+    "clearchat.button": "Clear chat",
+    "generating": "Generating answer",
+    "supporting": "Supporting content"
 }

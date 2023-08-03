@@ -6,6 +6,7 @@ import styles from "./AnalysisPanel.module.css";
 import { SupportingContent } from "../SupportingContent";
 import { AskResponse } from "../../api";
 import { AnalysisPanelTabs } from "./AnalysisPanelTabs";
+import { t } from "i18next";
 
 interface Props {
     className: string;
@@ -31,7 +32,7 @@ export const AnalysisPanel = ({ answer, activeTab, activeCitation, citationHeigh
         >
             <PivotItem
                 itemKey={AnalysisPanelTabs.SupportingContentTab}
-                headerText="Supporting content"
+                headerText={t("supporting")}
                 headerButtonProps={isDisabledSupportingContentTab ? pivotItemDisabledStyle : undefined}
             >
                 <SupportingContent supportingContent={answer.metadata} />
