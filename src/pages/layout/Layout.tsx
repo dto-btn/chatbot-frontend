@@ -64,9 +64,9 @@ const Layout = () => {
 
             <Outlet />
 
-            <footer className={styles.header}>
-                <div className={styles.headerContainer}>
-                    <a href="https://forms.office.com/r/dPvsZykMSy" target="_blank" className={styles.headerTitleContainer}><h4 className={styles.headerRightText}>{t('feedback')}</h4></a>
+            <footer className={styles.footer}>
+                <div className={styles.footerContainer}>
+                    <a href="https://forms.office.com/r/dPvsZykMSy" target="_blank" className={styles.footerText}><h4>{t('feedback')}</h4></a>
                 </div>
             </footer>
         </div>

@@ -82,3 +82,23 @@
 .githubLogo {
     height: 20px;
 }
+
+.footer {
+    background-color: #222222;
+    color: #f2f2f2;
+}
+
+.footerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin-right: 12px;
+    margin-left: 12px;
+    position: relative;
+}
+
+.footerText {
+    color: #f2f2f2;
+    text-decoration: none;
+}
