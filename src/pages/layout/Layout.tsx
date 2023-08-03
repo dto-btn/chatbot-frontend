@@ -5,8 +5,7 @@ import github from "../../assets/github.svg";
 import styles from "./Layout.module.css";
 
 import logo from "../../assets/SSC-Logo-Purple-Leaf-300x300.png";
-import i18next from "../../i18n";
-import { useTranslation, Trans } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 const Layout = () => {
 
@@ -30,7 +29,7 @@ const Layout = () => {
                                 height="32px"
                             />
                         </a>
-                        <h3 className={styles.headerTitle}>Azure OpenAI Chatbot Pilot</h3>
+                        <h3 className={styles.headerTitle}>{t("title")}</h3>
                     </Link>
                     <nav>
                         <ul className={styles.headerNavList}>
@@ -44,13 +43,13 @@ const Layout = () => {
                                     Ask a question
                                 </NavLink>
                             </li> */}
-                            <li><a href="#" style={{color:'white'}} onClick={() => changeLanguage(t("langlinkshorthand"))}>{t("langlink")}</a></li>
+                            <li><a href="#" style={{color:'white'}} onClick={() => changeLanguage(t("langlink.shorthand"))}>{t("langlink")}</a></li>
                             <li className={styles.headerNavLeftMargin}>
-                                <a href="https://github.com/dto-btn/chatbot-frontend" target={"_blank"} title="Github repository link">
+                                <a href="https://github.com/dto-btn/chatbot-frontend" target={"_blank"} title={t("githublnk")}>
                                     <img
                                         src={github}
                                         alt="Github logo"
-                                        aria-label="Link to github repository"
+                                        aria-label={t("githublnk")}
                                         width="20px"
                                         height="20px"
                                         className={styles.githubLogo}
