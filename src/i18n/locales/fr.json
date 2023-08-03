@@ -1,0 +1,17 @@
+{
+    "langlink": "English",
+    "langlink.shorthand": "en",
+    "feedback": "Commentaire",
+    "githublnk": "Lien vers entrepôt Github",
+    "title": "Pilote Robot conversationnel - Azure OpenAI",
+    "chatwith": "Clavarder avec vos données",
+    "chatwith.sub": "Demander n'importe quoi ou utiliser un de ces exemples",
+    "placeholder": "Tapper une question (par exemple; quel est le lien URL pour effectuer une réservation dans Archibus)?",
+    "example1": "Qui est le président de SPC?",
+    "example2": "Quelle est l’URL de l’application Archibus?",
+    "example3": "Quelles sont les étapes à suivre pour embaucher un nouvel employé à SPC?",
+    "menu.title": "Configurer la génération de réponses",
+    "menu.desc": "Quantité de documents à rechercher:",
+    "menu.button": "Paramètres du développeur",
+    "clearchat.button": "Effacer l’historique des discussions"
+}

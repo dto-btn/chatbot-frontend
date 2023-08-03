@@ -12,17 +12,21 @@
 .headerContainer {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
+    flex-direction: row;
     margin-right: 12px;
     margin-left: 12px;
+    position: relative;
 }
 
 .headerTitleContainer {
     display: flex;
     align-items: center;
-    margin-right: 40px;
+    flex-basis: 33.33333%;
     color: #f2f2f2;
     text-decoration: none;
+    justify-content: left;
+    margin-left: auto;
 }
 
 .headerLogo {
@@ -35,6 +39,7 @@
 }
 
 .headerNavList {
+    flex-basis: 33.33333%;
     display: flex;
     list-style: none;
     padding-left: 0;
@@ -64,8 +69,9 @@
 }
 
 .headerRightText {
+    flex-basis: 33.33333%;
     font-weight: normal;
-    margin-left: 40px;
+    margin-left: auto;
 }
 
 .microsoftLogo {

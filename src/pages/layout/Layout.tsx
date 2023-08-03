@@ -5,8 +5,16 @@ import github from "../../assets/github.svg";
 import styles from "./Layout.module.css";
 
 import logo from "../../assets/SSC-Logo-Purple-Leaf-300x300.png";
+import { useTranslation } from 'react-i18next';
 
 const Layout = () => {
+
+    const { t, i18n } = useTranslation();
+
+    const changeLanguage = (lng: string) => {
+        i18n.changeLanguage(lng);
+    };
+
     return (
         <div className={styles.layout}>
             <header className={styles.header} role={"banner"}>
@@ -21,7 +29,7 @@ const Layout = () => {
                                 height="32px"
                             />
                         </a>
-                        <h3 className={styles.headerTitle}>Azure OpenAI Chatbot Pilot</h3>
+                        <h3 className={styles.headerTitle}>{t("title")}</h3>
                     </Link>
                     <nav>
                         <ul className={styles.headerNavList}>
@@ -35,12 +43,13 @@ const Layout = () => {
                                     Ask a question
                                 </NavLink>
                             </li> */}
+                            <li><a href="#" style={{color:'white'}} onClick={() => changeLanguage(t("langlink.shorthand"))}>{t("langlink")}</a></li>
                             <li className={styles.headerNavLeftMargin}>
-                                <a href="https://github.com/dto-btn/chatbot-frontend" target={"_blank"} title="Github repository link">
+                                <a href="https://github.com/dto-btn/chatbot-frontend" target={"_blank"} title={t("githublnk")}>
                                     <img
                                         src={github}
                                         alt="Github logo"
-                                        aria-label="Link to github repository"
+                                        aria-label={t("githublnk")}
                                         width="20px"
                                         height="20px"
                                         className={styles.githubLogo}
@@ -57,7 +66,7 @@ const Layout = () => {
 
             <footer className={styles.header}>
                 <div className={styles.headerContainer}>
-                    <a href="https://forms.office.com/r/dPvsZykMSy" target="_blank" className={styles.headerTitleContainer}><h4 className={styles.headerRightText}>Feedback</h4></a>
+                    <a href="https://forms.office.com/r/dPvsZykMSy" target="_blank" className={styles.headerTitleContainer}><h4 className={styles.headerRightText}>{t('feedback')}</h4></a>
                 </div>
             </footer>
         </div>

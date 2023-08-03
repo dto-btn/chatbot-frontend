@@ -13,6 +13,8 @@ import { AnalysisPanel, AnalysisPanelTabs } from "../../components/AnalysisPanel
 import { SettingsButton } from "../../components/SettingsButton";
 import { ClearChatButton } from "../../components/ClearChatButton";
 
+import { useTranslation } from 'react-i18next';
+
 const Chat = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
     const [promptTemplate, setPromptTemplate] = useState<string>("");
@@ -131,6 +133,8 @@ const Chat = () => {
         setSelectedAnswer(index);
     };
 
+    const { t } = useTranslation();
+
     return (
         <div className={styles.container}>
             <div className={styles.commandsContainer}>
@@ -142,8 +146,8 @@ const Chat = () => {
                     {!lastQuestionRef.current ? (
                         <div className={styles.chatEmptyState}>
                             <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />
-                            <h1 className={styles.chatEmptyStateTitle}>Chat with your data</h1>
-                            <h2 className={styles.chatEmptyStateSubtitle}>Ask anything or try an example</h2>
+                            <h1 className={styles.chatEmptyStateTitle}>{t("chatwith")}</h1>
+                            <h2 className={styles.chatEmptyStateSubtitle}>{t("chatwith.sub")}</h2>
                             <ExampleList onExampleClicked={onExampleClicked} />
                         </div>
                     ) : (
@@ -188,7 +192,7 @@ const Chat = () => {
                     <div className={styles.chatInput}>
                         <QuestionInput
                             clearOnSend
-                            placeholder="Type a new question (e.g. what is the URL to reach the Archibus app and make a reservation)?"
+                            placeholder={t("placeholder")}
                             disabled={isLoading}
                             onSend={question => makeApiRequest(question)}
                         />
@@ -207,7 +211,7 @@ const Chat = () => {
                 )}
 
                 <Panel
-                    headerText="Configure answer generation"
+                    headerText={t("menu.title")}
                     isOpen={isConfigPanelOpen}
                     isBlocking={false}
                     onDismiss={() => setIsConfigPanelOpen(false)}
@@ -226,7 +230,7 @@ const Chat = () => {
 
                     <SpinButton
                         className={styles.chatSettingsSeparator}
-                        label="Retrieve this many documents from search:"
+                        label={t('menu.desc')}
                         min={1}
                         max={5}
                         defaultValue={retrieveCount.toString()}
