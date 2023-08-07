@@ -34,7 +34,18 @@ export type AskResponse = {
     chat_history: string | null;
     logs?: string[];
     error?: string;
-    metadata: string[]
+    metadata: ResponseMetadata;
+};
+
+export type ResponseMetadata = {
+    [key: string]: {
+        filename: string;
+        lastmodified: string;
+        url?: string;
+        text: string[];
+        node_scores: number[];
+        source: string;
+    };
 };
 
 export type ChatTurn = {

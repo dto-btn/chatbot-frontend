@@ -1,33 +1,24 @@
-import { parseSupportingContentItem } from "./SupportingContentParser";
-
 import styles from "./SupportingContent.module.css";
+import { ResponseMetadata } from "../../api/models";
 
 interface Props {
-    supportingContent: string[];
+    supportingContent: ResponseMetadata;
 }
 
 export const SupportingContent = ({ supportingContent }: Props) => {
     return (
         <ul className={styles.supportingContentNavList}>
-            <li className={styles.supportingContentItem}>
-                <ul>
-                {supportingContent.map((x, i) => {
-                    const parsed = parseSupportingContentItem(x);
-                    const Rexp = /(\b(https?|ftp|file):\/\/([-A-Z0-9+&@#%?=~_|!:,.;]*)([-A-Z0-9+&@#%?\/=~_|!:,.;]*)[-A-Z0-9+&@#\/%=~_|])/ig;
-                    const isLink = Rexp.test(parsed.title)
-
-                    return isLink ? (
-                        <li>
-                          <a href={parsed.title} target="_blank">{parsed.title}</a>
-                        </li>
-                    ):
-                    (<li>
-                        {parsed.title}
-                      </li>
-                    );
-                })}
-                </ul>
-            </li>
+            {Object.keys(supportingContent).map((key) => (
+                supportingContent[key].text.map((t, i) => (
+                    <li className={styles.supportingContentItem}>
+                        {supportingContent[key].url != "" ? 
+                            (<h4 className={styles.supportingContentItemHeader}><a href={supportingContent[key].url} target="_blank">{supportingContent[key].url}</a></h4>) : 
+                            (<h4 className={styles.supportingContentItemHeader}>{supportingContent[key].filename}</h4>)}
+                        {/*<h5>{supportingContent[key].node_scores[i]*100}</h5>*/}
+                        <p className={styles.supportingContentItemText}>{t}</p>
+                    </li>
+                ))
+            ))}
         </ul>
     );
 };

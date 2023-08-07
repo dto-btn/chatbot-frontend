@@ -55,7 +55,7 @@ export const Answer = ({
                             onClick={() => onThoughtProcessClicked()}
                             disabled={!answer.thoughts}
                         /> */}
-                        <ActionButton iconProps={sourceIcon} allowDisabledFocus disabled={!answer.metadata.length} onClick={() => onSupportingContentClicked()} title={t("supporting")} ariaLabel={t("supporting")}>
+                        <ActionButton iconProps={sourceIcon} allowDisabledFocus disabled={!answer.metadata} onClick={() => onSupportingContentClicked()} title={t("supporting")} ariaLabel={t("supporting")}>
                         Source(s)
                         </ActionButton>
                     </div>

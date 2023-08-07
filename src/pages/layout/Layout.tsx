@@ -19,16 +19,14 @@ const Layout = () => {
         <div className={styles.layout}>
             <header className={styles.header} role={"banner"}>
                 <div className={styles.headerContainer}>
-                    <Link to="/" className={styles.headerTitleContainer}>
-                        <a href="https://plus.ssc-spc.gc.ca/en" target={"_blank"} title="SSC Plus">
-                            <img
-                                src={logo}
-                                alt="Shared Services Canada Logo"
-                                aria-label="Link to SSC Plus"
-                                width="32px"
-                                height="32px"
-                            />
-                        </a>
+                    <Link to="https://plus.ssc-spc.gc.ca/en" className={styles.headerTitleContainer} title="SSC Plus">
+                        <img
+                            src={logo}
+                            alt="Shared Services Canada Logo"
+                            aria-label="Link to SSC Plus"
+                            width="32px"
+                            height="32px"
+                        />
                         <h3 className={styles.headerTitle}>{t("title")}</h3>
                     </Link>
                     <nav>
