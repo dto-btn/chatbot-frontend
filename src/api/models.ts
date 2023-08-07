@@ -42,7 +42,7 @@ export type ResponseMetadata = {
         filename: string;
         lastmodified: string;
         url?: string;
-        text: string;
+        text: string[];
         node_scores: number[];
         source: string;
     };
