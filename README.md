@@ -13,5 +13,10 @@ Just run `npm run dev`
 First setup your `.env` so your calls can goto the python api:
 
 ```bash
-echo "VITE_API_BACKEND=http://localhost:5000" > .env
+echo "VITE_API_BACKEND=http://127.0.0.1:5000" > .env
 ```
+
+## how it is ran in production
+
+In "production" this server is ran via an Azure Linux web app and started via the `http://127.0.0.1:5000` 
+(auto build will run `tsc && vite build` and place it it `dist/`).
