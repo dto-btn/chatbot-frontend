@@ -1,11 +1,13 @@
 import express from "express";
 import ViteExpress from "vite-express";
 import { createProxyMiddleware } from 'http-proxy-middleware';
+import { config } from "dotenv";
+
+config();
 
 const app = express();
 
 const middleware = (req, res, next) => {
-    // Do something with the request
     next();
 };
 
@@ -15,4 +17,4 @@ app.use('/query', createProxyMiddleware({
     onProxyReq: [middleware],
 }));
 
-ViteExpress.listen(app, 3000, () => console.log("Server is listening..."));
+ViteExpress.listen(app, process.env.PORT, () => console.log("Server is listening..."));
