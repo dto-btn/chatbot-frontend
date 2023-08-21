@@ -1,5 +1,7 @@
 import { Outlet, NavLink, Link } from "react-router-dom";
 
+import { Dialog, DialogTrigger, DialogSurface, DialogTitle, DialogBody, DialogActions, DialogContent, Button } from "@fluentui/react-components";
+
 import github from "../../assets/github.svg";
 
 import styles from "./Layout.module.css";
@@ -65,6 +67,24 @@ const Layout = () => {
             <footer className={styles.footer}>
                 <div className={styles.footerContainer}>
                     <a href="https://forms.office.com/r/dPvsZykMSy" target="_blank" className={styles.footerText}><h4>{t('feedback')}</h4></a>
+                    <Dialog>
+                        <DialogTrigger disableButtonEnhancement>
+                        <Button>{t('disclaimer')}</Button>
+                        </DialogTrigger>
+                        <DialogSurface>
+                        <DialogBody>
+                            <DialogTitle>{t('disclaimer')}</DialogTitle>
+                            <DialogContent>
+                            {t('disclaimer.desc')}
+                            </DialogContent>
+                            <DialogActions>
+                                <DialogTrigger disableButtonEnhancement>
+                                    <Button appearance="primary">Close</Button>
+                                </DialogTrigger>
+                            </DialogActions>
+                        </DialogBody>
+                        </DialogSurface>
+                    </Dialog>
                 </div>
             </footer>
         </div>
