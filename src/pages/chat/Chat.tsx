@@ -250,6 +250,7 @@ const Chat = () => {
                         label={t('menu.desc2')}
                         min={0.0}
                         max={1.0}
+                        step={0.1}
                         defaultValue={tempCount.toString()}
                         onChange={onTempCountChange}
                     />
