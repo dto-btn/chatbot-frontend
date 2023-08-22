@@ -64,7 +64,7 @@ const Layout = () => {
 
             <footer className={styles.footer}>
                 <div className={styles.footerContainer}>
-                    <a href="https://forms.office.com/r/dPvsZykMSy" target="_blank" className={styles.footerText}><h4>{t('feedback')}</h4></a>
+                    <a href={t('feedback.url')} target="_blank" className={styles.footerText}><h3>{t('feedback.long')}</h3></a>
                 </div>
             </footer>
         </div>

@@ -2,6 +2,7 @@
     "langlink": "Français",
     "langlink.shorthand": "fr",
     "feedback": "Feedback",
+    "feedback.long": "Click here to let us know your thoughts. Thank you for your feedback!",
     "githublnk": "Github repository link",
     "title": "Azure OpenAI - Chatbot Pilot",
     "chatwith": "Chat with your data",
@@ -15,5 +16,6 @@
     "menu.button": "Developer settings",
     "clearchat.button": "Clear chat",
     "generating": "Generating answer",
-    "supporting": "Supporting content"
+    "supporting": "Supporting content",
+    "feedback.url": "https://forms.office.com/r/dPvsZykMSy"
 }
