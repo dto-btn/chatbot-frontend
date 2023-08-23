@@ -9,7 +9,15 @@ import styles from "./Layout.module.css";
 import logo from "../../assets/SSC-Logo-Purple-Leaf-300x300.png";
 import { useTranslation } from 'react-i18next';
 
+import Cookies from "js-cookie";
+
 const Layout = () => {
+
+    const SetCookie = () => {
+        Cookies.set("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9", {
+          expires: 7,
+        });
+      };
 
     const { t, i18n } = useTranslation();
 
@@ -19,6 +27,21 @@ const Layout = () => {
 
     return (
         <div className={styles.layout}>
+            <Dialog modalType="alert" defaultOpen>
+                <DialogSurface>
+                    <DialogBody>
+                        <DialogTitle>{t('disclaimer')}</DialogTitle>
+                            <DialogContent>
+                            {t('disclaimer.desc')}
+                            </DialogContent>
+                            <DialogActions>
+                                <DialogTrigger disableButtonEnhancement>
+                                    <Button onClick={SetCookie} appearance="primary">Close</Button>
+                                </DialogTrigger>
+                            </DialogActions>
+                        </DialogBody>
+                    </DialogSurface>
+                </Dialog>
             <header className={styles.header} role={"banner"}>
                 <div className={styles.headerContainer}>
                     <Link to="https://plus.ssc-spc.gc.ca/en" className={styles.headerTitleContainer} title="SSC Plus">
@@ -67,24 +90,6 @@ const Layout = () => {
             <footer className={styles.footer}>
                 <div className={styles.footerContainer}>
                     <a href="https://forms.office.com/r/dPvsZykMSy" target="_blank" className={styles.footerText}><h4>{t('feedback')}</h4></a>
-                    <Dialog>
-                        <DialogTrigger disableButtonEnhancement>
-                        <Button>{t('disclaimer')}</Button>
-                        </DialogTrigger>
-                        <DialogSurface>
-                        <DialogBody>
-                            <DialogTitle>{t('disclaimer')}</DialogTitle>
-                            <DialogContent>
-                            {t('disclaimer.desc')}
-                            </DialogContent>
-                            <DialogActions>
-                                <DialogTrigger disableButtonEnhancement>
-                                    <Button appearance="primary">Close</Button>
-                                </DialogTrigger>
-                            </DialogActions>
-                        </DialogBody>
-                        </DialogSurface>
-                    </Dialog>
                 </div>
             </footer>
         </div>
