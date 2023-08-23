@@ -1,7 +1,6 @@
 import { useRef, useState, useEffect } from "react";
-import { Checkbox, Panel, DefaultButton, TextField, SpinButton, Dropdown, IDropdownOption } from "@fluentui/react";
-import { SparkleFilled } from "@fluentui/react-icons";
-
+import { MessageBar, Panel, DefaultButton, SpinButton, IDropdownOption, Text, MessageBarType, Link, Stack, IStackTokens, IIconProps } from "@fluentui/react";
+import { Chat24Regular, SparkleFilled } from "@fluentui/react-icons";
 import styles from "./Chat.module.css";
 
 import { chatApi, RetrievalMode, Approaches, AskResponse, ChatRequest, ChatTurn } from "../../api";
@@ -136,11 +135,21 @@ const Chat = () => {
         setSelectedAnswer(index);
     };
 
+    const stackTokens: IStackTokens = {
+        childrenGap: 10,
+    };
+
+    const infoIcon: IIconProps = { iconName: 'Info' };
+
     return (
         
         <div className={styles.container}>
             <div className={styles.commandsContainer}>
                 <ClearChatButton className={styles.commandButton} onClick={clearChat} disabled={!lastQuestionRef.current || isLoading} />
+                <div className={`${styles.commandButton} ${styles.containerBtn}`} onClick={() => window.open(t("msteams.channel.url"), "_blank")} title="Microsoft Teams">
+                    <Chat24Regular />
+                    <Text>{t("msteams.channel")}</Text>
+                </div>
                 <SettingsButton className={styles.commandButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} />
             </div>
             <div className={styles.chatRoot}>
@@ -192,12 +201,21 @@ const Chat = () => {
                     )}
 
                     <div className={styles.chatInput}>
-                        <QuestionInput
-                            clearOnSend
-                            placeholder={t("placeholder")}
-                            disabled={isLoading}
-                            onSend={question => makeApiRequest(question)}
-                        />
+                        <Stack tokens={stackTokens}>
+                            <Stack.Item>
+                                <MessageBar messageBarType={MessageBarType.success} isMultiline={false} messageBarIconProps={infoIcon}>
+                                    <Link href={t("feedback.url")} target="_blank" underline>{t("feedback.long")}</Link>
+                                </MessageBar>
+                            </Stack.Item>
+                            <Stack.Item>
+                                <QuestionInput
+                                    clearOnSend
+                                    placeholder={t("placeholder")}
+                                    disabled={isLoading}
+                                    onSend={question => makeApiRequest(question)}
+                                />
+                            </Stack.Item>
+                        </Stack>
                     </div>
                 </div>
 
