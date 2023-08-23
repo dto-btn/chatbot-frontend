@@ -2,6 +2,7 @@ import { Stack, PrimaryButton } from "@fluentui/react";
 import { ErrorCircle24Regular } from "@fluentui/react-icons";
 
 import styles from "./Answer.module.css";
+import { t } from "i18next";
 
 interface Props {
     error: string;
@@ -17,7 +18,7 @@ export const AnswerError = ({ error, onRetry }: Props) => {
                 <p className={styles.answerText}>{error}</p>
             </Stack.Item>
 
-            <PrimaryButton className={styles.retryButton} onClick={onRetry} text="Retry" />
+            <PrimaryButton className={styles.retryButton} onClick={onRetry} text={t("retry")} />
         </Stack>
     );
 };

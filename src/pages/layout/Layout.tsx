@@ -6,6 +6,7 @@ import styles from "./Layout.module.css";
 
 import logo from "../../assets/SSC-Logo-Purple-Leaf-300x300.png";
 import { useTranslation } from 'react-i18next';
+import { DefaultPalette, IStackTokens, Stack } from "@fluentui/react";
 
 const Layout = () => {
 
@@ -15,11 +16,15 @@ const Layout = () => {
         i18n.changeLanguage(lng);
     };
 
+    const tokens: IStackTokens = {
+        childrenGap: '0 10',
+      };
+
     return (
         <div className={styles.layout}>
             <header className={styles.header} role={"banner"}>
                 <div className={styles.headerContainer}>
-                    <Link to="https://plus.ssc-spc.gc.ca/en" className={styles.headerTitleContainer} title="SSC Plus">
+                    <Link to="." className={styles.headerTitleContainer} title="Azure OpenAI + Llama_index + langchain">
                         <img
                             src={logo}
                             alt="Shared Services Canada Logo"
@@ -61,12 +66,6 @@ const Layout = () => {
             </header>
 
             <Outlet />
-
-            <footer className={styles.footer}>
-                <div className={styles.footerContainer}>
-                    <a href={t('feedback.url')} target="_blank" className={styles.footerText}><h3>{t('feedback.long')}</h3></a>
-                </div>
-            </footer>
         </div>
     );
 };
