@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Stack, TextField } from "@fluentui/react";
+import { Textarea, InputOnChangeData } from "@fluentui/react-components";
 import { Send28Filled } from "@fluentui/react-icons";
 
 import styles from "./QuestionInput.module.css";
@@ -33,24 +33,23 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend }: Pr
         }
     };
 
-    const onQuestionChange = (_ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        if (!newValue) {
+    const onQuestionChange = (_ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, data?: InputOnChangeData) => {
+        if (!data) {
             setQuestion("");
-        } else if (newValue.length <= 1000) {
-            setQuestion(newValue);
+        } else if (data.value.length <= 1000) {
+            setQuestion(data.value);
         }
     };
 
     const sendQuestionDisabled = disabled || !question.trim();
 
     return (
-        <Stack horizontal className={styles.questionInputContainer}>
-            <TextField
+        <div className={styles.questionInputContainer}>
+            <Textarea
                 className={styles.questionInputTextArea}
                 placeholder={placeholder}
-                multiline
-                resizable={false}
-                borderless
+                resize="none"
+                appearance="filled-lighter"
                 value={question}
                 onChange={onQuestionChange}
                 onKeyDown={onEnterPress}
@@ -64,6 +63,6 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend }: Pr
                     <Send28Filled primaryFill="rgba(115, 118, 225, 1)" />
                 </div>
             </div>
-        </Stack>
+        </div>
     );
 };

@@ -1,4 +1,3 @@
-import { Stack } from "@fluentui/react";
 import { animated, useSpring } from "@react-spring/web";
 
 import styles from "./Answer.module.css";
@@ -16,15 +15,13 @@ export const AnswerLoading = () => {
 
     return (
         <animated.div style={{ ...animatedStyles }}>
-            <Stack className={styles.answerContainer} verticalAlign="space-between">
+            <div className={styles.answerContainer} >
                 <AnswerIcon />
-                <Stack.Item grow>
                     <p className={styles.answerText}>
                         {t('generating')}
                         <span className={styles.loadingdots} />
                     </p>
-                </Stack.Item>
-            </Stack>
+            </div>
         </animated.div>
     );
 };

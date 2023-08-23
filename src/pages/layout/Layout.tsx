@@ -19,7 +19,7 @@ const Layout = () => {
         <div className={styles.layout}>
             <header className={styles.header} role={"banner"}>
                 <div className={styles.headerContainer}>
-                    <Link to="https://plus.ssc-spc.gc.ca/en" className={styles.headerTitleContainer} title="SSC Plus">
+                    <Link to="." className={styles.headerTitleContainer}>
                         <img
                             src={logo}
                             alt="Shared Services Canada Logo"

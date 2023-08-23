@@ -1,4 +1,4 @@
-import { Text } from "@fluentui/react";
+import { Text } from "@fluentui/react-components";
 import { Settings24Regular } from "@fluentui/react-icons";
 
 import styles from "./SettingsButton.module.css";

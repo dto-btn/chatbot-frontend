@@ -1,15 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createHashRouter, RouterProvider } from "react-router-dom";
-import { initializeIcons } from "@fluentui/react";
 
 import "./index.css";
 import './i18n';
 
 import Layout from "./pages/layout/Layout";
 import Chat from "./pages/chat/Chat";
-
-initializeIcons();
 
 const router = createHashRouter([
     {

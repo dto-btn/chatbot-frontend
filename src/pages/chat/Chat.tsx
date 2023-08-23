@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { Checkbox, Panel, DefaultButton, TextField, SpinButton, Dropdown, IDropdownOption, Text } from "@fluentui/react";
+import { Popover, PopoverSurface, PopoverTrigger, Button, SpinButton, Text, SpinButtonOnChangeData, SpinButtonChangeEvent, Label } from "@fluentui/react-components";
 import { Chat24Regular, SparkleFilled } from "@fluentui/react-icons";
 import styles from "./Chat.module.css";
 
@@ -86,12 +86,8 @@ const Chat = () => {
         setPromptTemplate(newValue || "");
     };
 
-    const onRetrieveCountChange = (_ev?: React.SyntheticEvent<HTMLElement, Event>, newValue?: string) => {
-        setRetrieveCount(parseInt(newValue || "3"));
-    };
-
-    const onRetrievalModeChange = (_ev: React.FormEvent<HTMLDivElement>, option?: IDropdownOption<RetrievalMode> | undefined, index?: number | undefined) => {
-        setRetrievalMode(option?.data || RetrievalMode.Hybrid);
+    const onRetrieveCountChange = (e: SpinButtonChangeEvent, data: SpinButtonOnChangeData) => {
+        setRetrieveCount(data.value || 3);
     };
 
     const onUseSemanticRankerChange = (_ev?: React.FormEvent<HTMLElement | HTMLInputElement>, checked?: boolean) => {
@@ -140,11 +136,26 @@ const Chat = () => {
         <div className={styles.container}>
             <div className={styles.commandsContainer}>
                 <ClearChatButton className={styles.commandButton} onClick={clearChat} disabled={!lastQuestionRef.current || isLoading} />
-                <div className={`${styles.commandButton} ${styles.containerBtn}`} onClick={() => window.open(t("feedback.url"), "_blank")}>
+                <div className={`${styles.commandButton} ${styles.containerBtn}`} onClick={() => window.open(t("feedback.url"), "_blank")} title={t("feedback.long")}>
                     <Chat24Regular />
                     <Text>{t("feedback")}</Text>
                 </div>
-                <SettingsButton className={styles.commandButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} />
+                <Popover trapFocus>
+                    <PopoverTrigger disableButtonEnhancement>
+                        <SettingsButton className={styles.commandButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} />
+                    </PopoverTrigger>
+                    <PopoverSurface>
+                        <Label htmlFor="spindocuments">{t('menu.desc')}</Label>
+                        <SpinButton
+                            id="spindocuments"
+                            className={styles.chatSettingsSeparator}
+                            min={1}
+                            max={5}
+                            defaultValue={retrieveCount}
+                            onChange={onRetrieveCountChange}
+                        />
+                    </PopoverSurface>
+                </Popover>
             </div>
             <div className={styles.chatRoot}>
                 <div className={styles.chatContainer}>
@@ -214,65 +225,6 @@ const Chat = () => {
                         activeTab={activeAnalysisPanelTab}
                     />
                 )}
-
-                <Panel
-                    headerText={t("menu.title")}
-                    isOpen={isConfigPanelOpen}
-                    isBlocking={false}
-                    onDismiss={() => setIsConfigPanelOpen(false)}
-                    closeButtonAriaLabel="Close"
-                    onRenderFooterContent={() => <DefaultButton onClick={() => setIsConfigPanelOpen(false)}>Close</DefaultButton>}
-                    isFooterAtBottom={true}
-                >
-                    {/* <TextField
-                        className={styles.chatSettingsSeparator}
-                        defaultValue={promptTemplate}
-                        label="Override prompt template"
-                        multiline
-                        autoAdjustHeight
-                        onChange={onPromptTemplateChange}
-                    /> */}
-
-                    <SpinButton
-                        className={styles.chatSettingsSeparator}
-                        label={t('menu.desc')}
-                        min={1}
-                        max={5}
-                        defaultValue={retrieveCount.toString()}
-                        onChange={onRetrieveCountChange}
-                    />
-                    {/* <TextField className={styles.chatSettingsSeparator} label="Exclude category" onChange={onExcludeCategoryChanged} />
-                    <Checkbox
-                        className={styles.chatSettingsSeparator}
-                        checked={useSemanticRanker}
-                        label="Use semantic ranker for retrieval"
-                        onChange={onUseSemanticRankerChange}
-                    />
-                    <Checkbox
-                        className={styles.chatSettingsSeparator}
-                        checked={useSemanticCaptions}
-                        label="Use query-contextual summaries instead of whole documents"
-                        onChange={onUseSemanticCaptionsChange}
-                        disabled={!useSemanticRanker}
-                    />
-                    <Checkbox
-                        className={styles.chatSettingsSeparator}
-                        checked={useSuggestFollowupQuestions}
-                        label="Suggest follow-up questions"
-                        onChange={onUseSuggestFollowupQuestionsChange}
-                    />
-                    <Dropdown
-                        className={styles.chatSettingsSeparator}
-                        label="Retrieval mode"
-                        options={[
-                            { key: "hybrid", text: "Vectors + Text (Hybrid)", selected: retrievalMode == RetrievalMode.Hybrid, data: RetrievalMode.Hybrid },
-                            { key: "vectors", text: "Vectors", selected: retrievalMode == RetrievalMode.Vectors, data: RetrievalMode.Vectors },
-                            { key: "text", text: "Text", selected: retrievalMode == RetrievalMode.Text, data: RetrievalMode.Text }
-                        ]}
-                        required
-                        onChange={onRetrievalModeChange}
-                    /> */}
-                </Panel>
             </div>
         </div>
     );

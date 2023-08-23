@@ -1,4 +1,4 @@
-import { Pivot, PivotItem } from "@fluentui/react";
+import { TabList, Tab } from "@fluentui/react-components";
 import DOMPurify from "dompurify";
 
 import styles from "./AnalysisPanel.module.css";
@@ -25,25 +25,25 @@ export const AnalysisPanel = ({ answer, activeTab, activeCitation, citationHeigh
     const isDisabledCitationTab: boolean = !activeCitation;
 
     return (
-        <Pivot
+        <TabList
             className={className}
-            selectedKey={activeTab}
-            onLinkClick={pivotItem => pivotItem && onActiveTabChanged(pivotItem.props.itemKey! as AnalysisPanelTabs)}
+            selectedValue={activeTab}
+            onTabSelect={(event, data) => data && onActiveTabChanged(data.value! as AnalysisPanelTabs)}
         >
-            <PivotItem
-                itemKey={AnalysisPanelTabs.SupportingContentTab}
-                headerText={t("supporting")}
-                headerButtonProps={isDisabledSupportingContentTab ? pivotItemDisabledStyle : undefined}
+            <Tab
+                value={AnalysisPanelTabs.SupportingContentTab}
+                
             >
-                <SupportingContent supportingContent={answer.metadata} />
-            </PivotItem>
-            <PivotItem
-                itemKey={AnalysisPanelTabs.CitationTab}
-                headerText="Citation"
-                headerButtonProps={isDisabledCitationTab ? pivotItemDisabledStyle : undefined}
+                {t("supporting")}
+                <SupportingContent  supportingContent={answer.metadata} />
+            </Tab>
+            <Tab
+                value={AnalysisPanelTabs.CitationTab}
+
             >
+                Citation
                 <iframe title="Citation" src={activeCitation} width="100%" height={citationHeight} />
-            </PivotItem>
-        </Pivot>
+            </Tab>
+        </TabList>
     );
 };

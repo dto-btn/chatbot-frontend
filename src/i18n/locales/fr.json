@@ -16,5 +16,6 @@
     "menu.button": "Paramètres du développeur",
     "clearchat.button": "Effacer l’historique des discussions",
     "generating": "Génération de réponse",
-    "supporting": "Contenu de soutien"
+    "supporting": "Contenu de soutien",
+    "retry": "Réessayer"
 }

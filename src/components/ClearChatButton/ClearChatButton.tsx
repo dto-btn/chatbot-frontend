@@ -1,4 +1,4 @@
-import { Text } from "@fluentui/react";
+import { Text } from "@fluentui/react-components";
 import { Delete24Regular } from "@fluentui/react-icons";
 
 import styles from "./ClearChatButton.module.css";
