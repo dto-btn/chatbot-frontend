@@ -5,6 +5,7 @@
     "feedback.long": "Cliquez ici pour nous faire part de vos commentaires. Merci de nous communiquer vos remarques!",
     "githublnk": "Lien vers entrepôt Github",
     "title": "Pilote Robot conversationnel - Azure OpenAI",
+    "title.short": "Pilote Robot conversationnel",
     "chatwith": "Clavarder avec vos données",
     "chatwith.sub": "Demander n'importe quoi sur MonSPC+ ou utiliser un de ces exemples",
     "placeholder": "Tapper une question (par exemple; quel est le lien URL pour effectuer une réservation dans Archibus)?",

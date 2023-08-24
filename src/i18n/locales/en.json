@@ -5,6 +5,7 @@
     "feedback.long": "Click here to let us know your thoughts. Thank you for your feedback!",
     "githublnk": "Github repository link",
     "title": "Azure OpenAI - Chatbot Pilot",
+    "title.short": "Chatbot Pilot",
     "chatwith": "Chat with your data",
     "chatwith.sub": "Ask anything about MySSC+ website or try an example",
     "placeholder": "Type a new question (e.g. what is the URL to reach the Archibus app and make a reservation)?",
