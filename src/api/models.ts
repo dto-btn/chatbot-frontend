@@ -31,7 +31,7 @@ export type AskRequest = {
 
 export type AskResponse = {
     answer: string;
-    chat_history: string | null;
+    chat_history: string;
     logs?: string[];
     error?: string;
     metadata: ResponseMetadata;
@@ -55,6 +55,7 @@ export type ChatTurn = {
 
 export type ChatRequest = {
     question: string;
+    chat_history: string;
     history: ChatTurn[];
     approach: Approaches;
     overrides?: AskRequestOverrides;
