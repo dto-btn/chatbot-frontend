@@ -2,9 +2,8 @@ import { Outlet, NavLink, Link } from "react-router-dom";
 
 import * as React from 'react';
 import { Dialog, DialogType, DialogFooter } from '@fluentui/react/lib/Dialog';
-import { PrimaryButton, DefaultButton } from '@fluentui/react/lib/Button';
-import { useId, useBoolean } from '@fluentui/react-hooks';
-import { Toggle } from '@fluentui/react/lib/Toggle';
+import { PrimaryButton } from '@fluentui/react/lib/Button';
+import { useBoolean } from '@fluentui/react-hooks';
 
 import github from "../../assets/github.svg";
 
@@ -17,8 +16,8 @@ import Cookies from "js-cookie";
 
 const Layout = () => {
 
-    const SetCookie = () => {
-        Cookies.set("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9", {
+    const setCookie = () => {
+        Cookies.set("read_disclaimer", "true", {
           expires: 7,
         });
       };
@@ -30,7 +29,7 @@ const Layout = () => {
         i18n.changeLanguage(lng);
     };
 
-    const modalPropsStyles = { main: { maxWidth: 450 } };
+    const modalPropsStyles = { main: { maxWidth: 600 } };
     const dialogContentProps = {
         type: DialogType.normal,
         title: t("disclaimer"),
@@ -38,7 +37,7 @@ const Layout = () => {
         subText: t("disclaimer.desc"),
       };
     
-    const [hideDialog, { toggle: toggleHideDialog }] = useBoolean(true);
+    const [hideDialog, { toggle: toggleHideDialog }] = useBoolean(false);
 
     const modalProps = React.useMemo(
         () => ({
@@ -46,12 +45,12 @@ const Layout = () => {
           styles: modalPropsStyles,
         }),
         [false]
-        );
+    );
     return (
         <div className={styles.layout}>
-            <Dialog  hidden={!hideDialog} onDismiss={toggleHideDialog} dialogContentProps={dialogContentProps} modalProps={modalProps}>
+            <Dialog  hidden={hideDialog} onDismiss={toggleHideDialog} dialogContentProps={dialogContentProps} modalProps={modalProps}>
                 <DialogFooter>
-                    <PrimaryButton onClick={toggleHideDialog} text={t("close")} />
+                    <PrimaryButton onClick={() => {toggleHideDialog(); setCookie();}} text={t("close")} />
                 </DialogFooter>
             </Dialog>
             <header className={styles.header} role={"banner"}>
