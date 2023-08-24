@@ -37,6 +37,7 @@ export async function chatApi(options: ChatRequest, lang: string): Promise<AskRe
             lang: lang,
             pretty: 0,
             index: "2023-07-19",
+            chat_history: options.chat_history
         })
     });
 

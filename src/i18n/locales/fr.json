@@ -17,5 +17,6 @@
     "clearchat.button": "Effacer l’historique des discussions",
     "generating": "Génération de réponse",
     "supporting": "Contenu de soutien",
-    "retry": "Réessayer"
+    "retry": "Réessayer",
+    "use.chathistory": "Utiliser l'historique des discussions dans les requêtes"
 }
