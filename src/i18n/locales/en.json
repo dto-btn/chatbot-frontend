@@ -6,7 +6,7 @@
     "githublnk": "Github repository link",
     "title": "Azure OpenAI - Chatbot Pilot",
     "chatwith": "Chat with your data",
-    "chatwith.sub": "Ask anything or try an example",
+    "chatwith.sub": "Ask anything about SSC+ website or try an example",
     "placeholder": "Type a new question (e.g. what is the URL to reach the Archibus app and make a reservation)?",
     "example1": "Who is the president of SSC?",
     "example2": "What is the URL for the Archibus application?",
