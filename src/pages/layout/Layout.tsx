@@ -1,6 +1,10 @@
 import { Outlet, NavLink, Link } from "react-router-dom";
 
-import { Dialog, DialogTrigger, DialogSurface, DialogTitle, DialogBody, DialogActions, DialogContent, Button } from "@fluentui/react-components";
+import * as React from 'react';
+import { Dialog, DialogType, DialogFooter } from '@fluentui/react/lib/Dialog';
+import { PrimaryButton, DefaultButton } from '@fluentui/react/lib/Button';
+import { useId, useBoolean } from '@fluentui/react-hooks';
+import { Toggle } from '@fluentui/react/lib/Toggle';
 
 import github from "../../assets/github.svg";
 
@@ -19,29 +23,37 @@ const Layout = () => {
         });
       };
 
+    
     const { t, i18n } = useTranslation();
 
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
     };
 
+    const modalPropsStyles = { main: { maxWidth: 450 } };
+    const dialogContentProps = {
+        type: DialogType.normal,
+        title: t("disclaimer"),
+        closeButtonAriaLabel: "Close",
+        subText: t("disclaimer.desc"),
+      };
+    
+    const [hideDialog, { toggle: toggleHideDialog }] = useBoolean(true);
+
+    const modalProps = React.useMemo(
+        () => ({
+          isBlocking: true,
+          styles: modalPropsStyles,
+        }),
+        [false]
+        );
     return (
         <div className={styles.layout}>
-            <Dialog modalType="alert" defaultOpen>
-                <DialogSurface>
-                    <DialogBody>
-                        <DialogTitle>{t('disclaimer')}</DialogTitle>
-                            <DialogContent>
-                            {t('disclaimer.desc')}
-                            </DialogContent>
-                            <DialogActions>
-                                <DialogTrigger disableButtonEnhancement>
-                                    <Button onClick={SetCookie} appearance="primary">Close</Button>
-                                </DialogTrigger>
-                            </DialogActions>
-                        </DialogBody>
-                    </DialogSurface>
-                </Dialog>
+            <Dialog  hidden={!hideDialog} onDismiss={toggleHideDialog} dialogContentProps={dialogContentProps} modalProps={modalProps}>
+                <DialogFooter>
+                    <PrimaryButton onClick={toggleHideDialog} text={t("close")} />
+                </DialogFooter>
+            </Dialog>
             <header className={styles.header} role={"banner"}>
                 <div className={styles.headerContainer}>
                     <Link to="https://plus.ssc-spc.gc.ca/en" className={styles.headerTitleContainer} title="SSC Plus">
