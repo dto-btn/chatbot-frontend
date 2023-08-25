@@ -2,12 +2,9 @@
     "langlink": "Français",
     "langlink.shorthand": "fr",
     "feedback": "Feedback",
-<<<<<<< HEAD
     "disclaimer": "DISCLAIMER",
     "disclaimer.desc": "This ChatBot uses Azure OpenAI services. Answers may be incorect even when they look credible. AI can make mistakes just like humans do. DO NOT SEND ANY PROTECTED INFORMATION IN THE CHATBOT.",
-=======
     "feedback.long": "Click here to let us know your thoughts. Thank you for your feedback!",
->>>>>>> main
     "githublnk": "Github repository link",
     "title": "Azure OpenAI - Chatbot Pilot",
     "chatwith": "Chat with your data",

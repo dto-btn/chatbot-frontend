@@ -235,12 +235,23 @@ const Chat = () => {
                         defaultValue={retrieveCount.toString()}
                         onChange={onRetrieveCountChange}
                     />
+                    <SpinButton
+                        className={styles.chatSettingsSeparator}
+                        label={t('menu.desc2')}
+                        min={0.0}
+                        max={1.0}
+                        step={0.1}
+                        defaultValue={tempCount.toString()}
+                        onChange={onTempCountChange}
+                    />
+                    {/* <TextField className={styles.chatSettingsSeparator} label="Exclude category" onChange={onExcludeCategoryChanged} />
+
                     <Checkbox
                         className={styles.chatSettingsSeparator}
                         checked={useHistory}
                         label={t("use.chathistory")}
                         onChange={onUseHistory}
-                    />
+                />*/}
                 </Panel>
             </div>
         </div>
