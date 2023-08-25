@@ -91,7 +91,7 @@ const Chat = () => {
     };
 
     const onTempCountChange = (_ev?: React.SyntheticEvent<HTMLElement, Event>, newValue?: string) => {
-        setTempCount(parseInt(newValue || "0.7"));
+        setTempCount(parseFloat(newValue || "0.7"));
     };
 
     const onUseHistory = (_ev?: React.FormEvent<HTMLElement | HTMLInputElement>, checked?: boolean) => {
@@ -241,6 +241,7 @@ const Chat = () => {
                         min={0.0}
                         max={1.0}
                         step={0.1}
+                        precision={1}
                         defaultValue={tempCount.toString()}
                         onChange={onTempCountChange}
                     />
