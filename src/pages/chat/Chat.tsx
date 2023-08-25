@@ -18,6 +18,7 @@ const Chat = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
     const [promptTemplate, setPromptTemplate] = useState<string>("");
     const [retrieveCount, setRetrieveCount] = useState<number>(3);
+    const [tempCount, setTempCount] = useState<number>(0.7);
     const [retrievalMode, setRetrievalMode] = useState<RetrievalMode>(RetrievalMode.Hybrid);
     const [useSemanticRanker, setUseSemanticRanker] = useState<boolean>(true);
     const [useSemanticCaptions, setUseSemanticCaptions] = useState<boolean>(false);
@@ -59,6 +60,7 @@ const Chat = () => {
                     promptTemplate: promptTemplate.length === 0 ? undefined : promptTemplate,
                     excludeCategory: excludeCategory.length === 0 ? undefined : excludeCategory,
                     top: retrieveCount,
+                    temperature: tempCount,
                     retrievalMode: retrievalMode,
                     semanticRanker: useSemanticRanker,
                     semanticCaptions: useSemanticCaptions,
@@ -86,6 +88,10 @@ const Chat = () => {
 
     const onRetrieveCountChange = (_ev?: React.SyntheticEvent<HTMLElement, Event>, newValue?: string) => {
         setRetrieveCount(parseInt(newValue || "3"));
+    };
+
+    const onTempCountChange = (_ev?: React.SyntheticEvent<HTMLElement, Event>, newValue?: string) => {
+        setTempCount(parseFloat(newValue || "0.7"));
     };
 
     const onUseHistory = (_ev?: React.FormEvent<HTMLElement | HTMLInputElement>, checked?: boolean) => {
@@ -229,7 +235,16 @@ const Chat = () => {
                         defaultValue={retrieveCount.toString()}
                         onChange={onRetrieveCountChange}
                     />
-
+                    <SpinButton
+                        className={styles.chatSettingsSeparator}
+                        label={t('menu.desc2')}
+                        min={0.0}
+                        max={1.0}
+                        step={0.1}
+                        precision={1}
+                        defaultValue={tempCount.toString()}
+                        onChange={onTempCountChange}
+                    />
                     <Checkbox
                         className={styles.chatSettingsSeparator}
                         checked={useHistory}

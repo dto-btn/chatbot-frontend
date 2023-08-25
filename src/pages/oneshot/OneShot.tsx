@@ -22,6 +22,7 @@ export function Component(): JSX.Element {
     const [promptTemplateSuffix, setPromptTemplateSuffix] = useState<string>("");
     const [retrievalMode, setRetrievalMode] = useState<RetrievalMode>(RetrievalMode.Hybrid);
     const [retrieveCount, setRetrieveCount] = useState<number>(3);
+    const [tempCount, setTempCount] =  useState<number>(0.7);
     const [useSemanticRanker, setUseSemanticRanker] = useState<boolean>(true);
     const [useSemanticCaptions, setUseSemanticCaptions] = useState<boolean>(false);
     const [excludeCategory, setExcludeCategory] = useState<string>("");
@@ -55,6 +56,7 @@ export function Component(): JSX.Element {
                     promptTemplateSuffix: promptTemplateSuffix.length === 0 ? undefined : promptTemplateSuffix,
                     excludeCategory: excludeCategory.length === 0 ? undefined : excludeCategory,
                     top: retrieveCount,
+                    temperature: tempCount,
                     retrievalMode: retrievalMode,
                     semanticRanker: useSemanticRanker,
                     semanticCaptions: useSemanticCaptions
@@ -83,6 +85,10 @@ export function Component(): JSX.Element {
 
     const onRetrieveCountChange = (_ev?: React.SyntheticEvent<HTMLElement, Event>, newValue?: string) => {
         setRetrieveCount(parseInt(newValue || "3"));
+    };
+
+    const onTempCountChange = (_ev?: React.SyntheticEvent<HTMLElement, Event>, newValue?: string) => {
+        setTempCount(parseInt(newValue || "0.7"));
     };
 
     const onRetrievalModeChange = (_ev: React.FormEvent<HTMLDivElement>, option?: IDropdownOption<RetrievalMode> | undefined, index?: number | undefined) => {
@@ -241,6 +247,14 @@ export function Component(): JSX.Element {
                     max={50}
                     defaultValue={retrieveCount.toString()}
                     onChange={onRetrieveCountChange}
+                />
+                <SpinButton
+                    className={styles.oneshotSettingsSeparator}
+                    label="Change Temperature Value:"
+                    min={0.0}
+                    max={1.0}
+                    defaultValue={tempCount.toString()}
+                    onChange={onTempCountChange}
                 />
                 <TextField className={styles.oneshotSettingsSeparator} label="Exclude category" onChange={onExcludeCategoryChanged} />
                 <Checkbox
