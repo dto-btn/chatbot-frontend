@@ -11,6 +11,7 @@ import styles from "./Layout.module.css";
 
 import logo from "../../assets/SSC-Logo-Purple-Leaf-300x300.png";
 import { useTranslation } from 'react-i18next';
+import { DefaultPalette, IStackTokens, Stack } from "@fluentui/react";
 
 import Cookies from "js-cookie";
 
@@ -46,6 +47,9 @@ const Layout = () => {
         }),
         [false]
     );
+    const tokens: IStackTokens = {
+        childrenGap: '0 10',
+      };
 
     return (
         <div className={styles.layout}>
@@ -58,7 +62,7 @@ const Layout = () => {
             }   
             <header className={styles.header} role={"banner"}>
                 <div className={styles.headerContainer}>
-                    <Link to="https://plus.ssc-spc.gc.ca/en" className={styles.headerTitleContainer} title="SSC Plus">
+                    <Link to="." className={styles.headerTitleContainer} title="Azure OpenAI + Llama_index + langchain">
                         <img
                             src={logo}
                             alt="Shared Services Canada Logo"
@@ -100,12 +104,6 @@ const Layout = () => {
             </header>
 
             <Outlet />
-
-            <footer className={styles.footer}>
-                <div className={styles.footerContainer}>
-                    <a href="https://forms.office.com/r/dPvsZykMSy" target="_blank" className={styles.footerText}><h4>{t('feedback')}</h4></a>
-                </div>
-            </footer>
         </div>
     );
 };

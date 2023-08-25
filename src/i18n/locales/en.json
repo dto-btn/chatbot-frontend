@@ -2,8 +2,12 @@
     "langlink": "Français",
     "langlink.shorthand": "fr",
     "feedback": "Feedback",
+<<<<<<< HEAD
     "disclaimer": "DISCLAIMER",
     "disclaimer.desc": "This ChatBot uses Azure OpenAI services. Answers may be incorect even when they look credible. AI can make mistakes just like humans do. DO NOT SEND ANY PROTECTED INFORMATION IN THE CHATBOT.",
+=======
+    "feedback.long": "Click here to let us know your thoughts. Thank you for your feedback!",
+>>>>>>> main
     "githublnk": "Github repository link",
     "title": "Azure OpenAI - Chatbot Pilot",
     "chatwith": "Chat with your data",
@@ -19,5 +23,10 @@
     "clearchat.button": "Clear chat",
     "close": "Close",
     "generating": "Generating answer",
-    "supporting": "Supporting content"
+    "supporting": "Supporting content",
+    "feedback.url": "https://forms.office.com/r/dPvsZykMSy",
+    "msteams.channel": "SSC Early Adopters",
+    "msteams.channel.url": "https://teams.microsoft.com/l/channel/19%3a814a3fed0bd7494a9be5657d247254bf%40thread.tacv2/Azure%2520OpenAI%2520Chatbot%2520Pilot?groupId=9c07bdb4-3403-464b-a1c2-91cdaf3a2496&tenantId=d05bc194-94bf-4ad6-ae2e-1db0f2e38f5e",
+    "retry": "Retry",
+    "use.chathistory": "Use chat history in queries"
 }

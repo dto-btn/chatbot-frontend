@@ -2,8 +2,12 @@
     "langlink": "English",
     "langlink.shorthand": "en",
     "feedback": "Commentaire",
+<<<<<<< HEAD
     "disclaimer": "AVIS DE NON\\-RESPONSABILITÉ",
     "disclaimer.desc": "Ce ChatBot utilise les services Azure OpenAI. Les réponses peuvent être incorrectes même si elles semblent crédibles. L'IA peut faire des erreurs comme le font les humains. N'ENVOYEZ AUCUNE INFORMATION PROTÉGÉE DANS LE CHATBOT.",
+=======
+    "feedback.long": "Cliquez ici pour nous faire part de vos commentaires. Merci de nous communiquer vos remarques!",
+>>>>>>> main
     "githublnk": "Lien vers entrepôt Github",
     "title": "Pilote Robot conversationnel - Azure OpenAI",
     "chatwith": "Clavarder avec vos données",
@@ -19,5 +23,7 @@
     "clearchat.button": "Effacer l’historique des discussions",
     "close": "Fermer",
     "generating": "Génération de réponse",
-    "supporting": "Contenu de soutien"
+    "supporting": "Contenu de soutien",
+    "retry": "Réessayer",
+    "use.chathistory": "Utiliser l'historique des discussions dans les requêtes"
 }
