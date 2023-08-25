@@ -244,14 +244,12 @@ const Chat = () => {
                         defaultValue={tempCount.toString()}
                         onChange={onTempCountChange}
                     />
-                    {/* <TextField className={styles.chatSettingsSeparator} label="Exclude category" onChange={onExcludeCategoryChanged} />
-
                     <Checkbox
                         className={styles.chatSettingsSeparator}
                         checked={useHistory}
                         label={t("use.chathistory")}
                         onChange={onUseHistory}
-                />*/}
+                />
                 </Panel>
             </div>
         </div>

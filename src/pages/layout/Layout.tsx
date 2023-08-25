@@ -34,8 +34,7 @@ const Layout = () => {
     const dialogContentProps = {
         type: DialogType.normal,
         title: t("disclaimer"),
-        closeButtonAriaLabel: "Close",
-        subText: t("disclaimer.desc"),
+        closeButtonAriaLabel: t("close"),
       };
     
     const [hideDialog, { toggle: toggleHideDialog }] = useBoolean(false);
@@ -55,6 +54,10 @@ const Layout = () => {
         <div className={styles.layout}>
             {Cookies.get("read_disclaimer") != "true" &&
                 <Dialog hidden={hideDialog} onDismiss={toggleHideDialog} dialogContentProps={dialogContentProps} modalProps={modalProps}>
+                    <p>{t("disclaimer.desc.fr")}</p>
+                    <p className={styles.disclaimer}>{t("disclaimer.desc2.fr")}</p>
+                    <p>{t("disclaimer.desc.en")}</p>
+                    <p className={styles.disclaimer}>{t("disclaimer.desc2.en")}</p>
                     <DialogFooter>
                         <PrimaryButton onClick={() => {toggleHideDialog(); setCookie();}} text={t("close")} />
                     </DialogFooter>
@@ -66,7 +69,6 @@ const Layout = () => {
                         <img
                             src={logo}
                             alt="Shared Services Canada Logo"
-                            aria-label="Link to SSC Plus"
                             width="32px"
                             height="32px"
                         />
