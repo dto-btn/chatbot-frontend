@@ -19,7 +19,7 @@ const Layout = () => {
 
     const setCookie = () => {
         Cookies.set("read_disclaimer", "true", {
-          expires: 14,
+          expires: 30,
         });
     };
     
