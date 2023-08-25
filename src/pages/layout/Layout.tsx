@@ -16,12 +16,12 @@ import Cookies from "js-cookie";
 
 const Layout = () => {
 
+
     const setCookie = () => {
         Cookies.set("read_disclaimer", "true", {
-          expires: 7,
+          expires: 14,
         });
-      };
-
+    };
     
     const { t, i18n } = useTranslation();
 
@@ -46,13 +46,16 @@ const Layout = () => {
         }),
         [false]
     );
+
     return (
         <div className={styles.layout}>
-            <Dialog  hidden={hideDialog} onDismiss={toggleHideDialog} dialogContentProps={dialogContentProps} modalProps={modalProps}>
-                <DialogFooter>
-                    <PrimaryButton onClick={() => {toggleHideDialog(); setCookie();}} text={t("close")} />
-                </DialogFooter>
-            </Dialog>
+            {Cookies.get("read_disclaimer") != "true" &&
+                <Dialog hidden={hideDialog} onDismiss={toggleHideDialog} dialogContentProps={dialogContentProps} modalProps={modalProps}>
+                    <DialogFooter>
+                        <PrimaryButton onClick={() => {toggleHideDialog(); setCookie();}} text={t("close")} />
+                    </DialogFooter>
+                </Dialog>
+            }   
             <header className={styles.header} role={"banner"}>
                 <div className={styles.headerContainer}>
                     <Link to="https://plus.ssc-spc.gc.ca/en" className={styles.headerTitleContainer} title="SSC Plus">
