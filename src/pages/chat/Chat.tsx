@@ -250,7 +250,7 @@ const Chat = () => {
                         checked={useHistory}
                         label={t("use.chathistory")}
                         onChange={onUseHistory}
-                />
+                    />
                 </Panel>
             </div>
         </div>
