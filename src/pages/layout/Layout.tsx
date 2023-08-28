@@ -17,9 +17,14 @@ import Cookies from "js-cookie";
 
 const Layout = () => {
 
-
-    const setCookie = () => {
+    const setDisclaimerCookie = () => {
         Cookies.set("read_disclaimer", "true", {
+          expires: 30,
+        });
+    };
+
+    const setTranslationCookie = () => {
+        Cookies.set("lang_setting", t("langlink.cookie.current"), {
           expires: 30,
         });
     };
@@ -54,12 +59,10 @@ const Layout = () => {
         <div className={styles.layout}>
             {Cookies.get("read_disclaimer") != "true" &&
                 <Dialog hidden={hideDialog} onDismiss={toggleHideDialog} dialogContentProps={dialogContentProps} modalProps={modalProps}>
-                    <p>{t("disclaimer.desc.fr")}</p>
-                    <p className={styles.disclaimer}>{t("disclaimer.desc2.fr")}</p>
-                    <p>{t("disclaimer.desc.en")}</p>
-                    <p className={styles.disclaimer}>{t("disclaimer.desc2.en")}</p>
+                    <p>{t("disclaimer.desc")}</p>
+                    <p className={styles.disclaimer}>{t("disclaimer.desc2")}</p>
                     <DialogFooter>
-                        <PrimaryButton onClick={() => {toggleHideDialog(); setCookie();}} text={t("close")} />
+                        <PrimaryButton onClick={() => {toggleHideDialog(); setDisclaimerCookie();}} text={t("close")} />
                     </DialogFooter>
                 </Dialog>
             }   
@@ -86,7 +89,7 @@ const Layout = () => {
                                     Ask a question
                                 </NavLink>
                             </li> */}
-                            <li><a href="#" style={{color:'white'}} onClick={() => changeLanguage(t("langlink.shorthand"))}>{t("langlink")}</a></li>
+                            <li><a href="#" style={{color:'white'}} onClick={() => {changeLanguage(t("langlink.shorthand")); setTranslationCookie();}}>{t("langlink")}</a></li>
                             <li className={styles.headerNavLeftMargin}>
                                 <a href="https://github.com/dto-btn/chatbot-frontend" target={"_blank"} title={t("githublnk")}>
                                     <img
