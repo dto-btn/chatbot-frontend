@@ -17,6 +17,8 @@ import Cookies from "js-cookie";
 
 const Layout = () => {
 
+    const { t, i18n } = useTranslation();
+
     const setDisclaimerCookie = () => {
         Cookies.set("read_disclaimer", "true", {
           expires: 30,
@@ -24,12 +26,10 @@ const Layout = () => {
     };
 
     const setTranslationCookie = () => {
-        Cookies.set("lang_setting", t("langlink.cookie.current"), {
+        Cookies.set("lang_setting", i18n.language, {
           expires: 30,
         });
     };
-    
-    const { t, i18n } = useTranslation();
 
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
