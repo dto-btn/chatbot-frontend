@@ -1,10 +1,9 @@
 {
     "langlink": "Français",
     "langlink.shorthand": "fr",
-    "langlink.cookie.current": "en",
     "feedback": "Feedback",
     "disclaimer": "DISCLAIMER",
-    "disclaimer.desc": "This Chatbot uses Azure OpenAI services. Answers may be incorect even when they look credible. AI can make mistakes just like humans do.",
+    "disclaimer.desc": "This Chatbot uses Azure OpenAI services. Answers may be incorrect even when they look credible. AI can make mistakes just like humans do.",
     "disclaimer.desc2": "DO NOT SEND ANY PROTECTED INFORMATION IN THE CHATBOT.",
     "feedback.long": "Click here to let us know your thoughts. Thank you for your feedback!",
     "githublnk": "Github repository link",

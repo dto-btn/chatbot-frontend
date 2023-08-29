@@ -2,7 +2,7 @@ import { Outlet, NavLink, Link } from "react-router-dom";
 
 import * as React from 'react';
 import { Dialog, DialogType, DialogFooter } from '@fluentui/react/lib/Dialog';
-import { PrimaryButton } from '@fluentui/react/lib/Button';
+import { PrimaryButton, DefaultButton } from '@fluentui/react/lib/Button';
 import { useBoolean } from '@fluentui/react-hooks';
 
 import github from "../../assets/github.svg";
@@ -63,6 +63,7 @@ const Layout = () => {
                     <p className={styles.disclaimer}>{t("disclaimer.desc2")}</p>
                     <DialogFooter>
                         <PrimaryButton onClick={() => {toggleHideDialog(); setDisclaimerCookie();}} text={t("close")} />
+                        <DefaultButton onClick={() => {changeLanguage(t("langlink.shorthand")); setTranslationCookie();}} text={t("langlink")} />
                     </DialogFooter>
                 </Dialog>
             }   

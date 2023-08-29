@@ -1,7 +1,6 @@
 {
     "langlink": "English",
     "langlink.shorthand": "en",
-    "langlink.cookie.current": "fr",
     "feedback": "Commentaire",
     "disclaimer": "AVIS DE NON-RESPONSABILITÉ",
     "disclaimer.desc": "Ce Chatbot utilise les services Azure OpenAI. Les réponses peuvent être incorrectes même si elles semblent crédibles. L'IA peut faire des erreurs comme le font les humains.",
