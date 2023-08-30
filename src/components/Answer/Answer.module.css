@@ -138,3 +138,11 @@ sup {
     display: flex;
     align-items: center;
 }
+
+.menuIcons {
+    color: rgb(115, 118, 225);
+}
+
+.menuIcons:hover {
+   color: rgb(170, 170, 255);
+}
