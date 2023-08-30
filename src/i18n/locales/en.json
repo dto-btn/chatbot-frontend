@@ -9,7 +9,7 @@
     "githublnk": "Github repository link",
     "title": "Azure OpenAI - Chatbot Pilot",
     "title.short": "Chatbot Pilot",
-    "chatwith": "Welcome to the Azure OpenAI Chatbot Pilot",
+    "chatwith": "Welcome to the Azure OpenAI Chatbot pilot",
     "chatwith.sub": "Try these examples:",
     "placeholder": "Type your question here:",
     "example1": "Who is the president of SSC?",
