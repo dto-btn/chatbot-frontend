@@ -12,7 +12,7 @@
     "chatwith": "Bienvenue au projet pilote du robot conversationnel d'Azure OpenAI",
     "chatwith.sub": "Essayez ces exemples:",
     "placeholder": "Tapez votre question ici:",
-    "example1": "Qui est le président de SPC?",
+    "example1": "Quel système de gestion de l’information SPC utilise?",
     "example2": "Comment accède-t-on à Archibus?",
     "example3": "Quelles sont les étapes à suivre pour embaucher un nouvel employé à SPC?",
     "menu.title": "Configurer la génération de réponses",
