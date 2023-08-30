@@ -2,7 +2,7 @@ import { Outlet, NavLink, Link } from "react-router-dom";
 
 import * as React from 'react';
 import { Dialog, DialogType, DialogFooter } from '@fluentui/react/lib/Dialog';
-import { PrimaryButton } from '@fluentui/react/lib/Button';
+import { PrimaryButton, DefaultButton } from '@fluentui/react/lib/Button';
 import { useBoolean } from '@fluentui/react-hooks';
 
 import github from "../../assets/github.svg";
@@ -17,14 +17,19 @@ import Cookies from "js-cookie";
 
 const Layout = () => {
 
+    const { t, i18n } = useTranslation();
 
-    const setCookie = () => {
+    const setDisclaimerCookie = () => {
         Cookies.set("read_disclaimer", "true", {
           expires: 30,
         });
     };
-    
-    const { t, i18n } = useTranslation();
+
+    const setTranslationCookie = () => {
+        Cookies.set("lang_setting", i18n.language, {
+          expires: 30,
+        });
+    };
 
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
@@ -54,12 +59,11 @@ const Layout = () => {
         <div className={styles.layout}>
             {Cookies.get("read_disclaimer") != "true" &&
                 <Dialog hidden={hideDialog} onDismiss={toggleHideDialog} dialogContentProps={dialogContentProps} modalProps={modalProps}>
-                    <p>{t("disclaimer.desc.fr")}</p>
-                    <p className={styles.disclaimer}>{t("disclaimer.desc2.fr")}</p>
-                    <p>{t("disclaimer.desc.en")}</p>
-                    <p className={styles.disclaimer}>{t("disclaimer.desc2.en")}</p>
+                    <p>{t("disclaimer.desc")}</p>
+                    <p className={styles.disclaimer}>{t("disclaimer.desc2")}</p>
                     <DialogFooter>
-                        <PrimaryButton onClick={() => {toggleHideDialog(); setCookie();}} text={t("close")} />
+                        <PrimaryButton onClick={() => {toggleHideDialog(); setDisclaimerCookie();}} text={t("close")} />
+                        <DefaultButton onClick={() => {changeLanguage(t("langlink.shorthand")); setTranslationCookie();}} text={t("langlink")} />
                     </DialogFooter>
                 </Dialog>
             }   
@@ -86,7 +90,7 @@ const Layout = () => {
                                     Ask a question
                                 </NavLink>
                             </li> */}
-                            <li><a href="#" style={{color:'white'}} onClick={() => changeLanguage(t("langlink.shorthand"))}>{t("langlink")}</a></li>
+                            <li><a href="#" style={{color:'white'}} onClick={() => {changeLanguage(t("langlink.shorthand")); setTranslationCookie();}}>{t("langlink")}</a></li>
                             <li className={styles.headerNavLeftMargin}>
                                 <a href="https://github.com/dto-btn/chatbot-frontend" target={"_blank"} title={t("githublnk")}>
                                     <img
