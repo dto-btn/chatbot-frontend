@@ -27,5 +27,9 @@
     "msteams.channel": "SSC Early Adopters",
     "msteams.channel.url": "https://teams.microsoft.com/l/channel/19%3a814a3fed0bd7494a9be5657d247254bf%40thread.tacv2/Azure%2520OpenAI%2520Chatbot%2520Pilot?groupId=9c07bdb4-3403-464b-a1c2-91cdaf3a2496&tenantId=d05bc194-94bf-4ad6-ae2e-1db0f2e38f5e",
     "retry": "Retry",
-    "use.chathistory": "Use chat history in queries"
+    "use.chathistory": "Use chat history in queries",
+    "sources": "Source(s)",
+    "like": "Like",
+    "dislike": "Dislike",
+    "copy": "Copy answer to clipboard"
 }

@@ -1,9 +1,9 @@
 import { useRef, useState, useEffect } from "react";
-import { Checkbox, MessageBar, Panel, DefaultButton, SpinButton, IDropdownOption, Text, MessageBarType, Link, Stack, IStackTokens, IIconProps } from "@fluentui/react";
+import { Checkbox, MessageBar, Panel, DefaultButton, SpinButton, IDropdownOption, Text, MessageBarType, Link, Stack, IStackTokens, IIconProps, Dialog, DialogFooter, PrimaryButton, DialogType, ContextualMenu, DialogContent, TextField } from "@fluentui/react";
 import { Chat24Regular, SparkleFilled } from "@fluentui/react-icons";
 import styles from "./Chat.module.css";
 
-import { chatApi, RetrievalMode, Approaches, AskResponse, ChatRequest, ChatTurn } from "../../api";
+import { chatApi, RetrievalMode, Approaches, AskResponse, ChatRequest, ChatTurn, FeedbackItem } from "../../api";
 import { Answer, AnswerError, AnswerLoading } from "../../components/Answer";
 import { QuestionInput } from "../../components/QuestionInput";
 import { ExampleList } from "../../components/Example";
@@ -13,6 +13,10 @@ import { SettingsButton } from "../../components/SettingsButton";
 import { ClearChatButton } from "../../components/ClearChatButton";
 
 import { useTranslation } from 'react-i18next';
+import { useBoolean } from "@fluentui/react-hooks";
+import { FeedbackType } from "../../components/Feedback/FeedbackType";
+import React from "react";
+import { Feedback } from "../../components/Feedback/Feedback";
 
 const Chat = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
@@ -39,6 +43,16 @@ const Chat = () => {
     const [answers, setAnswers] = useState<[user: string, response: AskResponse][]>([]);
 
     const { t, i18n } = useTranslation();
+
+    const stackTokens: IStackTokens = {
+        childrenGap: 10,
+    };
+
+    const infoIcon: IIconProps = { iconName: 'Info' };
+
+    const [hideDialog, { toggle: toggleHideDialog }] = useBoolean(true);
+    const [feedbackItem, setFeedbackItem] = useState<FeedbackItem | undefined>(undefined);
+
 
     const makeApiRequest = async (question: string) => {
         
@@ -123,11 +137,10 @@ const Chat = () => {
         setSelectedAnswer(index);
     };
 
-    const stackTokens: IStackTokens = {
-        childrenGap: 10,
-    };
-
-    const infoIcon: IIconProps = { iconName: 'Info' };
+    const showFeedbackDialog = (type: FeedbackType, index: number) => {
+        setFeedbackItem({index: index, type: type, answers: answers})
+        toggleHideDialog()
+    }
 
     return (
         
@@ -164,6 +177,7 @@ const Chat = () => {
                                             onSupportingContentClicked={() => onToggleTab(AnalysisPanelTabs.SupportingContentTab, index)}
                                             onFollowupQuestionClicked={q => makeApiRequest(q)}
                                             showFollowupQuestions={useSuggestFollowupQuestions && answers.length - 1 === index}
+                                            onFeedbackClicked={(type) => showFeedbackDialog(type, index)}
                                         />
                                     </div>
                                 </div>
@@ -252,6 +266,8 @@ const Chat = () => {
                         onChange={onUseHistory}
                     />
                 </Panel>
+
+                <Feedback item={feedbackItem} hide={hideDialog} toggleHideDialog={toggleHideDialog}/>
             </div>
         </div>
     );

@@ -1,3 +1,5 @@
+import { FeedbackType } from "../components/Feedback/FeedbackType";
+
 export const enum Approaches {
     RetrieveThenRead = "rtr",
     ReadRetrieveRead = "rrr",
@@ -59,4 +61,11 @@ export type ChatRequest = {
     history: ChatTurn[];
     approach: Approaches;
     overrides?: AskRequestOverrides;
+};
+
+export type FeedbackItem = {
+    text?: string;
+    type: FeedbackType;
+    index: number;
+    answers: [user: string, response: AskResponse][];
 };

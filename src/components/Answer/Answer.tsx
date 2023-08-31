@@ -14,6 +14,8 @@ import { IIconProps } from '@fluentui/react';
 import { IconButton } from '@fluentui/react/lib/Button';
 
 import { useBoolean } from '@fluentui/react-hooks';
+import { FeedbackType } from "../Feedback/FeedbackType";
+
 
 interface Props {
     answer: AskResponse;
@@ -22,7 +24,8 @@ interface Props {
     onThoughtProcessClicked: () => void;
     onSupportingContentClicked: () => void;
     onFollowupQuestionClicked?: (question: string) => void;
-    showFollowupQuestions?: boolean;
+    showFollowupQuestions?: boolean,
+    onFeedbackClicked: (type: FeedbackType) => void;
 }
 
 const sourceIcon: IIconProps = { iconName: 'Source'};
@@ -37,7 +40,8 @@ export const Answer = ({
     onThoughtProcessClicked,
     onSupportingContentClicked,
     onFollowupQuestionClicked,
-    showFollowupQuestions
+    showFollowupQuestions,
+    onFeedbackClicked
 }: Props) => {
     const parsedAnswer = useMemo(() => parseAnswerToHtml(answer.answer, onCitationClicked), [answer]);
     const sanitizedAnswerHtmlPre = DOMPurify.sanitize(parsedAnswer.answerHtml);
@@ -55,10 +59,10 @@ export const Answer = ({
                     <AnswerIcon />
                     {toggleMenu ?
                     (<div className={styles.sourcesContainer}>
-                        <IconButton iconProps={like} className={styles.menuIcons} />
-                        <IconButton iconProps={dislike} className={styles.menuIcons} /> 
-                        <IconButton iconProps={copy} onClick={() => navigator.clipboard.writeText(sanitizedAnswerHtmlPre)} className={styles.menuIcons} />
-                        <IconButton iconProps={sourceIcon} allowDisabledFocus disabled={!answer.metadata} onClick={() => onSupportingContentClicked()} title={t("supporting")} ariaLabel={t("supporting")} className={styles.menuIcons} />
+                        <IconButton iconProps={like} className={styles.menuIcons} title={t("like")} ariaLabel={t("like")} onClick={() => onFeedbackClicked(FeedbackType.Like)}/>
+                        <IconButton iconProps={dislike} className={styles.menuIcons} title={t("dislike")} ariaLabel={t("dislike")}  onClick={() => onFeedbackClicked(FeedbackType.Dislike)}/> 
+                        <IconButton iconProps={copy} onClick={() => navigator.clipboard.writeText(sanitizedAnswerHtmlPre)} className={styles.menuIcons} title={t("copy")} ariaLabel={t("copy")} />
+                        <IconButton iconProps={sourceIcon} allowDisabledFocus disabled={!answer.metadata} onClick={() => onSupportingContentClicked()} title={t("sources")} ariaLabel={t("sources")} className={styles.menuIcons} />
                     </div>) : null}
                 </Stack>
             </Stack.Item>
