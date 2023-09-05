@@ -31,5 +31,11 @@
     "sources": "Source(s)",
     "like": "Like",
     "dislike": "Dislike",
-    "copy": "Copy answer to clipboard"
+    "copy": "Copy answer to clipboard",
+    "tellus.like": "Tell us what you liked!",
+    "tellus.dislike": "Tell us what you disliked.",
+    "answer.given": "Given answer",
+    "send": "Submit",
+    "dontsend": "Not this time",
+    "msg.opt": "Message (optional)"
 }

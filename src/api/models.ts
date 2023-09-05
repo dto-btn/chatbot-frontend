@@ -67,5 +67,5 @@ export type FeedbackItem = {
     text?: string;
     type: FeedbackType;
     index: number;
-    answers: [user: string, response: AskResponse][];
+    answers?: [user: string, response: AskResponse][];
 };

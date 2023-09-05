@@ -51,7 +51,7 @@ const Chat = () => {
     const infoIcon: IIconProps = { iconName: 'Info' };
 
     const [hideDialog, { toggle: toggleHideDialog }] = useBoolean(true);
-    const [feedbackItem, setFeedbackItem] = useState<FeedbackItem | undefined>(undefined);
+    const [feedbackItem, setFeedbackItem] = useState<FeedbackItem>({index: 0, type: FeedbackType.Like});
 
 
     const makeApiRequest = async (question: string) => {
