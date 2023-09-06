@@ -53,7 +53,7 @@ export function getCitationFilePath(citation: string): string {
     return `/content/${citation}`;
 }
 
-export async function sendFeedback(feedback: FeedbackItem, lang: string): Promise<AskResponse> {
+export async function sendFeedback(feedback: FeedbackItem, lang: string): Promise<string> {
     const response = await fetch("/feedback", {
         method: "POST",
         headers: {
@@ -68,10 +68,10 @@ export async function sendFeedback(feedback: FeedbackItem, lang: string): Promis
         })
     });
 
-    const parsedResponse: AskResponse = await response.json();
+    await response.json();
     if (response.status > 299 || !response.ok) {
-        throw Error(parsedResponse.error || "Unknown error");
+        throw Error("Unknown error");
     }
 
-    return parsedResponse;
+    return "Feedback sent!";
 }
