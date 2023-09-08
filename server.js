@@ -22,8 +22,13 @@ app.use('/query', createProxyMiddleware({
 const client = await MongoClient.connect(process.env.DB_CONN);
 const db = client.db("chatbot");
 
-app.use('/feedback', bodyParser.json(), (req, res) => { 
-    db.collection('feedback').insertOne(req.body);
+app.post('/feedback', bodyParser.json(), async (req, res) => { 
+    try {
+        const result = await db.collection('feedback').insertOne(req.body);
+        res.send("Saved successfully!")
+    } catch (e) {
+        throw e;
+    }  
 });
 
 ViteExpress.listen(app, process.env.PORT, () => console.log("Server is listening on: http://localhost:" + process.env.PORT));
