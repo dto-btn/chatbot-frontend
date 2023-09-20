@@ -53,7 +53,7 @@ export function getCitationFilePath(citation: string): string {
     return `/content/${citation}`;
 }
 
-export async function sendFeedback(feedback: FeedbackItem, lang: string): Promise<string> {
+export async function sendFeedback(feedback: FeedbackItem, lang: string): Promise<Response> {
     const response = await fetch("/feedback", {
         method: "POST",
         headers: {
@@ -68,10 +68,9 @@ export async function sendFeedback(feedback: FeedbackItem, lang: string): Promis
         })
     });
 
-    await response.json();
     if (response.status > 299 || !response.ok) {
         throw Error("Unknown error");
     }
 
-    return "Feedback sent!";
+    return response;
 }
