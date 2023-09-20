@@ -78,7 +78,7 @@ export const Feedback = ({
                     </DialogFooter>
                 ) : (
                     <DialogFooter>
-                        <PrimaryButton onClick={feedbackApiCall} text={t("close")} />
+                        <PrimaryButton onClick={toggleHideDialog} text={t("close")} />
                     </DialogFooter>
                 )}
         </Dialog>
