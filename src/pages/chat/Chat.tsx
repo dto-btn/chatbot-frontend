@@ -1,9 +1,9 @@
 import { useRef, useState, useEffect } from "react";
-import { Checkbox, MessageBar, Panel, DefaultButton, SpinButton, IDropdownOption, Text, MessageBarType, Link, Stack, IStackTokens, IIconProps, Dialog, DialogFooter, PrimaryButton, DialogType, ContextualMenu, DialogContent, TextField } from "@fluentui/react";
+import { Checkbox, MessageBar, Panel, DefaultButton, SpinButton, IDropdownOption, Text, MessageBarType, Link, Stack, IStackTokens, IIconProps, Dialog, DialogFooter, PrimaryButton, DialogType, ContextualMenu, DialogContent, TextField, Dropdown } from "@fluentui/react";
 import { Chat24Regular, SparkleFilled } from "@fluentui/react-icons";
 import styles from "./Chat.module.css";
 
-import { chatApi, RetrievalMode, Approaches, AskResponse, ChatRequest, ChatTurn, FeedbackItem } from "../../api";
+import { chatApi, RetrievalMode, Approaches, AskResponse, ChatRequest, ChatTurn, FeedbackItem, ResponseMode, Model } from "../../api";
 import { Answer, AnswerError, AnswerLoading } from "../../components/Answer";
 import { QuestionInput } from "../../components/QuestionInput";
 import { ExampleList } from "../../components/Example";
@@ -42,6 +42,9 @@ const Chat = () => {
     const [selectedAnswer, setSelectedAnswer] = useState<number>(0);
     const [answers, setAnswers] = useState<[user: string, response: AskResponse][]>([]);
 
+    const [responseMode, setResponseMode] = useState<ResponseMode>(ResponseMode.TreeSumarize);
+    const [model, setModel] = useState<Model>(Model.GPT_35_TURBO_16K);
+
     const { t, i18n } = useTranslation();
 
     const stackTokens: IStackTokens = {
@@ -70,6 +73,8 @@ const Chat = () => {
                 chat_history: useHistory && answers.length > 0 ? answers[answers.length-1][1].chat_history : "",
                 history: [...history, { user: question, bot: undefined }],
                 approach: Approaches.ReadRetrieveRead,
+                model: model,
+                responseMode: responseMode,
                 overrides: {
                     promptTemplate: promptTemplate.length === 0 ? undefined : promptTemplate,
                     excludeCategory: excludeCategory.length === 0 ? undefined : excludeCategory,
@@ -141,6 +146,23 @@ const Chat = () => {
         setFeedbackItem({index: index, type: type, answers: answers})
         toggleHideDialog()
     }
+
+    const onResponseModeChange = (_ev: React.FormEvent<HTMLDivElement>, option?: IDropdownOption<ResponseMode> | undefined, index?: number | undefined) => {
+        setResponseMode(option?.data || ResponseMode.TreeSumarize);
+    };
+
+    const onModelChange = (_ev: React.FormEvent<HTMLDivElement>, option?: IDropdownOption<Model> | undefined, index?: number | undefined) => {
+        setModel(option?.data || Model.GPT_35_TURBO_16K);
+    };
+
+    const responseModeOptions: IDropdownOption[] = [
+        { key: 'tree_sumarize', text: 'tree_sumarize' },
+        { key: 'refine', text: 'refine' },
+        { key: 'compact', text: 'compact' },
+        { key: 'simple_sumarize', text: 'simple_sumarize' },
+        { key: 'accumulate', text: 'accumulate' },
+        { key: 'compact_accumulate', text: 'compact_accumulate' },
+      ];
 
     return (
         
@@ -241,6 +263,30 @@ const Chat = () => {
                     onRenderFooterContent={() => <DefaultButton onClick={() => setIsConfigPanelOpen(false)}>Close</DefaultButton>}
                     isFooterAtBottom={true}
                 >
+                    <Dropdown
+                        placeholder={t("menu.responsemode.select")}
+                        label={t("menu.responsemode")}
+                        options={[
+                                { key: ResponseMode.TreeSumarize, text: ResponseMode.TreeSumarize, selected: responseMode == ResponseMode.TreeSumarize, data: ResponseMode.TreeSumarize},
+                                { key: ResponseMode.SimpleSumarize, text: ResponseMode.SimpleSumarize, selected: responseMode == ResponseMode.SimpleSumarize, data: ResponseMode.SimpleSumarize},
+                                { key: ResponseMode.Refine, text: ResponseMode.Refine, selected: responseMode == ResponseMode.Refine, data: ResponseMode.Refine},
+                                { key: ResponseMode.Compact, text: ResponseMode.Compact, selected: responseMode == ResponseMode.Compact, data: ResponseMode.Compact},
+                                { key: ResponseMode.Accumulate, text: ResponseMode.Accumulate, selected: responseMode == ResponseMode.Accumulate, data: ResponseMode.Accumulate},
+                                { key: ResponseMode.CompactAccumulate, text: ResponseMode.CompactAccumulate, selected: responseMode == ResponseMode.CompactAccumulate, data: ResponseMode.CompactAccumulate},
+                            ]}
+                        defaultValue={responseMode}
+                        onChange={onResponseModeChange}
+                    />
+                    <Dropdown
+                        placeholder={t("menu.model.select")}
+                        label={t("menu.model")}
+                        options={[
+                                { key: Model.GPT_35_TURBO_16K, text: Model.GPT_35_TURBO_16K, selected: model == Model.GPT_35_TURBO_16K, data: Model.GPT_35_TURBO_16K},
+                                { key: Model.GPT_4, text: Model.GPT_4, selected: model == Model.GPT_4, data: Model.GPT_4},
+                            ]}
+                        defaultValue={model}
+                        onChange={onModelChange}
+                    />
                     <SpinButton
                         className={styles.chatSettingsSeparator}
                         label={t('menu.desc')}

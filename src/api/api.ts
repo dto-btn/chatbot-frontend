@@ -36,7 +36,8 @@ export async function chatApi(options: ChatRequest, lang: string): Promise<AskRe
             k: options.overrides?.top,
             lang: lang,
             pretty: 0,
-            index: "2023-07-19",
+            response_mode: options.responseMode,
+            model: options.model,
             chat_history: options.chat_history
         })
     });

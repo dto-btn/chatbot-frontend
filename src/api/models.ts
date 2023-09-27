@@ -12,6 +12,20 @@ export const enum RetrievalMode {
     Text = "text"
 }
 
+export const enum ResponseMode {
+    TreeSumarize = "tree_sumarize",
+    SimpleSumarize = "simple_sumarize",
+    Refine = "refine",
+    Compact = "compact",
+    Accumulate = "accumulate",
+    CompactAccumulate = "compact_accumulate"
+}
+
+export const enum Model {
+    GPT_35_TURBO_16K = "gpt_35_turbo_16k",
+    GPT_4 = "gpt_4"
+}
+
 export type AskRequestOverrides = {
     retrievalMode?: RetrievalMode;
     semanticRanker?: boolean;
@@ -61,6 +75,8 @@ export type ChatRequest = {
     history: ChatTurn[];
     approach: Approaches;
     overrides?: AskRequestOverrides;
+    model: Model;
+    responseMode: ResponseMode
 };
 
 export type FeedbackItem = {
