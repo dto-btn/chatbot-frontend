@@ -28,5 +28,6 @@
     "menu.responsemode.select": "Choisir le mode",
     "menu.responsemode": "Mode de réponse",
     "menu.model.select": "Choisir le modèle",
-    "menu.model": "Modèle"
+    "menu.model": "Modèle",
+    "menu.responsecount": "Réponse maximale"
 }

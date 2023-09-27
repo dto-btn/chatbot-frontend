@@ -38,7 +38,8 @@ export async function chatApi(options: ChatRequest, lang: string): Promise<AskRe
             pretty: 0,
             response_mode: options.responseMode,
             model: options.model,
-            chat_history: options.chat_history
+            chat_history: options.chat_history,
+            num_output: options.numCount
         })
     });
 

@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { Checkbox, MessageBar, Panel, DefaultButton, SpinButton, IDropdownOption, Text, MessageBarType, Link, Stack, IStackTokens, IIconProps, Dialog, DialogFooter, PrimaryButton, DialogType, ContextualMenu, DialogContent, TextField, Dropdown } from "@fluentui/react";
+import { Checkbox, MessageBar, Panel, DefaultButton, SpinButton, IDropdownOption, Text, MessageBarType, Link, Stack, IStackTokens, IIconProps, Dialog, DialogFooter, PrimaryButton, DialogType, ContextualMenu, DialogContent, TextField, Dropdown, Slider } from "@fluentui/react";
 import { Chat24Regular, SparkleFilled } from "@fluentui/react-icons";
 import styles from "./Chat.module.css";
 
@@ -44,6 +44,7 @@ const Chat = () => {
 
     const [responseMode, setResponseMode] = useState<ResponseMode>(ResponseMode.TreeSumarize);
     const [model, setModel] = useState<Model>(Model.GPT_35_TURBO_16K);
+    const [numCount, setNumCount] = useState<number>(800);
 
     const { t, i18n } = useTranslation();
 
@@ -75,6 +76,7 @@ const Chat = () => {
                 approach: Approaches.ReadRetrieveRead,
                 model: model,
                 responseMode: responseMode,
+                numCount: numCount,
                 overrides: {
                     promptTemplate: promptTemplate.length === 0 ? undefined : promptTemplate,
                     excludeCategory: excludeCategory.length === 0 ? undefined : excludeCategory,
@@ -153,6 +155,10 @@ const Chat = () => {
 
     const onModelChange = (_ev: React.FormEvent<HTMLDivElement>, option?: IDropdownOption<Model> | undefined, index?: number | undefined) => {
         setModel(option?.data || Model.GPT_35_TURBO_16K);
+    };
+
+    const onNumCountChange = (value: number) => {
+        setNumCount(value);
     };
 
     const responseModeOptions: IDropdownOption[] = [
@@ -305,6 +311,7 @@ const Chat = () => {
                         defaultValue={tempCount.toString()}
                         onChange={onTempCountChange}
                     />
+                    <Slider label={t("menu.responsecount")} min={100} max={800} step={100} defaultValue={800} showValue onChange={onNumCountChange}/>
                     <Checkbox
                         className={styles.chatSettingsSeparator}
                         checked={useHistory}

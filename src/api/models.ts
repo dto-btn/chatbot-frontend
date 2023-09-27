@@ -22,8 +22,8 @@ export const enum ResponseMode {
 }
 
 export const enum Model {
-    GPT_35_TURBO_16K = "gpt_35_turbo_16k",
-    GPT_4 = "gpt_4"
+    GPT_35_TURBO_16K = "gpt-35-turbo-16k",
+    GPT_4 = "gpt-4"
 }
 
 export type AskRequestOverrides = {
@@ -76,7 +76,8 @@ export type ChatRequest = {
     approach: Approaches;
     overrides?: AskRequestOverrides;
     model: Model;
-    responseMode: ResponseMode
+    responseMode: ResponseMode;
+    numCount: number
 };
 
 export type FeedbackItem = {
