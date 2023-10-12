@@ -7,11 +7,11 @@
     "disclaimer.desc2": "N'ENVOYEZ AUCUNE INFORMATION PROTÉGÉE DANS LE CHATBOT.",
     "feedback.long": "Cliquez ici pour nous faire part de vos commentaires. Merci de nous communiquer vos remarques!",
     "githublnk": "Lien vers entrepôt Github",
-    "title": "Pilote Robot conversationnel - Azure OpenAI",
+    "title": "Pilote robot conversationnel - Azure OpenAI",
     "title.short": "Pilote Robot conversationnel",
     "chatwith": "Bienvenue au projet pilote du robot conversationnel d'Azure OpenAI",
-    "chatwith.sub": "Essayez ces exemples:",
-    "placeholder": "Tapez votre question ici:",
+    "chatwith.sub": "Essayez ces exemples :",
+    "placeholder": "Tapez votre question ici :",
     "example1": "Quel est le système de gestion de l’information utilisé par SPC?",
     "example2": "Comment accède-t-on à Archibus?",
     "example3": "Quelles sont les étapes à suivre pour embaucher un nouvel employé à SPC?",
@@ -24,5 +24,11 @@
     "generating": "Génération de réponse",
     "supporting": "Contenu de soutien",
     "retry": "Réessayer",
-    "use.chathistory": "Utiliser l'historique des discussions dans les requêtes"
+    "use.chathistory": "Utiliser l'historique des discussions dans les requêtes",
+    "menu.responsemode.select": "Choisir le mode",
+    "menu.responsemode": "Mode de réponse",
+    "menu.model.select": "Choisir le modèle",
+    "menu.model": "Modèle",
+    "menu.responsecount": "Réponse maximale",
+    "msteams.channel": "Adopteurs précoces de SPC"
 }

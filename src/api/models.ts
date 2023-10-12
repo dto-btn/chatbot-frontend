@@ -1,3 +1,5 @@
+import { FeedbackType } from "../components/Feedback/FeedbackType";
+
 export const enum Approaches {
     RetrieveThenRead = "rtr",
     ReadRetrieveRead = "rrr",
@@ -8,6 +10,20 @@ export const enum RetrievalMode {
     Hybrid = "hybrid",
     Vectors = "vectors",
     Text = "text"
+}
+
+export const enum ResponseMode {
+    TreeSumarize = "tree_sumarize",
+    SimpleSumarize = "simple_sumarize",
+    Refine = "refine",
+    Compact = "compact",
+    Accumulate = "accumulate",
+    CompactAccumulate = "compact_accumulate"
+}
+
+export const enum Model {
+    GPT_35_TURBO_16K = "gpt-35-turbo-16k",
+    GPT_4 = "gpt-4"
 }
 
 export type AskRequestOverrides = {
@@ -59,4 +75,14 @@ export type ChatRequest = {
     history: ChatTurn[];
     approach: Approaches;
     overrides?: AskRequestOverrides;
+    model: Model;
+    responseMode: ResponseMode;
+    numCount: number
+};
+
+export type FeedbackItem = {
+    text?: string;
+    type: FeedbackType;
+    index: number;
+    answers?: [user: string, response: AskResponse][];
 };
