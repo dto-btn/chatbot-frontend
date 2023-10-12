@@ -43,7 +43,7 @@ const Chat = () => {
     const [answers, setAnswers] = useState<[user: string, response: AskResponse][]>([]);
 
     const [responseMode, setResponseMode] = useState<ResponseMode>(ResponseMode.TreeSumarize);
-    const [model, setModel] = useState<Model>(Model.GPT_35_TURBO_16K);
+    const [model, setModel] = useState<Model>(Model.GPT_4);
     const [numCount, setNumCount] = useState<number>(800);
 
     const { t, i18n } = useTranslation();
