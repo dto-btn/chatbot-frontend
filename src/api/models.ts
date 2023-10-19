@@ -56,11 +56,12 @@ export type AskResponse = {
 export type ResponseMetadata = {
     [key: string]: {
         filename: string;
-        lastmodified: string;
+        date: string;
         url?: string;
         text: string[];
         node_scores: number[];
         source: string;
+        title: string;
     };
 };
 
