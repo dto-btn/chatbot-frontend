@@ -22,7 +22,6 @@ export const enum ResponseMode {
 }
 
 export const enum Model {
-    GPT_35_TURBO_16K = "gpt-35-turbo-16k",
     GPT_4 = "gpt-4"
 }
 
