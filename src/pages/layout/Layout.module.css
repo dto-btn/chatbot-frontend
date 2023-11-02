@@ -10,23 +10,19 @@
 }
 
 .headerContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
     margin-right: 12px;
     margin-left: 12px;
-    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
 }
 
 .headerTitleContainer {
-    display: flex;
-    align-items: center;
-    flex-basis: 33.33333%;
     color: #f2f2f2;
     text-decoration: none;
-    justify-content: left;
-    margin-left: auto;
+    justify-self: center;
+    align-items: center;
+    display: flex;
 }
 
 .headerLogo {
@@ -39,10 +35,17 @@
 }
 
 .headerNavList {
-    flex-basis: 33.33333%;
-    display: flex;
     list-style: none;
     padding-left: 0;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+}
+
+.headerNavLang {
+    display: flex;
+    align-items: center;
+    justify-self: right;
 }
 
 .headerNavPageLink {
