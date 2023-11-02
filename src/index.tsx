@@ -8,6 +8,7 @@ import './i18n';
 
 import Layout from "./pages/layout/Layout";
 import Chat from "./pages/chat/Chat";
+import Any from "./pages/any/Any";
 
 initializeIcons();
 
@@ -19,6 +20,10 @@ const router = createHashRouter([
             {
                 index: true,
                 element: <Chat />
+            },
+            {
+                path: "any",
+                element: <Any />
             },
             {
                 path: "*",
