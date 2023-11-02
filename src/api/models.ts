@@ -22,7 +22,6 @@ export const enum ResponseMode {
 }
 
 export const enum Model {
-    GPT_35_TURBO_16K = "gpt-35-turbo-16k",
     GPT_4 = "gpt-4"
 }
 
@@ -56,11 +55,12 @@ export type AskResponse = {
 export type ResponseMetadata = {
     [key: string]: {
         filename: string;
-        lastmodified: string;
+        date: string;
         url?: string;
         text: string[];
         node_scores: number[];
         source: string;
+        title: string;
     };
 };
 

@@ -154,7 +154,7 @@ const Chat = () => {
     };
 
     const onModelChange = (_ev: React.FormEvent<HTMLDivElement>, option?: IDropdownOption<Model> | undefined, index?: number | undefined) => {
-        setModel(option?.data || Model.GPT_35_TURBO_16K);
+        setModel(option?.data || Model.GPT_4);
     };
 
     const onNumCountChange = (value: number) => {
@@ -287,7 +287,6 @@ const Chat = () => {
                         placeholder={t("menu.model.select")}
                         label={t("menu.model")}
                         options={[
-                                { key: Model.GPT_35_TURBO_16K, text: Model.GPT_35_TURBO_16K, selected: model == Model.GPT_35_TURBO_16K, data: Model.GPT_35_TURBO_16K},
                                 { key: Model.GPT_4, text: Model.GPT_4, selected: model == Model.GPT_4, data: Model.GPT_4},
                             ]}
                         defaultValue={model}
