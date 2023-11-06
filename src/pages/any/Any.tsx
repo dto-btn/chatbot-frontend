@@ -132,6 +132,14 @@ const Any = () => {
         setNumCount(value);
     };
 
+    const onChatPromptChange = (_ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+        if (!newValue) {
+            setChatPrompt("");
+        } else if (newValue.length <= 1000) {
+            setChatPrompt(newValue);
+        }
+    };
+
     return (
 
         <div className={styles.container}>
@@ -185,7 +193,7 @@ const Any = () => {
                                 </MessageBar>
                             </Stack.Item>
                             <Stack.Item>
-                                <TextField label="Prompt:" underlined placeholder="you are a pirate and you will answer as such!" value={chatPrompt}/>
+                                <TextField label="Prompt:" underlined placeholder="you are a pirate and you will answer as such!" value={chatPrompt} onChange={onChatPromptChange}/>
                             </Stack.Item>
                             <Stack.Item>
                                 <QuestionInput

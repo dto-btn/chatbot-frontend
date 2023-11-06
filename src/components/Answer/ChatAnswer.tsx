@@ -43,7 +43,10 @@ export const ChatAnswer = ({
     const [toggleMenu, {toggle: toggleMenuVisiblity }] = useBoolean(false);
 
     return (
-        <div className={styles.answerText} dangerouslySetInnerHTML={{ __html: sanitizedAnswerHtml }}></div>
-
+        <Stack className={`${styles.answerContainer} ${isSelected && styles.selected}`} verticalAlign="space-between">
+            <Stack.Item grow>
+                <div className={styles.answerText} dangerouslySetInnerHTML={{ __html: sanitizedAnswerHtml }}></div>
+            </Stack.Item>
+        </Stack>
     );
 };
