@@ -118,7 +118,7 @@ export type Usage = {
     total_tokens: number;
 };
 
-export type Response = {
+export type ChatResponse = {
     choices: Choice[];
     created: number;
     history: ChatHistory[];

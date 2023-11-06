@@ -3,8 +3,8 @@ import { Checkbox, MessageBar, Panel, DefaultButton, SpinButton, IDropdownOption
 import { Chat24Regular, SparkleFilled } from "@fluentui/react-icons";
 import styles from "./Any.module.css";
 
-import { chatApi, RetrievalMode, Approaches, AskResponse, ChatRequest, ChatTurn, FeedbackItem, ResponseMode, Model, ChatHistory, ChatAllRequest, chatApiAll } from "../../api";
-import { Answer, AnswerError, AnswerLoading } from "../../components/Answer";
+import { chatApi, RetrievalMode, Approaches, AskResponse, ChatRequest, ChatTurn, FeedbackItem, ResponseMode, Model, ChatHistory, ChatAllRequest, chatApiAll, ChatResponse } from "../../api";
+import { AnswerError, AnswerLoading } from "../../components/Answer";
 import { QuestionInput } from "../../components/QuestionInput";
 import { ExampleList } from "../../components/Example";
 import { UserChatMessage } from "../../components/UserChatMessage";
@@ -17,6 +17,7 @@ import { useBoolean } from "@fluentui/react-hooks";
 import { FeedbackType } from "../../components/Feedback/FeedbackType";
 import React from "react";
 import { Feedback } from "../../components/Feedback/Feedback";
+import { ChatAnswer } from "../../components/Answer/ChatAnswer";
 
 const Any = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
@@ -35,7 +36,7 @@ const Any = () => {
     const [activeAnalysisPanelTab, setActiveAnalysisPanelTab] = useState<AnalysisPanelTabs | undefined>(undefined);
 
     const [selectedAnswer, setSelectedAnswer] = useState<number>(0);
-    const [answers, setAnswers] = useState<ChatHistory[]>([]);
+    const [answers, setAnswers] = useState<[user: string, response: ChatResponse][]>([]);
 
     const [model, setModel] = useState<Model>(Model.GPT_4);
     const [numCount, setNumCount] = useState<number>(800);
@@ -65,14 +66,14 @@ const Any = () => {
         try {
             const request: ChatAllRequest = {
                 query: question,
-                history: useHistory && answers.length > 0 ? answers : [],
+                history: useHistory && answers.length > 0 ? answers[answers.length-1][1].history : [],
                 prompt: chatPrompt,
                 tokens: numCount,
                 temp: tempCount,
                 past_msg_incl: 10
             };
             const result = await chatApiAll(request);
-            setAnswers(answers);
+            setAnswers([...answers, [question, result]]);
         } catch (e) {
             setError(e);
         } finally {
@@ -147,18 +148,13 @@ const Any = () => {
                     <div className={styles.chatMessageStream}>
                         {answers.map((answer, index) => (
                             <div key={index}>
-                                <UserChatMessage message={answer.content} />
+                                <UserChatMessage message={answer[0]} />
                                 <div className={styles.chatMessageGpt}>
-                                    <Answer
+                                    <ChatAnswer
                                         key={index}
                                         answer={answer[1]}
                                         isSelected={selectedAnswer === index && activeAnalysisPanelTab !== undefined}
-                                        onCitationClicked={c => onShowCitation(c, index)}
-                                        onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab, index)}
-                                        onSupportingContentClicked={() => onToggleTab(AnalysisPanelTabs.SupportingContentTab, index)}
                                         onFollowupQuestionClicked={q => makeApiRequest(q)}
-                                        showFollowupQuestions={useSuggestFollowupQuestions && answers.length - 1 === index}
-                                        onFeedbackClicked={(type) => showFeedbackDialog(type, index)}
                                     />
                                 </div>
                             </div>

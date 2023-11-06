@@ -1,4 +1,4 @@
-import { AskRequest, AskResponse, ChatAllRequest, ChatRequest, FeedbackItem } from "./models";
+import { AskRequest, AskResponse, ChatAllRequest, ChatRequest, ChatResponse, FeedbackItem } from "./models";
 
 export async function askApi(options: AskRequest, lang: string): Promise<AskResponse> {
     const response = await fetch("/query", {
@@ -51,7 +51,7 @@ export async function chatApi(options: ChatRequest, lang: string): Promise<AskRe
     return parsedResponse;
 }
 
-export async function chatApiAll(options: ChatAllRequest): Promise<Response> {
+export async function chatApiAll(options: ChatAllRequest): Promise<ChatResponse> {
     const response = await fetch("/chat", {
         method: "POST",
         headers: {
@@ -67,7 +67,7 @@ export async function chatApiAll(options: ChatAllRequest): Promise<Response> {
         })
     });
 
-    const parsedResponse: Response = await response.json();
+    const parsedResponse: ChatResponse = await response.json();
     if (response.status > 299 || !response.ok) {
         throw Error("Unknown error");
     }
