@@ -19,6 +19,13 @@ app.use('/query', createProxyMiddleware({
     onProxyReq: [middleware],
 }));
 
+app.use('/chat', createProxyMiddleware({
+    target: process.env.VITE_API_BACKEND,
+    changeOrigin: true,
+    onProxyReq: [middleware],
+}));
+
+
 const client = await MongoClient.connect(process.env.DB_CONN);
 const db = client.db("chatbot");
 

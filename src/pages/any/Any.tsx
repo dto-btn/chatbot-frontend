@@ -43,7 +43,7 @@ const Any = () => {
 
     const { t, i18n } = useTranslation();
 
-    const [chatPrompt, setChatPrompt] = useState<string>("")
+    const [chatPrompt, setChatPrompt] = useState<string>("");
 
     const stackTokens: IStackTokens = {
         childrenGap: 10,
@@ -132,6 +132,14 @@ const Any = () => {
         setNumCount(value);
     };
 
+    const onChatPromptChange = (_ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+        if (!newValue) {
+            setChatPrompt("");
+        } else if (newValue.length <= 1000) {
+            setChatPrompt(newValue);
+        }
+    };
+
     return (
 
         <div className={styles.container}>
@@ -185,7 +193,7 @@ const Any = () => {
                                 </MessageBar>
                             </Stack.Item>
                             <Stack.Item>
-                                <TextField label="Prompt:" underlined placeholder="you are a pirate and you will answer as such!" value={chatPrompt}/>
+                                <TextField label="Prompt:" required underlined placeholder="you are a pirate and you will answer as such!" value={chatPrompt} onChange={onChatPromptChange}/>
                             </Stack.Item>
                             <Stack.Item>
                                 <QuestionInput
@@ -212,7 +220,7 @@ const Any = () => {
                         placeholder={t("menu.model.select")}
                         label={t("menu.model")}
                         options={[
-                                { key: Model.GPT_4, text: Model.GPT_4, selected: model == Model.GPT_4, data: Model.GPT_4},
+                                { key: Model.GPT_4, text: Model.GPT_4, selected: model == Model.GPT_4, data: Model.GPT_4 },
                             ]}
                         defaultValue={model}
                         onChange={onModelChange}
