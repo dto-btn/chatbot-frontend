@@ -66,31 +66,30 @@ const Layout = () => {
                         <DefaultButton onClick={() => {changeLanguage(t("langlink.shorthand")); setTranslationCookie();}} text={t("langlink")} />
                     </DialogFooter>
                 </Dialog>
-            }   
+            }
             <header className={styles.header} role={"banner"}>
-                <div className={styles.headerContainer}>
-                    <Link to="." className={styles.headerTitleContainer} title="Azure OpenAI + Llama_index + langchain">
-                        <img
-                            src={logo}
-                            alt="Shared Services Canada Logo"
-                            width="32px"
-                            height="32px"
-                        />
-                        <h3 className={styles.headerTitle}>{t("title")}</h3>
-                    </Link>
-                    <nav>
+                <nav>
+                    <div className={styles.headerContainer}>
+                        <Link to="." className={styles.headerTitleContainer} title="Azure OpenAI + Llama_index + langchain">
+                            <img
+                                src={logo}
+                                alt="Shared Services Canada Logo"
+                                width="32px"
+                                height="32px"
+                            />
+                            <h3 className={styles.headerTitle}>{t("title")}</h3>
+                        </Link>
                         <ul className={styles.headerNavList}>
-                            {/* <li>
+                            <li>
                                 <NavLink to="/" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
-                                    Chat
+                                    {t("sscplus.question")}
                                 </NavLink>
-                            </li> */}
-                            {/* <li className={styles.headerNavLeftMargin}>
-                                <NavLink to="/qa" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
-                                    Ask a question
+                            </li>
+                            <li className={styles.headerNavLeftMargin}>
+                                <NavLink to="/any" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
+                                {t("any.question")}
                                 </NavLink>
-                            </li> */}
-                            <li><a href="#" style={{color:'white'}} onClick={() => {changeLanguage(t("langlink.shorthand")); setTranslationCookie();}}>{t("langlink")}</a></li>
+                            </li>
                             <li className={styles.headerNavLeftMargin}>
                                 <a href="https://github.com/dto-btn/chatbot-frontend" target={"_blank"} title={t("githublnk")}>
                                     <img
@@ -104,9 +103,9 @@ const Layout = () => {
                                 </a>
                             </li>
                         </ul>
-                    </nav>
-                    <h4 className={styles.headerRightText}>Azure OpenAI + Llama_index + langchain</h4>
-                </div>
+                        <a className={styles.headerNavLang} href="#" style={{color:'white'}} onClick={() => {changeLanguage(t("langlink.shorthand")); setTranslationCookie();}}>{t("langlink")}</a>
+                    </div>
+                </nav>
             </header>
 
             <Outlet />

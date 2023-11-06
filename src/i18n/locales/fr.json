@@ -30,5 +30,7 @@
     "menu.model.select": "Choisir le modèle",
     "menu.model": "Modèle",
     "menu.responsecount": "Réponse maximale",
-    "msteams.channel": "Adopteurs précoces de SPC"
+    "msteams.channel": "Adopteurs précoces de SPC",
+    "sscplus.question": "Question MonSPC Plus",
+    "any.question": "N'importe qu'elle question"
 }
