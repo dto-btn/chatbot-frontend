@@ -3,28 +3,24 @@ import { Checkbox, MessageBar, Panel, DefaultButton, SpinButton, IDropdownOption
 import { Chat24Regular, SparkleFilled } from "@fluentui/react-icons";
 import styles from "./Any.module.css";
 
-import { chatApi, RetrievalMode, Approaches, AskResponse, ChatRequest, ChatTurn, FeedbackItem, ResponseMode, Model, ChatHistory, ChatAllRequest, chatApiAll, ChatResponse } from "../../api";
+import { Model, ChatAllRequest, chatApiAll, ChatResponse } from "../../api";
 import { AnswerError, AnswerLoading } from "../../components/Answer";
 import { QuestionInput } from "../../components/QuestionInput";
-import { ExampleList } from "../../components/Example";
 import { UserChatMessage } from "../../components/UserChatMessage";
-import { AnalysisPanel, AnalysisPanelTabs } from "../../components/AnalysisPanel";
 import { SettingsButton } from "../../components/SettingsButton";
 import { ClearChatButton } from "../../components/ClearChatButton";
 
 import { useTranslation } from 'react-i18next';
 import { useBoolean } from "@fluentui/react-hooks";
-import { FeedbackType } from "../../components/Feedback/FeedbackType";
 import React from "react";
 import { Feedback } from "../../components/Feedback/Feedback";
 import { ChatAnswer } from "../../components/Answer/ChatAnswer";
 
 const Any = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
-    const [retrieveCount, setRetrieveCount] = useState<number>(3);
     const [tempCount, setTempCount] = useState<number>(0.7);
+    const [maxHistory, setMaxHistory] = useState<number>(10);
 
-    const [useHistory, setUseHistory] = useState<boolean>(true);
 
     const lastQuestionRef = useRef<string>("");
     const chatMessageStreamEnd = useRef<HTMLDivElement | null>(null);
@@ -32,10 +28,6 @@ const Any = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<unknown>();
 
-    const [activeCitation, setActiveCitation] = useState<string>();
-    const [activeAnalysisPanelTab, setActiveAnalysisPanelTab] = useState<AnalysisPanelTabs | undefined>(undefined);
-
-    const [selectedAnswer, setSelectedAnswer] = useState<number>(0);
     const [answers, setAnswers] = useState<[user: string, response: ChatResponse][]>([]);
 
     const [model, setModel] = useState<Model>(Model.GPT_4);
@@ -43,7 +35,7 @@ const Any = () => {
 
     const { t, i18n } = useTranslation();
 
-    const [chatPrompt, setChatPrompt] = useState<string>("");
+    const [chatPrompt, setChatPrompt] = useState<string>(t("prompt.placeholder"));
 
     const stackTokens: IStackTokens = {
         childrenGap: 10,
@@ -51,8 +43,6 @@ const Any = () => {
 
     const infoIcon: IIconProps = { iconName: 'Info' };
 
-    const [hideDialog, { toggle: toggleHideDialog }] = useBoolean(true);
-    const [feedbackItem, setFeedbackItem] = useState<FeedbackItem>({index: 0, type: FeedbackType.Like});
 
     const makeApiRequest = async (question: string) => {
 
@@ -60,17 +50,15 @@ const Any = () => {
 
         error && setError(undefined);
         setIsLoading(true);
-        setActiveCitation(undefined);
-        setActiveAnalysisPanelTab(undefined);
 
         try {
             const request: ChatAllRequest = {
                 query: question,
-                history: useHistory && answers.length > 0 ? answers[answers.length-1][1].history : [],
-                prompt: chatPrompt,
+                history: answers.length > 0 ? answers[answers.length-1][1].history : [],
+                prompt: answers.length <= 0 ? chatPrompt : "",
                 tokens: numCount,
                 temp: tempCount,
-                past_msg_incl: 10
+                past_msg_incl: maxHistory
             };
             const result = await chatApiAll(request);
             setAnswers([...answers, [question, result]]);
@@ -84,44 +72,13 @@ const Any = () => {
     const clearChat = () => {
         lastQuestionRef.current = "";
         error && setError(undefined);
-        setActiveCitation(undefined);
-        setActiveAnalysisPanelTab(undefined);
         setAnswers([]);
     };
 
     useEffect(() => chatMessageStreamEnd.current?.scrollIntoView({ behavior: "smooth" }), [isLoading]);
 
-    const onRetrieveCountChange = (_ev?: React.SyntheticEvent<HTMLElement, Event>, newValue?: string) => {
-        setRetrieveCount(parseInt(newValue || "3"));
-    };
-
     const onTempCountChange = (_ev?: React.SyntheticEvent<HTMLElement, Event>, newValue?: string) => {
         setTempCount(parseFloat(newValue || "0.7"));
-    };
-
-    const onUseHistory = (_ev?: React.FormEvent<HTMLElement | HTMLInputElement>, checked?: boolean) => {
-        setUseHistory(!!checked);
-    };
-
-    const onShowCitation = (citation: string, index: number) => {
-        if (activeCitation === citation && activeAnalysisPanelTab === AnalysisPanelTabs.CitationTab && selectedAnswer === index) {
-            setActiveAnalysisPanelTab(undefined);
-        } else {
-            setActiveCitation(citation);
-            setActiveAnalysisPanelTab(AnalysisPanelTabs.CitationTab);
-        }
-
-        setSelectedAnswer(index);
-    };
-
-    const onToggleTab = (tab: AnalysisPanelTabs, index: number) => {
-        if (activeAnalysisPanelTab === tab && selectedAnswer === index) {
-            setActiveAnalysisPanelTab(undefined);
-        } else {
-            setActiveAnalysisPanelTab(tab);
-        }
-
-        setSelectedAnswer(index);
     };
 
     const onModelChange = (_ev: React.FormEvent<HTMLDivElement>, option?: IDropdownOption<Model> | undefined, index?: number | undefined) => {
@@ -132,7 +89,12 @@ const Any = () => {
         setNumCount(value);
     };
 
+    const onMaxHistoryChange = (value: number) => {
+        setMaxHistory(value);
+    };
+
     const onChatPromptChange = (_ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+        clearChat();
         if (!newValue) {
             setChatPrompt("");
         } else if (newValue.length <= 1000) {
@@ -161,7 +123,7 @@ const Any = () => {
                                     <ChatAnswer
                                         key={index}
                                         answer={answer[1]}
-                                        isSelected={selectedAnswer === index && activeAnalysisPanelTab !== undefined}
+                                        isSelected={false}
                                         onFollowupQuestionClicked={q => makeApiRequest(q)}
                                     />
                                 </div>
@@ -193,13 +155,13 @@ const Any = () => {
                                 </MessageBar>
                             </Stack.Item>
                             <Stack.Item>
-                                <TextField label="Prompt:" required underlined placeholder="you are a pirate and you will answer as such!" value={chatPrompt} onChange={onChatPromptChange}/>
+                                <TextField label={t("prompt")} required underlined placeholder={t("prompt.placeholder")} value={chatPrompt} onChange={onChatPromptChange}/>
                             </Stack.Item>
                             <Stack.Item>
                                 <QuestionInput
                                     clearOnSend
                                     placeholder={t("placeholder")}
-                                    disabled={isLoading}
+                                    disabled={isLoading || !chatPrompt.trim()}
                                     onSend={question => makeApiRequest(question)}
                                 />
                             </Stack.Item>
@@ -227,14 +189,6 @@ const Any = () => {
                     />
                     <SpinButton
                         className={styles.chatSettingsSeparator}
-                        label={t('menu.desc')}
-                        min={1}
-                        max={5}
-                        defaultValue={retrieveCount.toString()}
-                        onChange={onRetrieveCountChange}
-                    />
-                    <SpinButton
-                        className={styles.chatSettingsSeparator}
                         label={t('menu.desc2')}
                         min={0.0}
                         max={1.0}
@@ -243,16 +197,9 @@ const Any = () => {
                         defaultValue={tempCount.toString()}
                         onChange={onTempCountChange}
                     />
-                    <Slider label={t("menu.responsecount")} min={100} max={800} step={100} defaultValue={800} showValue onChange={onNumCountChange}/>
-                    <Checkbox
-                        className={styles.chatSettingsSeparator}
-                        checked={useHistory}
-                        label={t("use.chathistory")}
-                        onChange={onUseHistory}
-                    />
+                    <Slider label={t("menu.responsecount")} min={100} max={800} step={100} value={numCount} showValue onChange={onNumCountChange}/>
+                    <Slider label={t("menu.maxhistory")} min={1} max={20} step={1} value={maxHistory} showValue onChange={onMaxHistoryChange}/>
                 </Panel>
-
-                <Feedback item={feedbackItem} hide={hideDialog} toggleHideDialog={toggleHideDialog}/>
             </div>
         </div>
     );

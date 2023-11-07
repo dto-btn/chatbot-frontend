@@ -32,5 +32,8 @@
     "menu.responsecount": "Réponse maximale",
     "msteams.channel": "Adopteurs précoces de SPC",
     "sscplus.question": "Question MonSPC Plus",
-    "any.question": "N'importe qu'elle question"
+    "any.question": "N'importe qu'elle question",
+    "prompt.placeholder": "Vous êtes un assistant IA.",
+    "prompt": "Instruction:",
+    "menu.maxhistory": "Messages passés inclus:"
 }
