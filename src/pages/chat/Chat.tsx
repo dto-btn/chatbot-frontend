@@ -20,14 +20,8 @@ import { Feedback } from "../../components/Feedback/Feedback";
 
 const Chat = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
-    const [promptTemplate, setPromptTemplate] = useState<string>("");
     const [retrieveCount, setRetrieveCount] = useState<number>(3);
     const [tempCount, setTempCount] = useState<number>(0.7);
-    const [retrievalMode, setRetrievalMode] = useState<RetrievalMode>(RetrievalMode.Hybrid);
-    const [useSemanticRanker, setUseSemanticRanker] = useState<boolean>(true);
-    const [useSemanticCaptions, setUseSemanticCaptions] = useState<boolean>(false);
-    const [excludeCategory, setExcludeCategory] = useState<string>("");
-    const [useSuggestFollowupQuestions, setUseSuggestFollowupQuestions] = useState<boolean>(false);
     const [useHistory, setUseHistory] = useState<boolean>(true);
 
     const lastQuestionRef = useRef<string>("");
@@ -59,7 +53,7 @@ const Chat = () => {
 
 
     const makeApiRequest = async (question: string) => {
-        
+
         lastQuestionRef.current = question;
 
         error && setError(undefined);
@@ -78,14 +72,8 @@ const Chat = () => {
                 responseMode: responseMode,
                 numCount: numCount,
                 overrides: {
-                    promptTemplate: promptTemplate.length === 0 ? undefined : promptTemplate,
-                    excludeCategory: excludeCategory.length === 0 ? undefined : excludeCategory,
                     top: retrieveCount,
                     temperature: tempCount,
-                    retrievalMode: retrievalMode,
-                    semanticRanker: useSemanticRanker,
-                    semanticCaptions: useSemanticCaptions,
-                    suggestFollowupQuestions: useSuggestFollowupQuestions
                 }
             };
             const result = await chatApi(request, i18n.language);
@@ -204,7 +192,7 @@ const Chat = () => {
                                             onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab, index)}
                                             onSupportingContentClicked={() => onToggleTab(AnalysisPanelTabs.SupportingContentTab, index)}
                                             onFollowupQuestionClicked={q => makeApiRequest(q)}
-                                            showFollowupQuestions={useSuggestFollowupQuestions && answers.length - 1 === index}
+                                            showFollowupQuestions={answers.length - 1 === index}
                                             onFeedbackClicked={(type) => showFeedbackDialog(type, index)}
                                         />
                                     </div>
@@ -310,7 +298,7 @@ const Chat = () => {
                         defaultValue={tempCount.toString()}
                         onChange={onTempCountChange}
                     />
-                    <Slider label={t("menu.responsecount")} min={100} max={800} step={100} defaultValue={800} showValue onChange={onNumCountChange}/>
+                    <Slider label={t("menu.responsecount")} min={100} max={800} step={100} value={numCount} showValue onChange={onNumCountChange}/>
                     <Checkbox
                         className={styles.chatSettingsSeparator}
                         checked={useHistory}

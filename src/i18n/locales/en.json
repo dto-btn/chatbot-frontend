@@ -46,5 +46,8 @@
     "menu.model": "Model",
     "menu.responsecount": "Max response",
     "sscplus.question": "MySSCPlus Question",
-    "any.question": "Any Question"
+    "any.question": "Any Question",
+    "prompt.placeholder": "You are an AI assistant.",
+    "prompt": "Prompt:",
+    "menu.maxhistory": "Past messages included:"
 }
