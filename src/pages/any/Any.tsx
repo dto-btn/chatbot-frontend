@@ -1,19 +1,16 @@
-import { useRef, useState, useEffect } from "react";
-import { Checkbox, MessageBar, Panel, DefaultButton, SpinButton, IDropdownOption, Text, MessageBarType, Link, Stack, IStackTokens, IIconProps, Dialog, DialogFooter, PrimaryButton, DialogType, ContextualMenu, DialogContent, TextField, Dropdown, Slider } from "@fluentui/react";
-import { Chat24Regular, SparkleFilled } from "@fluentui/react-icons";
+import { DefaultButton, Dropdown, IDropdownOption, IIconProps, IStackTokens, Panel, Slider, SpinButton, Stack, TextField } from "@fluentui/react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Any.module.css";
 
-import { Model, ChatAllRequest, chatApiAll, ChatResponse } from "../../api";
+import { ChatAllRequest, ChatResponse, Model, chatApiAll } from "../../api";
 import { AnswerError, AnswerLoading } from "../../components/Answer";
-import { QuestionInput } from "../../components/QuestionInput";
-import { UserChatMessage } from "../../components/UserChatMessage";
-import { SettingsButton } from "../../components/SettingsButton";
 import { ClearChatButton } from "../../components/ClearChatButton";
+import { QuestionInput } from "../../components/QuestionInput";
+import { SettingsButton } from "../../components/SettingsButton";
+import { UserChatMessage } from "../../components/UserChatMessage";
 
-import { useTranslation } from 'react-i18next';
-import { useBoolean } from "@fluentui/react-hooks";
 import React from "react";
-import { Feedback } from "../../components/Feedback/Feedback";
+import { useTranslation } from 'react-i18next';
 import { ChatAnswer } from "../../components/Answer/ChatAnswer";
 
 const Any = () => {

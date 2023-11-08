@@ -13,7 +13,7 @@ interface Props {
 export const SettingsButton = ({ className, onClick }: Props) => {
     const { t } = useTranslation();
     return (
-        <div className={`${styles.container} ${className ?? ""}`} onClick={onClick}>
+        <div tabIndex={0} className={`${styles.container} ${className ?? ""}`} onClick={onClick}>
             <Settings24Regular />
             <Text>{t("menu.button")}</Text>
         </div>
