@@ -80,6 +80,7 @@ export function getCitationFilePath(citation: string): string {
 }
 
 export async function sendFeedback(feedback: FeedbackItem, lang: string): Promise<Response> {
+    let dateTime = new Date()
     const response = await fetch("/feedback", {
         method: "POST",
         headers: {
@@ -91,6 +92,7 @@ export async function sendFeedback(feedback: FeedbackItem, lang: string): Promis
             index: feedback.index,
             answers: feedback.answers,
             lang: lang,
+            date: dateTime
         })
     });
 
