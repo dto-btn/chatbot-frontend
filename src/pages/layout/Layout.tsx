@@ -19,13 +19,13 @@ const Layout = () => {
 
     const setDisclaimerCookie = () => {
         Cookies.set("read_disclaimer", "true", {
-          expires: 30,
+            expires: 30,
         });
     };
 
     const setTranslationCookie = () => {
         Cookies.set("lang_setting", i18n.language, {
-          expires: 30,
+            expires: 30,
         });
     };
 
@@ -38,20 +38,17 @@ const Layout = () => {
         type: DialogType.normal,
         title: t("disclaimer"),
         closeButtonAriaLabel: t("close"),
-      };
-    
+        };
+
     const [hideDialog, { toggle: toggleHideDialog }] = useBoolean(false);
 
     const modalProps = React.useMemo(
         () => ({
-          isBlocking: true,
-          styles: modalPropsStyles,
+            isBlocking: true,
+            styles: modalPropsStyles,
         }),
         [false]
     );
-    const tokens: IStackTokens = {
-        childrenGap: '0 10',
-      };
 
     return (
         <div className={styles.layout}>
@@ -66,7 +63,7 @@ const Layout = () => {
                 </Dialog>
             }
             <header className={styles.header} role={"banner"}>
-                <nav>
+                <nav aria-labelledby="primary-navigation">
                     <div className={styles.headerContainer}>
                         <Link to="." className={styles.headerTitleContainer} title="Azure OpenAI + Llama_index + langchain">
                             <img
@@ -89,14 +86,23 @@ const Layout = () => {
                                 </NavLink>
                             </li>
                         </ul>
-                        <a className={styles.headerNavLang} href="javascript:void(0)" style={{color:'white'}} onClick={() => {changeLanguage(t("langlink.shorthand")); setTranslationCookie();}}>{t("langlink")}</a>
+                        <a className={styles.headerNavLang} href="#" style={{color:'white'}} onClick={(event) => {event.preventDefault(); changeLanguage(t("langlink.shorthand")); setTranslationCookie();}}>{t("langlink")}</a>
                     </div>
                 </nav>
             </header>
 
             <Outlet />
-            <footer>
-                <a>TBS</a>
+
+            <footer className={styles.footer}>
+                <nav aria-labelledby="footer-navigation">
+                    <div className={styles.footerContainer}>
+                        <ul className={styles.footerNavList}>
+                            <li><a className={styles.footerNavPageLink} href={t("msteams.channel.url")} target="_blank">{t("msteams.channel")}</a></li>
+                            <li className={styles.headerNavLeftMargin}><a className={styles.footerNavPageLink} href={t("tbs.resonsibleai.url")}>{t("tbs.resonsibleai")}</a></li>
+                            <li className={styles.headerNavLeftMargin}><a className={styles.footerNavPageLink} href={t("feedback.url")} target="_blank">{t("feedback")}</a></li>
+                        </ul>
+                    </div>
+                </nav>
             </footer>
         </div>
     );

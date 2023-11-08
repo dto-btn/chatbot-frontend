@@ -107,10 +107,6 @@ const Any = () => {
         <div className={styles.container}>
             <div className={styles.commandsContainer}>
                 <ClearChatButton className={styles.commandButton} onClick={clearChat} disabled={!lastQuestionRef.current || isLoading} />
-                <div className={`${styles.commandButton} ${styles.containerBtn}`} onClick={() => window.open(t("msteams.channel.url"), "_blank")} title="Microsoft Teams">
-                    <Chat24Regular />
-                    <Text>{t("msteams.channel")}</Text>
-                </div>
                 <SettingsButton className={styles.commandButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} />
             </div>
             <div className={styles.chatRoot}>
@@ -149,11 +145,6 @@ const Any = () => {
                     </div>
                     <div className={styles.chatInput}>
                         <Stack tokens={stackTokens}>
-                            <Stack.Item>
-                                <MessageBar messageBarType={MessageBarType.success} isMultiline={false} messageBarIconProps={infoIcon}>
-                                    <Link href={t("feedback.url")} target="_blank" underline>{t("feedback.long")}</Link>
-                                </MessageBar>
-                            </Stack.Item>
                             <Stack.Item>
                                 <TextField label={t("prompt")} required underlined placeholder={t("prompt.placeholder")} value={chatPrompt} onChange={onChatPromptChange}/>
                             </Stack.Item>
