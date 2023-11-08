@@ -70,7 +70,7 @@ export const Feedback = ({
             <p>{awnser}</p>
             <h4><b>{t("msg.opt")}</b></h4>
             { feedbackSubmitted && <FeedbackSubmitted/>}
-            <TextField multiline autoAdjustHeight width={600} value={feedbackMessage} onChange={onFeedbackMessageChange}/>
+            { !feedbackSubmitted && <TextField multiline autoAdjustHeight width={600} value={feedbackMessage} onChange={onFeedbackMessageChange}/>}
                 { !feedbackSubmitted ? (
                     <DialogFooter>
                         <PrimaryButton onClick={feedbackApiCall} text={t("send")} />
