@@ -163,10 +163,6 @@ const Chat = () => {
         <div className={styles.container}>
             <div className={styles.commandsContainer}>
                 <ClearChatButton className={styles.commandButton} onClick={clearChat} disabled={!lastQuestionRef.current || isLoading} />
-                <div className={`${styles.commandButton} ${styles.containerBtn}`} onClick={() => window.open(t("msteams.channel.url"), "_blank")} title="Microsoft Teams">
-                    <Chat24Regular />
-                    <Text>{t("msteams.channel")}</Text>
-                </div>
                 <SettingsButton className={styles.commandButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} />
             </div>
             <div className={styles.chatRoot}>
