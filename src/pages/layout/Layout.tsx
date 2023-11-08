@@ -5,8 +5,6 @@ import { Dialog, DialogType, DialogFooter } from '@fluentui/react/lib/Dialog';
 import { PrimaryButton, DefaultButton } from '@fluentui/react/lib/Button';
 import { useBoolean } from '@fluentui/react-hooks';
 
-import github from "../../assets/github.svg";
-
 import styles from "./Layout.module.css";
 
 import logo from "../../assets/SSC-Logo-Purple-Leaf-300x300.png";
@@ -90,25 +88,16 @@ const Layout = () => {
                                 {t("any.question")}
                                 </NavLink>
                             </li>
-                            <li className={styles.headerNavLeftMargin}>
-                                <a href="https://github.com/dto-btn/chatbot-frontend" target={"_blank"} title={t("githublnk")}>
-                                    <img
-                                        src={github}
-                                        alt="Github logo"
-                                        aria-label={t("githublnk")}
-                                        width="20px"
-                                        height="20px"
-                                        className={styles.githubLogo}
-                                    />
-                                </a>
-                            </li>
                         </ul>
-                        <a className={styles.headerNavLang} href="#" style={{color:'white'}} onClick={() => {changeLanguage(t("langlink.shorthand")); setTranslationCookie();}}>{t("langlink")}</a>
+                        <a className={styles.headerNavLang} href="javascript:void(0)" style={{color:'white'}} onClick={() => {changeLanguage(t("langlink.shorthand")); setTranslationCookie();}}>{t("langlink")}</a>
                     </div>
                 </nav>
             </header>
 
             <Outlet />
+            <footer>
+                <a>TBS</a>
+            </footer>
         </div>
     );
 };
