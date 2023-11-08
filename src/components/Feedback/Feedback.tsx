@@ -61,26 +61,32 @@ export const Feedback = ({
     };
     
     return (
-        <Dialog
-            hidden={hide}
-            onDismiss={clearSubmitted}
-            dialogContentProps={dialogContentProps}
-        >
-            <h4><b>{t("question.submitted")}</b></h4>
-            <p>{awnser}</p>
-            <h4><b>{t("msg.opt")}</b></h4>
-            { feedbackSubmitted && <FeedbackSubmitted/>}
-            <TextField multiline autoAdjustHeight width={600} value={feedbackMessage} onChange={onFeedbackMessageChange}/>
-                { !feedbackSubmitted ? (
+        !feedbackSubmitted ? (
+            <Dialog
+                hidden={hide}
+                onDismiss={clearSubmitted}
+                dialogContentProps={dialogContentProps}
+            >
+                <h4><b>{t("question.submitted")}</b></h4>
+                <p>{awnser}</p>
+                <h4><b>{t("msg.opt")}</b></h4>
+                <TextField multiline autoAdjustHeight width={600} value={feedbackMessage} onChange={onFeedbackMessageChange}/>
                     <DialogFooter>
                         <PrimaryButton onClick={feedbackApiCall} text={t("send")} />
                         <DefaultButton onClick={toggleHideDialog} text={t("dontsend")} />
                     </DialogFooter>
-                ) : (
-                    <DialogFooter>
-                        <PrimaryButton onClick={toggleHideDialog} text={t("close")} />
-                    </DialogFooter>
-                )}
-        </Dialog>
+            </Dialog>
+        ) : (
+            <Dialog
+            hidden={hide}
+            onDismiss={clearSubmitted}
+            dialogContentProps={dialogContentProps}
+            >
+                <FeedbackSubmitted/>
+                <DialogFooter>
+                    <PrimaryButton onClick={toggleHideDialog} text={t("close")} />
+                </DialogFooter>
+            </Dialog>
+        )
     )
 }
