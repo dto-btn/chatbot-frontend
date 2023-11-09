@@ -5,8 +5,6 @@ import { Dialog, DialogType, DialogFooter } from '@fluentui/react/lib/Dialog';
 import { PrimaryButton, DefaultButton } from '@fluentui/react/lib/Button';
 import { useBoolean } from '@fluentui/react-hooks';
 
-import github from "../../assets/github.svg";
-
 import styles from "./Layout.module.css";
 
 import logo from "../../assets/SSC-Logo-Purple-Leaf-300x300.png";
@@ -21,13 +19,13 @@ const Layout = () => {
 
     const setDisclaimerCookie = () => {
         Cookies.set("read_disclaimer", "true", {
-          expires: 30,
+            expires: 30,
         });
     };
 
     const setTranslationCookie = () => {
         Cookies.set("lang_setting", i18n.language, {
-          expires: 30,
+            expires: 30,
         });
     };
 
@@ -40,20 +38,17 @@ const Layout = () => {
         type: DialogType.normal,
         title: t("disclaimer"),
         closeButtonAriaLabel: t("close"),
-      };
-    
+        };
+
     const [hideDialog, { toggle: toggleHideDialog }] = useBoolean(false);
 
     const modalProps = React.useMemo(
         () => ({
-          isBlocking: true,
-          styles: modalPropsStyles,
+            isBlocking: true,
+            styles: modalPropsStyles,
         }),
         [false]
     );
-    const tokens: IStackTokens = {
-        childrenGap: '0 10',
-      };
 
     return (
         <div className={styles.layout}>
@@ -66,50 +61,49 @@ const Layout = () => {
                         <DefaultButton onClick={() => {changeLanguage(t("langlink.shorthand")); setTranslationCookie();}} text={t("langlink")} />
                     </DialogFooter>
                 </Dialog>
-            }   
+            }
             <header className={styles.header} role={"banner"}>
-                <div className={styles.headerContainer}>
-                    <Link to="." className={styles.headerTitleContainer} title="Azure OpenAI + Llama_index + langchain">
-                        <img
-                            src={logo}
-                            alt="Shared Services Canada Logo"
-                            width="32px"
-                            height="32px"
-                        />
-                        <h3 className={styles.headerTitle}>{t("title")}</h3>
-                    </Link>
-                    <nav>
+                <nav aria-labelledby="primary-navigation">
+                    <div className={styles.headerContainer}>
+                        <Link to="." className={styles.headerTitleContainer} title="Azure OpenAI + Llama_index + langchain">
+                            <img
+                                src={logo}
+                                alt="Shared Services Canada Logo"
+                                width="32px"
+                                height="32px"
+                            />
+                            <h3 className={styles.headerTitle}>{t("title")}</h3>
+                        </Link>
                         <ul className={styles.headerNavList}>
-                            {/* <li>
+                            <li>
                                 <NavLink to="/" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
-                                    Chat
+                                    {t("sscplus.question")}
                                 </NavLink>
-                            </li> */}
-                            {/* <li className={styles.headerNavLeftMargin}>
-                                <NavLink to="/qa" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
-                                    Ask a question
-                                </NavLink>
-                            </li> */}
-                            <li><a href="#" style={{color:'white'}} onClick={() => {changeLanguage(t("langlink.shorthand")); setTranslationCookie();}}>{t("langlink")}</a></li>
+                            </li>
                             <li className={styles.headerNavLeftMargin}>
-                                <a href="https://github.com/dto-btn/chatbot-frontend" target={"_blank"} title={t("githublnk")}>
-                                    <img
-                                        src={github}
-                                        alt="Github logo"
-                                        aria-label={t("githublnk")}
-                                        width="20px"
-                                        height="20px"
-                                        className={styles.githubLogo}
-                                    />
-                                </a>
+                                <NavLink to="/any" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
+                                {t("any.question")}
+                                </NavLink>
                             </li>
                         </ul>
-                    </nav>
-                    <h4 className={styles.headerRightText}>Azure OpenAI + Llama_index + langchain</h4>
-                </div>
+                        <a className={styles.headerNavLang} href="#" style={{color:'white'}} onClick={(event) => {event.preventDefault(); changeLanguage(t("langlink.shorthand")); setTranslationCookie();}}>{t("langlink")}</a>
+                    </div>
+                </nav>
             </header>
 
             <Outlet />
+
+            <footer className={styles.footer}>
+                <nav aria-labelledby="footer-navigation">
+                    <div className={styles.footerContainer}>
+                        <ul className={styles.footerNavList}>
+                            <li><a className={styles.footerNavPageLink} href={t("msteams.channel.url")} target="_blank">{t("msteams.channel")}</a></li>
+                            <li className={styles.headerNavLeftMargin}><a className={styles.footerNavPageLink} href={t("tbs.resonsibleai.url")}>{t("tbs.resonsibleai")}</a></li>
+                            <li className={styles.headerNavLeftMargin}><a className={styles.footerNavPageLink} href={t("feedback.url")} target="_blank">{t("feedback")}</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </footer>
         </div>
     );
 };

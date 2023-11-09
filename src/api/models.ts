@@ -80,9 +80,50 @@ export type ChatRequest = {
     numCount: number
 };
 
+export type ChatAllRequest = {
+    query: string;
+    history?: ChatHistory[];
+    prompt?: string;
+    tokens?: number;
+    temp?: number;
+    past_msg_incl?: number
+};
+
 export type FeedbackItem = {
     text?: string;
     type: FeedbackType;
     index: number;
     answers?: [user: string, response: AskResponse][];
+};
+
+export type ChatHistory = {
+    role: string;
+    content: string;
+};
+
+export type Message = {
+    content: string;
+    role: string;
+};
+
+export type Choice = {
+    finish_reason: string;
+    index: number;
+    message: Message;
+};
+
+export type Usage = {
+    completion_tokens: number;
+    prompt_tokens: number;
+    total_tokens: number;
+};
+
+export type ChatResponse = {
+    choices: Choice[];
+    created: number;
+    history: ChatHistory[];
+    id: string;
+    model: string;
+    object: string;
+    usage: Usage;
 };

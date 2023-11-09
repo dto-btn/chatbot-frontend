@@ -5,28 +5,24 @@
 }
 
 .header {
-    background-color: #222222;
+    background-color: #474747;
     color: #f2f2f2;
 }
 
 .headerContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
     margin-right: 12px;
     margin-left: 12px;
-    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
 }
 
 .headerTitleContainer {
-    display: flex;
-    align-items: center;
-    flex-basis: 33.33333%;
     color: #f2f2f2;
     text-decoration: none;
-    justify-content: left;
-    margin-left: auto;
+    justify-self: center;
+    align-items: center;
+    display: flex;
 }
 
 .headerLogo {
@@ -39,10 +35,17 @@
 }
 
 .headerNavList {
-    flex-basis: 33.33333%;
-    display: flex;
     list-style: none;
     padding-left: 0;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+}
+
+.headerNavLang {
+    display: flex;
+    align-items: center;
+    justify-self: right;
 }
 
 .headerNavPageLink {
@@ -61,7 +64,7 @@
 
 .headerNavPageLinkActive {
     color: #f2f2f2;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 .headerNavLeftMargin {
@@ -84,25 +87,38 @@
 }
 
 .footer {
-    background-color: #222222;
-    color: #f2f2f2;
+    background-color: #474747;
+    color: #ffffff;
 }
 
 .footerContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
     margin-right: 12px;
     margin-left: 12px;
-    position: relative;
-}
-
-.footerText {
-    color: #f2f2f2;
-    text-decoration: none;
+    display: grid;
+    grid-template-rows: auto;
 }
 
 .disclaimer {
     font-weight: bold;
+}
+
+.footerNavList {
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+}
+
+.footerNavPageLink {
+    color: #ffffff;
+    text-decoration: none;
+
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    transition-duration: 500ms;
+    transition-property: opacity;
+}
+
+.footerNavPageLink:hover {
+    text-decoration: underline;
 }

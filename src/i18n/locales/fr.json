@@ -7,9 +7,9 @@
     "disclaimer.desc2": "N'ENVOYEZ AUCUNE INFORMATION PROTÉGÉE DANS LE CHATBOT.",
     "feedback.long": "Cliquez ici pour nous faire part de vos commentaires. Merci de nous communiquer vos remarques!",
     "githublnk": "Lien vers entrepôt Github",
-    "title": "Pilote robot conversationnel - Azure OpenAI",
+    "title": "Chatbot Alimenté par l'IA - Pilote",
     "title.short": "Pilote Robot conversationnel",
-    "chatwith": "Bienvenue au projet pilote du robot conversationnel d'Azure OpenAI",
+    "chatwith": "Bienvenue au projet pilote du Chatbot Alimenté par l'IA",
     "chatwith.sub": "Essayez ces exemples :",
     "placeholder": "Tapez votre question ici :",
     "example1": "Quel est le système de gestion de l’information utilisé par SPC?",
@@ -30,5 +30,12 @@
     "menu.model.select": "Choisir le modèle",
     "menu.model": "Modèle",
     "menu.responsecount": "Réponse maximale",
-    "msteams.channel": "Adopteurs précoces de SPC"
+    "msteams.channel": "Adopteurs précoces de SPC",
+    "sscplus.question": "Question MonSPC+",
+    "any.question": "Demander à GPT-4",
+    "prompt.placeholder": "Vous êtes un assistant IA.",
+    "prompt": "Instruction:",
+    "menu.maxhistory": "Messages passés inclus:",
+    "tbs.resonsibleai": "Guide d'utilisation de l'IA Générative",
+    "tbs.responsibleai.url": "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/innovations-gouvernementales-numeriques/utilisation-responsable-ai/guide-utilisation-intelligence-artificielle-generative.html"
 }

@@ -7,9 +7,9 @@
     "disclaimer.desc2": "DO NOT SEND ANY PROTECTED INFORMATION IN THE CHATBOT.",
     "feedback.long": "Click here to let us know your thoughts. Thank you for your feedback!",
     "githublnk": "Github repository link",
-    "title": "Azure OpenAI - Chatbot Pilot",
+    "title": "AI Powered Chatbot - Pilot",
     "title.short": "Chatbot Pilot",
-    "chatwith": "Welcome to the Azure OpenAI Chatbot pilot",
+    "chatwith": "Welcome to the AI Powered Chatbot Pilot",
     "chatwith.sub": "Try these examples:",
     "placeholder": "Type your question here:",
     "example1": "What records management system does SSC use?",
@@ -44,5 +44,12 @@
     "menu.responsemode": "Response mode",
     "menu.model.select": "Select model",
     "menu.model": "Model",
-    "menu.responsecount": "Max response"
+    "menu.responsecount": "Max response",
+    "sscplus.question": "MySSC+ Content",
+    "any.question": "Ask GPT-4",
+    "prompt.placeholder": "You are an AI assistant.",
+    "prompt": "Prompt:",
+    "menu.maxhistory": "Past messages included:",
+    "tbs.resonsibleai": "Guide on the use of Generative AI",
+    "tbs.responsibleai.url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html"
 }

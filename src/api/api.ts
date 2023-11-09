@@ -1,4 +1,4 @@
-import { AskRequest, AskResponse, ChatRequest, FeedbackItem } from "./models";
+import { AskRequest, AskResponse, ChatAllRequest, ChatRequest, ChatResponse, FeedbackItem } from "./models";
 
 export async function askApi(options: AskRequest, lang: string): Promise<AskResponse> {
     const response = await fetch("/query", {
@@ -51,11 +51,36 @@ export async function chatApi(options: ChatRequest, lang: string): Promise<AskRe
     return parsedResponse;
 }
 
+export async function chatApiAll(options: ChatAllRequest): Promise<ChatResponse> {
+    const response = await fetch("/chat", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            query: options.query,
+            history: options.history,
+            prompt: options.prompt,
+            tokens: options.tokens,
+            temp: options.temp,
+            past_msg_incl: options.past_msg_incl
+        })
+    });
+
+    const parsedResponse: ChatResponse = await response.json();
+    if (response.status > 299 || !response.ok) {
+        throw Error("Unknown error");
+    }
+
+    return parsedResponse;
+}
+
 export function getCitationFilePath(citation: string): string {
     return `/content/${citation}`;
 }
 
 export async function sendFeedback(feedback: FeedbackItem, lang: string): Promise<Response> {
+    let dateTime = new Date()
     const response = await fetch("/feedback", {
         method: "POST",
         headers: {
@@ -67,6 +92,7 @@ export async function sendFeedback(feedback: FeedbackItem, lang: string): Promis
             index: feedback.index,
             answers: feedback.answers,
             lang: lang,
+            date: dateTime
         })
     });
 
