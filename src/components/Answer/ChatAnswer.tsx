@@ -33,7 +33,7 @@ export const ChatAnswer = ({
     isSelected,
     onFollowupQuestionClicked,
 }: Props) => {
-    const parsedAnswer = useMemo(() => parseAnswerToHtml(answer.choices[0].message.content, () => {}), [answer]);
+    const parsedAnswer = useMemo(() => parseAnswerToHtml(answer.message.content, () => {}), [answer]);
     const sanitizedAnswerHtmlPre = DOMPurify.sanitize(parsedAnswer.answerHtml);
     const Rexp = /(\b(https?|ftp|file):\/\/([-A-Z0-9+&@#%?=~_|!:,.;]*)([-A-Z0-9+&@#%?\/=~_|!:,.;]*)[-A-Z0-9+&@#\/%=~_|])/ig;
     const sanitizedAnswerHtml = sanitizedAnswerHtmlPre.replace(Rexp, "<a href='$1' target='_blank'>$1</a>");

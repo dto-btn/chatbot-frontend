@@ -50,6 +50,6 @@
     "prompt.placeholder": "You are an AI assistant.",
     "prompt": "Prompt:",
     "menu.maxhistory": "Past messages included:",
-    "tbs.resonsibleai": "Guide on the use of Generative AI",
+    "tbs.responsibleai": "Guide on the use of Generative AI",
     "tbs.responsibleai.url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html"
 }

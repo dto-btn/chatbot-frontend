@@ -36,6 +36,6 @@
     "prompt.placeholder": "Vous êtes un assistant IA.",
     "prompt": "Instruction:",
     "menu.maxhistory": "Messages passés inclus:",
-    "tbs.resonsibleai": "Guide d'utilisation de l'IA Générative",
+    "tbs.responsibleai": "Guide d'utilisation de l'IA Générative",
     "tbs.responsibleai.url": "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/innovations-gouvernementales-numeriques/utilisation-responsable-ai/guide-utilisation-intelligence-artificielle-generative.html"
 }

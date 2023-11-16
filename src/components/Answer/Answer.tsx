@@ -15,6 +15,7 @@ import { IconButton } from '@fluentui/react/lib/Button';
 
 import { useBoolean } from '@fluentui/react-hooks';
 import { FeedbackType } from "../Feedback/FeedbackType";
+import QuestionAnswered from "./QuestionAnswered";
 
 
 interface Props {
@@ -26,6 +27,7 @@ interface Props {
     onFollowupQuestionClicked?: (question: string) => void;
     showFollowupQuestions?: boolean,
     onFeedbackClicked: (type: FeedbackType) => void;
+    question: string;
 }
 
 const sourceIcon: IIconProps = { iconName: 'Source'};
@@ -41,7 +43,8 @@ export const Answer = ({
     onSupportingContentClicked,
     onFollowupQuestionClicked,
     showFollowupQuestions,
-    onFeedbackClicked
+    onFeedbackClicked,
+    question
 }: Props) => {
     const parsedAnswer = useMemo(() => parseAnswerToHtml(answer.answer, onCitationClicked), [answer]);
     const sanitizedAnswerHtmlPre = DOMPurify.sanitize(parsedAnswer.answerHtml);
@@ -69,6 +72,10 @@ export const Answer = ({
 
             <Stack.Item grow>
                 <div className={styles.answerText} dangerouslySetInnerHTML={{ __html: sanitizedAnswerHtml }}></div>
+            </Stack.Item>
+
+            <Stack.Item grow>
+                <QuestionAnswered question={question} answer={sanitizedAnswerHtml}/>
             </Stack.Item>
 
             {!!parsedAnswer.citations.length && (

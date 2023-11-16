@@ -3,7 +3,7 @@ import { Checkbox, MessageBar, Panel, DefaultButton, SpinButton, IDropdownOption
 import { Chat24Regular, SparkleFilled } from "@fluentui/react-icons";
 import styles from "./Chat.module.css";
 
-import { chatApi, RetrievalMode, Approaches, AskResponse, ChatRequest, ChatTurn, FeedbackItem, ResponseMode, Model } from "../../api";
+import { chatApi, RetrievalMode, Approaches, AskResponse, ChatRequest, ChatTurn, FeedbackItem, ResponseMode, Model, ChatAllRequest, chatApiAll } from "../../api";
 import { Answer, AnswerError, AnswerLoading } from "../../components/Answer";
 import { QuestionInput } from "../../components/QuestionInput";
 import { ExampleList } from "../../components/Example";
@@ -190,6 +190,7 @@ const Chat = () => {
                                             onFollowupQuestionClicked={q => makeApiRequest(q)}
                                             showFollowupQuestions={answers.length - 1 === index}
                                             onFeedbackClicked={(type) => showFeedbackDialog(type, index)}
+                                            question={answer[0]}
                                         />
                                     </div>
                                 </div>
