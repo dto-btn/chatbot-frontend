@@ -51,6 +51,7 @@ export const Answer = ({
     const { t } = useTranslation();
 
     const [toggleMenu, {toggle: toggleMenuVisiblity }] = useBoolean(false);
+    const [toggleSource, {toggle: toggleSourceVisiblity }] = useBoolean(false);
 
     return (
         <Stack className={`${styles.answerContainer} ${isSelected && styles.selected}`} verticalAlign="space-between" onMouseEnter={() => toggleMenuVisiblity()} onMouseLeave={() =>  toggleMenuVisiblity()}>
@@ -62,8 +63,12 @@ export const Answer = ({
                         <IconButton iconProps={like} className={styles.menuIcons} title={t("like")} ariaLabel={t("like")} onClick={() => onFeedbackClicked(FeedbackType.Like)}/>
                         <IconButton iconProps={dislike} className={styles.menuIcons} title={t("dislike")} ariaLabel={t("dislike")}  onClick={() => onFeedbackClicked(FeedbackType.Dislike)}/> 
                         <IconButton iconProps={copy} onClick={() => navigator.clipboard.writeText(sanitizedAnswerHtmlPre)} className={styles.menuIcons} title={t("copy")} ariaLabel={t("copy")} />
-                        <IconButton iconProps={sourceIcon} allowDisabledFocus disabled={!answer.metadata} onClick={() => onSupportingContentClicked()} title={t("sources")} ariaLabel={t("sources")} className={styles.menuIcons} />
-                    </div>) : null}
+                        <IconButton iconProps={sourceIcon} allowDisabledFocus disabled={!answer.metadata} onClick={() => {onSupportingContentClicked(); toggleSourceVisiblity();}} title={t("sources")} ariaLabel={t("sources")} className={styles.menuIcons} />
+                    </div>) : null ||
+                    toggleSource ? 
+                    (<div className={styles.sourcesContainer}>
+                        <IconButton iconProps={sourceIcon} allowDisabledFocus disabled={!answer.metadata} onClick={() => {onSupportingContentClicked(); toggleSourceVisiblity();}} title={t("sources")} ariaLabel={t("sources")} className={styles.menuIcons} />
+                    </div>): null}
                 </Stack>
             </Stack.Item>
 
