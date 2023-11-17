@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
-import { Checkbox, MessageBar, Panel, DefaultButton, SpinButton, IDropdownOption, Text, MessageBarType, Link, Stack, IStackTokens, IIconProps, Dialog, DialogFooter, PrimaryButton, DialogType, ContextualMenu, DialogContent, TextField, Dropdown, Slider } from "@fluentui/react";
-import { Chat24Regular, SparkleFilled } from "@fluentui/react-icons";
+import { Checkbox, MessageBar, Panel, DefaultButton, SpinButton, IDropdownOption, Text, MessageBarType, Link, Stack, IStackTokens, IIconProps, Dialog, DialogFooter, PrimaryButton, DialogType, ContextualMenu, DialogContent, TextField, Dropdown, Slider, selectProperties } from "@fluentui/react";
+import { Chat24Regular, Sleep20Filled, SparkleFilled } from "@fluentui/react-icons";
 import styles from "./Chat.module.css";
 
 import { chatApi, RetrievalMode, Approaches, AskResponse, ChatRequest, ChatTurn, FeedbackItem, ResponseMode, Model, ChatAllRequest, chatApiAll } from "../../api";
@@ -63,6 +63,8 @@ const Chat = () => {
         setActiveCitation(undefined);
         setActiveAnalysisPanelTab(undefined);
 
+        let res = null
+
         try {
             const history: ChatTurn[] = answers.map(a => ({ user: a[0], bot: a[1].answer }));
             const request: ChatRequest = {
@@ -79,12 +81,16 @@ const Chat = () => {
                 }
             };
             const result = await chatApi(request, i18n.language);
+            res = result.answer;
             setAnswers([...answers, [question, result]]);
-            checkQuestionAnswered(question, result.answer);
+            
         } catch (e) {
             setError(e);
         } finally {
             setIsLoading(false);
+            if(res) {
+                checkQuestionAnswered(question, res);
+            }
         }
     };
 
@@ -94,12 +100,12 @@ const Chat = () => {
             const request: ChatAllRequest = {
                 query: `QUESTION: ${question} ANSWER: ${answer}`,
                 history: [],
-                prompt: "I will give you a question that was asked by the user and the awnser you gave back. Were you able to successfully help the user with that answer. Uniquely answer by YES or by NO",
+                prompt: t("answer.validate.query"),
                 temp: 0.0,
             };
 
             const result = await chatApiAll(request);
-            setAnswerStatus([...answerStatus, "yes".toLocaleLowerCase() === result.message.content.toLocaleLowerCase()]);
+            setAnswerStatus([...answerStatus, "yes".toLocaleLowerCase() === result.message.content.trim().toLocaleLowerCase()]);
 
         } catch (e) {
             console.error("Unable to get proper feedback for answer.",e);
