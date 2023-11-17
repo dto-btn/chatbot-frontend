@@ -42,6 +42,8 @@ const Chat = () => {
 
     const { t, i18n } = useTranslation();
 
+    const [answerStatus, setAnswerStatus] = useState<boolean[]>([]);
+
     const stackTokens: IStackTokens = {
         childrenGap: 10,
     };
@@ -78,10 +80,29 @@ const Chat = () => {
             };
             const result = await chatApi(request, i18n.language);
             setAnswers([...answers, [question, result]]);
+            checkQuestionAnswered(question, result.answer);
         } catch (e) {
             setError(e);
         } finally {
             setIsLoading(false);
+        }
+    };
+
+    const checkQuestionAnswered = async (question: string, answer: string) => {
+        try{
+            //Ask follow up question and for validation the question was answered properly.
+            const request: ChatAllRequest = {
+                query: `QUESTION: ${question} ANSWER: ${answer}`,
+                history: [],
+                prompt: "I will give you a question that was asked by the user and the awnser you gave back. Were you able to successfully help the user with that answer. Uniquely answer by YES or by NO",
+                temp: 0.0,
+            };
+
+            const result = await chatApiAll(request);
+            setAnswerStatus([...answerStatus, "yes".toLocaleLowerCase() === result.message.content.toLocaleLowerCase()]);
+
+        } catch (e) {
+            console.error("Unable to get proper feedback for answer.",e);
         }
     };
 
@@ -91,6 +112,7 @@ const Chat = () => {
         setActiveCitation(undefined);
         setActiveAnalysisPanelTab(undefined);
         setAnswers([]);
+        setAnswerStatus([]);
     };
 
     useEffect(() => chatMessageStreamEnd.current?.scrollIntoView({ behavior: "smooth" }), [isLoading]);
@@ -158,6 +180,20 @@ const Chat = () => {
         { key: 'compact_accumulate', text: 'compact_accumulate' },
       ];
 
+    const [nextQuestion, setNextQuestion] = useState<string | null>(null);
+
+    const retryQuestion = (question: string) => {
+        clearChat();
+        setNextQuestion(question);
+    }
+
+    useEffect(() => {
+        if (nextQuestion !== null) {
+            makeApiRequest(nextQuestion);
+            setNextQuestion(null);
+        }
+    }, [nextQuestion]);
+
     return (
 
         <div className={styles.container}>
@@ -183,6 +219,7 @@ const Chat = () => {
                                         <Answer
                                             key={index}
                                             answer={answer[1]}
+                                            question={answer[0]}
                                             isSelected={selectedAnswer === index && activeAnalysisPanelTab !== undefined}
                                             onCitationClicked={c => onShowCitation(c, index)}
                                             onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab, index)}
@@ -190,7 +227,8 @@ const Chat = () => {
                                             onFollowupQuestionClicked={q => makeApiRequest(q)}
                                             showFollowupQuestions={answers.length - 1 === index}
                                             onFeedbackClicked={(type) => showFeedbackDialog(type, index)}
-                                            question={answer[0]}
+                                            questionAnswered={answerStatus[index] !== undefined ? answerStatus[index] : true}
+                                            retryQuestion={retryQuestion}
                                         />
                                     </div>
                                 </div>

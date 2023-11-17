@@ -1,10 +1,10 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ITooltipProps, Stack } from "@fluentui/react";
 import DOMPurify from "dompurify";
 
 import styles from "./Answer.module.css";
 
-import { AskResponse, getCitationFilePath } from "../../api";
+import { AskResponse, ChatAllRequest, chatApiAll, getCitationFilePath } from "../../api";
 import { parseAnswerToHtml } from "./AnswerParser";
 import { AnswerIcon } from "./AnswerIcon";
 
@@ -15,11 +15,13 @@ import { IconButton } from '@fluentui/react/lib/Button';
 
 import { useBoolean } from '@fluentui/react-hooks';
 import { FeedbackType } from "../Feedback/FeedbackType";
-import QuestionAnswered from "./QuestionAnswered";
+import QuestionAnswered from "./QuestionNotAnswered";
+import QuestionNotAnswered from "./QuestionNotAnswered";
 
 
 interface Props {
     answer: AskResponse;
+    question: string;
     isSelected?: boolean;
     onCitationClicked: (filePath: string) => void;
     onThoughtProcessClicked: () => void;
@@ -27,7 +29,8 @@ interface Props {
     onFollowupQuestionClicked?: (question: string) => void;
     showFollowupQuestions?: boolean,
     onFeedbackClicked: (type: FeedbackType) => void;
-    question: string;
+    questionAnswered: boolean;
+    retryQuestion: (question: string) => void;
 }
 
 const sourceIcon: IIconProps = { iconName: 'Source'};
@@ -37,6 +40,7 @@ const copy: IIconProps = { iconName: 'Copy'}
 
 export const Answer = ({
     answer,
+    question,
     isSelected,
     onCitationClicked,
     onThoughtProcessClicked,
@@ -44,7 +48,8 @@ export const Answer = ({
     onFollowupQuestionClicked,
     showFollowupQuestions,
     onFeedbackClicked,
-    question
+    questionAnswered,
+    retryQuestion
 }: Props) => {
     const parsedAnswer = useMemo(() => parseAnswerToHtml(answer.answer, onCitationClicked), [answer]);
     const sanitizedAnswerHtmlPre = DOMPurify.sanitize(parsedAnswer.answerHtml);
@@ -75,7 +80,7 @@ export const Answer = ({
             </Stack.Item>
 
             <Stack.Item grow>
-                <QuestionAnswered question={question} answer={sanitizedAnswerHtml}/>
+                {!questionAnswered && <QuestionNotAnswered question={question} retryQuestion={retryQuestion}/>}
             </Stack.Item>
 
             {!!parsedAnswer.citations.length && (
