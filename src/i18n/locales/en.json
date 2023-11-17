@@ -50,6 +50,8 @@
     "prompt.placeholder": "You are an AI assistant.",
     "prompt": "Prompt:",
     "menu.maxhistory": "Past messages included:",
-    "tbs.resonsibleai": "Guide on the use of Generative AI",
-    "tbs.responsibleai.url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html"
+    "tbs.responsibleai": "Guide on the use of Generative AI",
+    "tbs.responsibleai.url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html",
+    "answer.not.found": "It seems we could not find an answer to your question, you can try clearing the history and asking the question again.",
+    "answer.validate.query": "I will give you a question that was asked by the user and the awnser you gave back. Were you able to successfully help the user with that answer. Uniquely answer by YES or by NO"
 }

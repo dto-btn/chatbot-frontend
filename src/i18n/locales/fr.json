@@ -36,6 +36,8 @@
     "prompt.placeholder": "Vous êtes un assistant IA.",
     "prompt": "Instruction:",
     "menu.maxhistory": "Messages passés inclus:",
-    "tbs.resonsibleai": "Guide d'utilisation de l'IA Générative",
-    "tbs.responsibleai.url": "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/innovations-gouvernementales-numeriques/utilisation-responsable-ai/guide-utilisation-intelligence-artificielle-generative.html"
+    "tbs.responsibleai": "Guide d'utilisation de l'IA Générative",
+    "tbs.responsibleai.url": "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/innovations-gouvernementales-numeriques/utilisation-responsable-ai/guide-utilisation-intelligence-artificielle-generative.html",
+    "answer.not.found": "Il semble que nous n'ayons pas pu trouver une réponse à votre question, vous pouvez essayer d'effacer l'historique et de poser la question à nouveau.",
+    "answer.validate.query": "Je vais vous donner une question qui a été posée par l'utilisateur et la réponse que vous avez donnée en retour. Avez-vous réussi à aider l'utilisateur avec cette réponse. Répondez uniquement par YES (pour oui) ou par NO (pour non)"
 }
