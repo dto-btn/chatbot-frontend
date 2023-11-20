@@ -12,6 +12,7 @@ import { UserChatMessage } from "../../components/UserChatMessage";
 import React from "react";
 import { useTranslation } from 'react-i18next';
 import { ChatAnswer } from "../../components/Answer/ChatAnswer";
+import { SparkleFilled } from "@fluentui/react-icons";
 
 const Any = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
@@ -40,8 +41,7 @@ const Any = () => {
 
     const infoIcon: IIconProps = { iconName: 'Info' };
 
-
-    const makeApiRequest = async (question: string) => {
+    const makeApiRequest = async (question: string, prompt?: string) => {
 
         lastQuestionRef.current = question;
 
@@ -51,8 +51,8 @@ const Any = () => {
         try {
             const request: ChatAllRequest = {
                 query: question,
-                history: answers.length > 0 ? answers[answers.length-1][1].history : [],
-                prompt: answers.length <= 0 ? chatPrompt : "",
+                history: answers.length > 0 && !prompt ? answers[answers.length-1][1].history : [],
+                prompt: answers.length <= 0 || prompt ? (prompt ? prompt : chatPrompt) : "",
                 tokens: numCount,
                 temp: tempCount,
                 past_msg_incl: maxHistory
@@ -69,7 +69,7 @@ const Any = () => {
     const clearChat = () => {
         lastQuestionRef.current = "";
         error && setError(undefined);
-        setAnswers([]);
+        setAnswers(a => []);
     };
 
     useEffect(() => chatMessageStreamEnd.current?.scrollIntoView({ behavior: "smooth" }), [isLoading]);
@@ -99,6 +99,18 @@ const Any = () => {
         }
     };
 
+    const runExample = (prompt: string, query: string) => {
+        clearChat();
+        setChatPrompt(prompt);
+        makeApiRequest(query, prompt);
+    }
+
+    const EXAMPLES: {summary: string, prompt: string, query: string}[] = [
+        { summary: t('gpt-ex1-s'), prompt: t('gpt-ex1-p'), query: t('gpt-ex1-q') },
+        { summary: t('gpt-ex2-s'), prompt: t('gpt-ex2-p'), query: t('gpt-ex2-q') },
+        { summary: t('gpt-ex3-s'), prompt: t('gpt-ex3-p'), query: t('gpt-ex3-q') }
+    ];
+
     return (
 
         <div className={styles.container}>
@@ -108,6 +120,22 @@ const Any = () => {
             </div>
             <div className={styles.chatRoot}>
                 <div className={styles.chatContainer}>
+                    {!lastQuestionRef.current ? (
+                        <div className={styles.chatEmptyState}>
+                            <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />
+                            <h2 className={styles.chatEmptyStateSubtitle}>{t("chatwith.sub")}</h2>
+                            <ul className={styles.examplesNavList}>
+                                {EXAMPLES.map((x, i) => (
+                                    <li key={i}>
+                                        <div className={styles.example} onClick={() => runExample(x.prompt, x.query)}>
+                                            <p className={styles.exampleText}>{x.summary}</p>
+                                            <p className={styles.exampleTextSmall}>{t('prompt')} {x.prompt}</p>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ) : (
                     <div className={styles.chatMessageStream}>
                         {answers.map((answer, index) => (
                             <div key={index}>
@@ -140,6 +168,7 @@ const Any = () => {
                         ) : null}
                         <div ref={chatMessageStreamEnd} />
                     </div>
+                    )}
                     <div className={styles.chatInput}>
                         <Stack tokens={stackTokens}>
                             <Stack.Item>

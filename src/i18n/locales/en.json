@@ -53,5 +53,14 @@
     "tbs.responsibleai": "Guide on the use of Generative AI",
     "tbs.responsibleai.url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html",
     "answer.not.found": "It seems we could not find an answer to your question, you can try clearing the history and asking the question again.",
-    "answer.validate.query": "I will give you a question that was asked by the user and the awnser you gave back. Were you able to successfully help the user with that answer. Uniquely answer by YES or by NO"
+    "answer.validate.query": "I will give you a question that was asked by the user and the awnser you gave back. Were you able to successfully help the user with that answer. Uniquely answer by YES or by NO",
+    "gpt-ex1-s": "Text translation",
+    "gpt-ex1-p": "translate to french",
+    "gpt-ex1-q": "When Mr. Bilbo Baggins of Bag End announced that he would shortly be celebrating his eleventy-first birthday with a party of special magnificence, there was much talk and excitement in Hobbiton. Bilbo was very rich and very peculiar, and had been the wonder of the Shire for sixty years, ever since his remarkable disappearance and unexpected return. The riches he had brought back from his travels had now become a local legend, and it was popularly believed, whatever the old folk might say, that the Hill at Bag End was full of tunnels stuffed with treasure. And if that was not enough for fame, there was also his prolonged vigour to marvel at.",
+    "gpt-ex2-s": "Page summarization",
+    "gpt-ex2-p": "I will give you a URL, open the page and summarize it for me in bullet point form.",
+    "gpt-ex2-q": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html",
+    "gpt-ex3-s": "Email helper",
+    "gpt-ex3-p": "You will write an formal email for me and I will give you the subject of the email",
+    "gpt-ex3-q": "I want to collaborate with the other Team A so I can intergrate my chatbot with their technology."
 }

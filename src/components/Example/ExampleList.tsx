@@ -20,7 +20,7 @@ export const ExampleList = ({ onExampleClicked }: Props) => {
         { text: t('example2'), value: t('example2') },
         { text: t('example3'), value: t('example3') }
     ];
-    
+
     return (
         <ul className={styles.examplesNavList}>
             {EXAMPLES.map((x, i) => (
