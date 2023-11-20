@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { ChatAllRequest, chatApiAll } from '../../api';
-import { IIconProps, Icon } from '@fluentui/react/lib/Icon';
-import { Link, MessageBar, MessageBarButton, MessageBarType } from '@fluentui/react';
+import { MessageBar, MessageBarButton, MessageBarType } from '@fluentui/react';
+import { IIconProps } from '@fluentui/react/lib/Icon';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { resolveTypeReferenceDirective } from 'typescript';
 
 interface Props {
   question: string;
   retryQuestion: (question: string) => void;
+  askGPT: (question: string) => void;
 }
 
 const infoIcon: IIconProps = { iconName: 'Info2' };
 
-const QuestionNotAnswered: React.FC<Props> = ({question, retryQuestion}) => {
+const QuestionNotAnswered: React.FC<Props> = ({question, retryQuestion, askGPT}) => {
 
   const { t, i18n } = useTranslation();
 
@@ -24,6 +23,7 @@ const QuestionNotAnswered: React.FC<Props> = ({question, retryQuestion}) => {
                     actions={
                       <div>
                         <MessageBarButton onClick={() => retryQuestion(question)}>{t("retry")}</MessageBarButton>
+                        <MessageBarButton onClick={() => askGPT(question)}>{t("any.question")}</MessageBarButton>
                       </div>
                     }>
             {t("answer.not.found")}

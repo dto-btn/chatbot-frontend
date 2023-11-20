@@ -31,6 +31,7 @@ interface Props {
     onFeedbackClicked: (type: FeedbackType) => void;
     questionAnswered: boolean;
     retryQuestion: (question: string) => void;
+    askGPT: (question: string) => void;
 }
 
 const sourceIcon: IIconProps = { iconName: 'Source'};
@@ -49,7 +50,8 @@ export const Answer = ({
     showFollowupQuestions,
     onFeedbackClicked,
     questionAnswered,
-    retryQuestion
+    retryQuestion,
+    askGPT
 }: Props) => {
     const parsedAnswer = useMemo(() => parseAnswerToHtml(answer.answer, onCitationClicked), [answer]);
     const sanitizedAnswerHtmlPre = DOMPurify.sanitize(parsedAnswer.answerHtml);
@@ -85,7 +87,7 @@ export const Answer = ({
             </Stack.Item>
 
             <Stack.Item grow>
-                {!questionAnswered && <QuestionNotAnswered question={question} retryQuestion={retryQuestion}/>}
+                {!questionAnswered && <QuestionNotAnswered question={question} retryQuestion={retryQuestion} askGPT={askGPT}/>}
             </Stack.Item>
 
             {!!parsedAnswer.citations.length && (

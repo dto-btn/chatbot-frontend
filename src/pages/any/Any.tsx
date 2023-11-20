@@ -13,6 +13,7 @@ import React from "react";
 import { useTranslation } from 'react-i18next';
 import { ChatAnswer } from "../../components/Answer/ChatAnswer";
 import { SparkleFilled } from "@fluentui/react-icons";
+import { useLocation } from "react-router-dom";
 
 const Any = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
@@ -110,6 +111,14 @@ const Any = () => {
         { summary: t('gpt-ex2-s'), prompt: t('gpt-ex2-p'), query: t('gpt-ex2-q') },
         { summary: t('gpt-ex3-s'), prompt: t('gpt-ex3-p'), query: t('gpt-ex3-q') }
     ];
+
+    let location = useLocation();
+    useEffect(() => {
+        const data = location.state;
+        if(data?.question){
+            makeApiRequest(data.question);
+        }
+    }, [location.state])
 
     return (
 

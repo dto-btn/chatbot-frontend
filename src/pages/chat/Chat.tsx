@@ -17,6 +17,7 @@ import { useBoolean } from "@fluentui/react-hooks";
 import { FeedbackType } from "../../components/Feedback/FeedbackType";
 import React from "react";
 import { Feedback } from "../../components/Feedback/Feedback";
+import { useNavigate } from 'react-router-dom';  
 
 const Chat = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
@@ -53,6 +54,7 @@ const Chat = () => {
     const [hideDialog, { toggle: toggleHideDialog }] = useBoolean(true);
     const [feedbackItem, setFeedbackItem] = useState<FeedbackItem>({index: 0, type: FeedbackType.Like});
 
+    let navigate = useNavigate();
 
     const makeApiRequest = async (question: string) => {
 
@@ -200,6 +202,12 @@ const Chat = () => {
         }
     }, [nextQuestion]);
 
+    const askGPT = (question: string) => {
+        navigate('/any',{ 
+            state: { question: question }
+        });
+    }
+
     return (
 
         <div className={styles.container}>
@@ -235,6 +243,7 @@ const Chat = () => {
                                             onFeedbackClicked={(type) => showFeedbackDialog(type, index)}
                                             questionAnswered={answerStatus[index] !== undefined ? answerStatus[index] : true}
                                             retryQuestion={retryQuestion}
+                                            askGPT={askGPT}
                                         />
                                     </div>
                                 </div>
