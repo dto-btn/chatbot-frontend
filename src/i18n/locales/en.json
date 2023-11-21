@@ -13,7 +13,7 @@
     "chatwith.sub": "Try these examples:",
     "placeholder": "Type your question here:",
     "example1": "What records management system does SSC use?",
-    "example2": "What is the URL for the Archibus application?",
+    "example2": "How can I reach the IT service desk?",
     "example3": "What are the steps to hire a new employee at SSC?",
     "menu.title": "Configure answer generation",
     "menu.desc": "Retrieve this many documents from search:",
