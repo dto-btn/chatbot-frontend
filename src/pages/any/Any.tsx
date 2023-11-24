@@ -145,6 +145,7 @@ const Any = () => {
                             </ul>
                         </div>
                     ) : (
+
                     <div className={styles.chatMessageStream}>
                         {answers.map((answer, index) => (
                             <div key={index}>
@@ -178,6 +179,7 @@ const Any = () => {
                         <div ref={chatMessageStreamEnd} />
                     </div>
                     )}
+
                     <div className={styles.chatInput}>
                         <Stack tokens={stackTokens}>
                             <Stack.Item>
