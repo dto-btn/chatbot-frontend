@@ -98,7 +98,7 @@ const Layout = () => {
                     <div className={styles.footerContainer}>
                         <ul className={styles.footerNavList}>
                             <li><a className={styles.footerNavPageLink} href={t("msteams.channel.url")} target="_blank">{t("msteams.channel")}</a></li>
-                            <li className={styles.headerNavLeftMargin}><a className={styles.footerNavPageLink} href={t("tbs.resonsibleai.url")}>{t("tbs.resonsibleai")}</a></li>
+                            <li className={styles.headerNavLeftMargin}><a className={styles.footerNavPageLink} href={t("tbs.responsibleai.url")} target="_blank">{t("tbs.responsibleai")}</a></li>
                             <li className={styles.headerNavLeftMargin}><a className={styles.footerNavPageLink} href={t("feedback.url")} target="_blank">{t("feedback")}</a></li>
                         </ul>
                     </div>
