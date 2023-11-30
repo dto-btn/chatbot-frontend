@@ -155,7 +155,6 @@ const Any = () => {
                                         key={index}
                                         answer={answer[1]}
                                         isSelected={false}
-                                        onFollowupQuestionClicked={q => makeApiRequest(q)}
                                     />
                                 </div>
                             </div>
