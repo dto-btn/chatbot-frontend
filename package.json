@@ -22,7 +22,10 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^13.2.0",
+    "react-markdown": "^9.0.1",
     "react-router-dom": "^6.15.0",
+    "react-syntax-highlighter": "^15.5.0",
+    "remark-gfm": "^4.0.0",
     "ts-node": "^10.9.1",
     "vite-express": "^0.9.2"
   },
@@ -33,6 +36,7 @@
     "@types/node": "^20.5.3",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
+    "@types/react-syntax-highlighter": "^15.5.10",
     "@vitejs/plugin-react": "^4.0.4",
     "http-proxy-middleware": "^2.0.6",
     "prettier": "^3.0.2",
