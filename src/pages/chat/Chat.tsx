@@ -32,6 +32,7 @@ const Chat = () => {
 
     const [activeCitation, setActiveCitation] = useState<string>();
     const [activeAnalysisPanelTab, setActiveAnalysisPanelTab] = useState<AnalysisPanelTabs | undefined>(undefined);
+    const [toggleSource, toggleSourceVisiblity] =  useState<boolean>(false);
 
     const [selectedAnswer, setSelectedAnswer] = useState<number>(0);
     const [answers, setAnswers] = useState<[user: string, response: AskResponse][]>([]);
@@ -60,6 +61,7 @@ const Chat = () => {
         setIsLoading(true);
         setActiveCitation(undefined);
         setActiveAnalysisPanelTab(undefined);
+        toggleSourceVisiblity(false);
 
         try {
             const history: ChatTurn[] = answers.map(a => ({ user: a[0], bot: a[1].answer }));
@@ -90,6 +92,7 @@ const Chat = () => {
         error && setError(undefined);
         setActiveCitation(undefined);
         setActiveAnalysisPanelTab(undefined);
+        toggleSourceVisiblity(false);
         setAnswers([]);
     };
 
@@ -114,9 +117,11 @@ const Chat = () => {
     const onShowCitation = (citation: string, index: number) => {
         if (activeCitation === citation && activeAnalysisPanelTab === AnalysisPanelTabs.CitationTab && selectedAnswer === index) {
             setActiveAnalysisPanelTab(undefined);
+            toggleSourceVisiblity(false);
         } else {
             setActiveCitation(citation);
             setActiveAnalysisPanelTab(AnalysisPanelTabs.CitationTab);
+            toggleSourceVisiblity(true);
         }
 
         setSelectedAnswer(index);
@@ -125,8 +130,10 @@ const Chat = () => {
     const onToggleTab = (tab: AnalysisPanelTabs, index: number) => {
         if (activeAnalysisPanelTab === tab && selectedAnswer === index) {
             setActiveAnalysisPanelTab(undefined);
+            toggleSourceVisiblity(false);
         } else {
             setActiveAnalysisPanelTab(tab);
+            toggleSourceVisiblity(true);
         }
 
         setSelectedAnswer(index);
@@ -183,6 +190,7 @@ const Chat = () => {
                                         <Answer
                                             key={index}
                                             answer={answer[1]}
+                                            toggleSource={toggleSource}
                                             isSelected={selectedAnswer === index && activeAnalysisPanelTab !== undefined}
                                             onCitationClicked={c => onShowCitation(c, index)}
                                             onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab, index)}
