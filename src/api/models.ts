@@ -106,12 +106,6 @@ export type Message = {
     role: string;
 };
 
-export type Choice = {
-    finish_reason: string;
-    index: number;
-    message: Message;
-};
-
 export type Usage = {
     completion_tokens: number;
     prompt_tokens: number;
@@ -119,11 +113,10 @@ export type Usage = {
 };
 
 export type ChatResponse = {
-    choices: Choice[];
+    message: Message;
     created: number;
     history: ChatHistory[];
     id: string;
     model: string;
-    object: string;
     usage: Usage;
 };

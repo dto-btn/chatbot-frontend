@@ -1,26 +1,20 @@
-import { useMemo } from "react";
-import { ITooltipProps, Stack } from "@fluentui/react";
-import DOMPurify from "dompurify";
+import { Stack } from "@fluentui/react";
 
 import styles from "./Answer.module.css";
 
-import { AskResponse, ChatResponse, getCitationFilePath } from "../../api";
-import { parseAnswerToHtml } from "./AnswerParser";
-import { AnswerIcon } from "./AnswerIcon";
+import { ChatResponse } from "../../api";
 
-import { useTranslation } from "react-i18next";
 
 import { IIconProps } from '@fluentui/react';
-import { IconButton } from '@fluentui/react/lib/Button';
 
-import { useBoolean } from '@fluentui/react-hooks';
-import { FeedbackType } from "../Feedback/FeedbackType";
-
+import Markdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { a11yDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import remarkGfm from 'remark-gfm';
 
 interface Props {
     answer: ChatResponse;
     isSelected?: boolean;
-    onFollowupQuestionClicked?: (question: string) => void;
 }
 
 const sourceIcon: IIconProps = { iconName: 'Source'};
@@ -31,21 +25,34 @@ const copy: IIconProps = { iconName: 'Copy'}
 export const ChatAnswer = ({
     answer,
     isSelected,
-    onFollowupQuestionClicked,
 }: Props) => {
-    const parsedAnswer = useMemo(() => parseAnswerToHtml(answer.choices[0].message.content, () => {}), [answer]);
-    const sanitizedAnswerHtmlPre = DOMPurify.sanitize(parsedAnswer.answerHtml);
-    const Rexp = /(\b(https?|ftp|file):\/\/([-A-Z0-9+&@#%?=~_|!:,.;]*)([-A-Z0-9+&@#%?\/=~_|!:,.;]*)[-A-Z0-9+&@#\/%=~_|])/ig;
-    const sanitizedAnswerHtml = sanitizedAnswerHtmlPre.replace(Rexp, "<a href='$1' target='_blank'>$1</a>");
-
-    const { t } = useTranslation();
-
-    const [toggleMenu, {toggle: toggleMenuVisiblity }] = useBoolean(false);
 
     return (
         <Stack className={`${styles.answerContainer} ${isSelected && styles.selected}`} verticalAlign="space-between">
             <Stack.Item grow>
-                <div className={styles.answerText} dangerouslySetInnerHTML={{ __html: sanitizedAnswerHtml }}></div>
+            <Markdown
+                remarkPlugins={[[remarkGfm, {singleTilde: false}]]}
+                children={answer.message.content}
+                components={{
+                code(props) {
+                    const {ref, children, className, node, ...rest} = props
+                    const match = /language-(\w+)/.exec(className || '')
+                    return match ? (
+                    <SyntaxHighlighter
+                        {...rest}
+                        PreTag="div"
+                        children={String(children).replace(/\n$/, '')}
+                        language={match[1]}
+                        style={a11yDark}
+                    />
+                    ) : (
+                    <code {...rest} className={className}>
+                        {children}
+                    </code>
+                    )
+                }
+                }}
+            />
             </Stack.Item>
         </Stack>
     );

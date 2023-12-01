@@ -1,9 +1,9 @@
 import { useRef, useState, useEffect } from "react";
-import { Checkbox, MessageBar, Panel, DefaultButton, SpinButton, IDropdownOption, Text, MessageBarType, Link, Stack, IStackTokens, IIconProps, Dialog, DialogFooter, PrimaryButton, DialogType, ContextualMenu, DialogContent, TextField, Dropdown, Slider } from "@fluentui/react";
-import { Chat24Regular, SparkleFilled } from "@fluentui/react-icons";
+import { Checkbox, MessageBar, Panel, DefaultButton, SpinButton, IDropdownOption, Text, MessageBarType, Link, Stack, IStackTokens, IIconProps, Dialog, DialogFooter, PrimaryButton, DialogType, ContextualMenu, DialogContent, TextField, Dropdown, Slider, selectProperties } from "@fluentui/react";
+import { Chat24Regular, Sleep20Filled, SparkleFilled } from "@fluentui/react-icons";
 import styles from "./Chat.module.css";
 
-import { chatApi, RetrievalMode, Approaches, AskResponse, ChatRequest, ChatTurn, FeedbackItem, ResponseMode, Model } from "../../api";
+import { chatApi, RetrievalMode, Approaches, AskResponse, ChatRequest, ChatTurn, FeedbackItem, ResponseMode, Model, ChatAllRequest, chatApiAll } from "../../api";
 import { Answer, AnswerError, AnswerLoading } from "../../components/Answer";
 import { QuestionInput } from "../../components/QuestionInput";
 import { ExampleList } from "../../components/Example";
@@ -17,6 +17,7 @@ import { useBoolean } from "@fluentui/react-hooks";
 import { FeedbackType } from "../../components/Feedback/FeedbackType";
 import React from "react";
 import { Feedback } from "../../components/Feedback/Feedback";
+import { useNavigate } from 'react-router-dom';  
 
 const Chat = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
@@ -43,6 +44,8 @@ const Chat = () => {
 
     const { t, i18n } = useTranslation();
 
+    const [answerStatus, setAnswerStatus] = useState<boolean[]>([]);
+
     const stackTokens: IStackTokens = {
         childrenGap: 10,
     };
@@ -52,6 +55,7 @@ const Chat = () => {
     const [hideDialog, { toggle: toggleHideDialog }] = useBoolean(true);
     const [feedbackItem, setFeedbackItem] = useState<FeedbackItem>({index: 0, type: FeedbackType.Like});
 
+    let navigate = useNavigate();
 
     const makeApiRequest = async (question: string) => {
 
@@ -62,6 +66,8 @@ const Chat = () => {
         setActiveCitation(undefined);
         setActiveAnalysisPanelTab(undefined);
         toggleSourceVisiblity(false);
+
+        let res = null
 
         try {
             const history: ChatTurn[] = answers.map(a => ({ user: a[0], bot: a[1].answer }));
@@ -79,11 +85,34 @@ const Chat = () => {
                 }
             };
             const result = await chatApi(request, i18n.language);
+            res = result.answer;
             setAnswers([...answers, [question, result]]);
+            
         } catch (e) {
             setError(e);
         } finally {
             setIsLoading(false);
+            if(res) {
+                checkQuestionAnswered(question, res);
+            }
+        }
+    };
+
+    const checkQuestionAnswered = async (question: string, answer: string) => {
+        try{
+            //Ask follow up question and for validation the question was answered properly.
+            const request: ChatAllRequest = {
+                query: `QUESTION: ${question} ANSWER: ${answer}`,
+                history: [],
+                prompt: t("answer.validate.query"),
+                temp: 0.0,
+            };
+
+            const result = await chatApiAll(request);
+            setAnswerStatus([...answerStatus, "yes".toLocaleLowerCase() === result.message.content.trim().toLocaleLowerCase()]);
+
+        } catch (e) {
+            console.error("Unable to get proper feedback for answer.",e);
         }
     };
 
@@ -94,6 +123,7 @@ const Chat = () => {
         setActiveAnalysisPanelTab(undefined);
         toggleSourceVisiblity(false);
         setAnswers([]);
+        setAnswerStatus([]);
     };
 
     useEffect(() => chatMessageStreamEnd.current?.scrollIntoView({ behavior: "smooth" }), [isLoading]);
@@ -165,6 +195,26 @@ const Chat = () => {
         { key: 'compact_accumulate', text: 'compact_accumulate' },
       ];
 
+    const [nextQuestion, setNextQuestion] = useState<string | null>(null);
+
+    const retryQuestion = (question: string) => {
+        clearChat();
+        setNextQuestion(question);
+    }
+
+    useEffect(() => {
+        if (nextQuestion !== null) {
+            makeApiRequest(nextQuestion);
+            setNextQuestion(null);
+        }
+    }, [nextQuestion]);
+
+    const askGPT = (question: string) => {
+        navigate('/any',{ 
+            state: { question: question }
+        });
+    }
+
     return (
 
         <div className={styles.container}>
@@ -191,6 +241,7 @@ const Chat = () => {
                                             key={index}
                                             answer={answer[1]}
                                             toggleSource={toggleSource}
+                                            question={answer[0]}
                                             isSelected={selectedAnswer === index && activeAnalysisPanelTab !== undefined}
                                             onCitationClicked={c => onShowCitation(c, index)}
                                             onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab, index)}
@@ -198,6 +249,9 @@ const Chat = () => {
                                             onFollowupQuestionClicked={q => makeApiRequest(q)}
                                             showFollowupQuestions={answers.length - 1 === index}
                                             onFeedbackClicked={(type) => showFeedbackDialog(type, index)}
+                                            questionAnswered={answerStatus[index] !== undefined ? answerStatus[index] : true}
+                                            retryQuestion={retryQuestion}
+                                            askGPT={askGPT}
                                         />
                                     </div>
                                 </div>
