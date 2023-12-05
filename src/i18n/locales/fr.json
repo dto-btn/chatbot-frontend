@@ -26,6 +26,7 @@
     "retry": "Réessayer",
     "use.chathistory": "Utiliser l'historique des discussions dans les requêtes",
     "menu.responsemode.select": "Choisir le mode",
+    "menu.usermode": "Mode utilisateur",
     "menu.responsemode": "Mode de réponse",
     "menu.model.select": "Choisir le modèle",
     "menu.model": "Modèle",

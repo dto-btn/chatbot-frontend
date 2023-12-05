@@ -3,7 +3,7 @@ import { Checkbox, MessageBar, Panel, DefaultButton, SpinButton, IDropdownOption
 import { Chat24Regular, Sleep20Filled, SparkleFilled } from "@fluentui/react-icons";
 import styles from "./Chat.module.css";
 
-import { chatApi, RetrievalMode, Approaches, AskResponse, ChatRequest, ChatTurn, FeedbackItem, ResponseMode, Model, ChatAllRequest, chatApiAll } from "../../api";
+import { chatApi, RetrievalMode, Approaches, AskResponse, ChatRequest, ChatTurn, FeedbackItem, ResponseMode, Model, ChatAllRequest, chatApiAll, UserMode } from "../../api";
 import { Answer, AnswerError, AnswerLoading } from "../../components/Answer";
 import { QuestionInput } from "../../components/QuestionInput";
 import { ExampleList } from "../../components/Example";
@@ -38,6 +38,7 @@ const Chat = () => {
     const [selectedAnswer, setSelectedAnswer] = useState<number>(0);
     const [answers, setAnswers] = useState<[user: string, response: AskResponse][]>([]);
 
+    const [userMode, setUserMode] = useState<UserMode>(UserMode.Prod);
     const [responseMode, setResponseMode] = useState<ResponseMode>(ResponseMode.TreeSumarize);
     const [model, setModel] = useState<Model>(Model.GPT_4);
     const [numCount, setNumCount] = useState<number>(800);
@@ -315,6 +316,15 @@ const Chat = () => {
                     onRenderFooterContent={() => <DefaultButton onClick={() => setIsConfigPanelOpen(false)}>Close</DefaultButton>}
                     isFooterAtBottom={true}
                 >
+                    <Dropdown
+                        placeholder={t("menu.responsemode.select")}
+                        label={t("menu.usermode")}
+                        options={[
+                                { key: UserMode.Prod, text: UserMode.Prod, selected: userMode == UserMode.Prod, data: UserMode.Prod},
+                                { key: UserMode.Dev, text: UserMode.Dev, selected: userMode == UserMode.Dev, data: UserMode.Dev},
+                            ]}
+                        defaultValue={userMode}
+                    />
                     <Dropdown
                         placeholder={t("menu.responsemode.select")}
                         label={t("menu.responsemode")}

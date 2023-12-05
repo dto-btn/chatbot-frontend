@@ -1,5 +1,10 @@
 import { FeedbackType } from "../components/Feedback/FeedbackType";
 
+export const enum UserMode {
+    Prod = "prod",
+    Dev = "dev"
+}
+
 export const enum Approaches {
     RetrieveThenRead = "rtr",
     ReadRetrieveRead = "rrr",
