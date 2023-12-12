@@ -1,0 +1,4 @@
+policies:
+  - WCAG_2_1
+
+baselineFolder: test/baselines
