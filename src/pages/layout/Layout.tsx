@@ -62,8 +62,8 @@ const Layout = () => {
                     </DialogFooter>
                 </Dialog>
             }
-            <header className={styles.header} role={"banner"}>
-                <nav aria-labelledby="primary-navigation">
+            <header id="main-menu" className={styles.header} role={"banner"}>
+                <nav aria-labelledby="main-menu">
                     <div className={styles.headerContainer}>
                         <Link to="." className={styles.headerTitleContainer} title="Azure OpenAI + Llama_index + langchain">
                             <img
