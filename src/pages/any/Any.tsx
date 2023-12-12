@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { ChatAnswer } from "../../components/Answer/ChatAnswer";
 import { SparkleFilled } from "@fluentui/react-icons";
 import { useLocation } from "react-router-dom";
+import { StringLiteral } from "typescript";
 
 const Any = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
@@ -120,6 +121,15 @@ const Any = () => {
         }
     }, [location.state])
 
+    // Function to handle keydown events  
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>, prompt: string, query: string) => {  
+        // Check if the key pressed is 'Enter' or 'Space'  
+        if ((event.key === 'Enter' || event.key === ' ')) {  
+            event.preventDefault(); // Prevent the default action (e.g., scrolling when space is pressed)  
+            runExample(prompt, query); // Call the onClick function  
+        }  
+    };
+
     return (
 
         <div className={styles.container}>
@@ -136,7 +146,7 @@ const Any = () => {
                             <ul className={styles.examplesNavList}>
                                 {EXAMPLES.map((x, i) => (
                                     <li key={i}>
-                                        <div className={styles.example} onClick={() => runExample(x.prompt, x.query)}>
+                                        <div className={styles.example} onClick={() => runExample(x.prompt, x.query)} tabIndex={0} onKeyDown={(event) => handleKeyDown(event, x.prompt, x.query)}>
                                             <p className={styles.exampleText}>{x.summary}</p>
                                             <p className={styles.exampleTextSmall}>{t('prompt')} {x.prompt}</p>
                                         </div>
