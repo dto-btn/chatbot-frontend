@@ -19,7 +19,7 @@ export const SupportingContent = ({ supportingContent }: Props) => {
         <ul className={styles.supportingContentNavList}>
             {Object.keys(supportingContent).map((key) => (
                 supportingContent[key].text.map((t, i) => (
-                    <li className={styles.supportingContentItem}>
+                    <li key={i} className={styles.supportingContentItem}>
                         {supportingContent[key].title && supportingContent[key].url &&
                             (<h4 className={styles.supportingContentItemHeader}><a href={replaceDomain(supportingContent[key].url, 'plus.ssc-spc.gc.ca')} target="_blank">{supportingContent[key].title}</a></h4>)}
                         {!supportingContent[key].title && supportingContent[key].url &&

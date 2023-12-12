@@ -15,9 +15,10 @@ import { IconButton } from '@fluentui/react/lib/Button';
 
 import { useBoolean } from '@fluentui/react-hooks';
 import { FeedbackType } from "../Feedback/FeedbackType";
-import QuestionAnswered from "./QuestionNotAnswered";
 import QuestionNotAnswered from "./QuestionNotAnswered";
 
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface Props {
     answer: AskResponse;
@@ -55,35 +56,37 @@ export const Answer = ({
 }: Props) => {
     const parsedAnswer = useMemo(() => parseAnswerToHtml(answer.answer, onCitationClicked), [answer]);
     const sanitizedAnswerHtmlPre = DOMPurify.sanitize(parsedAnswer.answerHtml);
-    const Rexp = /(\b(https?|ftp|file):\/\/([-A-Z0-9+&@#%?=~_|!:,.;]*)([-A-Z0-9+&@#%?\/=~_|!:,.;]*)[-A-Z0-9+&@#\/%=~_|])/ig;
-    const sanitizedAnswerHtml = sanitizedAnswerHtmlPre.replace(Rexp, "<a href='$1' target='_blank'>$1</a>");
 
     const { t } = useTranslation();
 
-    const [toggleMenu, {toggle: toggleMenuVisiblity }] = useBoolean(false);
-    const [toggleSource, {toggle: toggleSourceVisiblity }] = useBoolean(false);
+    // Function to handle keydown events  
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {  
+        // Check if the key pressed is 'Enter' or 'Space'  
+        if ((event.key === 'Enter' || event.key === ' ')) {  
+            event.preventDefault(); // Prevent the default action (e.g., scrolling when space is pressed)  
+            navigator.clipboard.writeText(sanitizedAnswerHtmlPre)
+        }  
+    };
 
     return (
-        <Stack className={`${styles.answerContainer} ${isSelected && styles.selected}`} verticalAlign="space-between" onMouseEnter={() => toggleMenuVisiblity()} onMouseLeave={() =>  toggleMenuVisiblity()}>
+        <Stack className={`${styles.answerContainer} ${isSelected && styles.selected}`} verticalAlign="space-between">
             <Stack.Item>
                 <Stack horizontal horizontalAlign="space-between">
                     <AnswerIcon />
-                    {toggleMenu ?
-                    (<div className={styles.sourcesContainer}>
+                    <div className={styles.sourcesContainer}>
                         <IconButton iconProps={like} className={styles.menuIcons} title={t("like")} ariaLabel={t("like")} onClick={() => onFeedbackClicked(FeedbackType.Like)}/>
                         <IconButton iconProps={dislike} className={styles.menuIcons} title={t("dislike")} ariaLabel={t("dislike")}  onClick={() => onFeedbackClicked(FeedbackType.Dislike)}/> 
-                        <IconButton iconProps={copy} onClick={() => navigator.clipboard.writeText(sanitizedAnswerHtmlPre)} className={styles.menuIcons} title={t("copy")} ariaLabel={t("copy")} />
-                        <IconButton iconProps={sourceIcon} allowDisabledFocus disabled={!answer.metadata} onClick={() => {onSupportingContentClicked(); toggleSourceVisiblity();}} title={t("sources")} ariaLabel={t("sources")} className={styles.menuIcons} />
-                    </div>) : null || 
-                    toggleSource ? 
-                    (<div className={styles.sourcesContainer}>
-                        <IconButton iconProps={sourceIcon} allowDisabledFocus disabled={!answer.metadata} onClick={() => {onSupportingContentClicked(); toggleSourceVisiblity();}} title={t("sources")} ariaLabel={t("sources")} className={styles.menuIcons} />
-                    </div>): null}
+                        <IconButton iconProps={copy} onClick={() => navigator.clipboard.writeText(sanitizedAnswerHtmlPre)} onKeyDown={handleKeyDown} className={styles.menuIcons} title={t("copy")} ariaLabel={t("copy")} />
+                        <IconButton iconProps={sourceIcon} allowDisabledFocus disabled={!answer.metadata} onClick={() => {onSupportingContentClicked();}} title={t("sources")} ariaLabel={t("sources")} className={styles.menuIcons} />
+                    </div>                      
                 </Stack>
             </Stack.Item>
 
             <Stack.Item grow>
-                <div className={styles.answerText} dangerouslySetInnerHTML={{ __html: sanitizedAnswerHtml }}></div>
+                <Markdown
+                    remarkPlugins={[[remarkGfm, {singleTilde: false}]]}
+                    children={answer.answer}
+                />
             </Stack.Item>
 
             <Stack.Item grow>

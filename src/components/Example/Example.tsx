@@ -16,6 +16,7 @@ export const Example = ({ text, value, onClick }: Props) => {
             onClick(value); // Call the onClick function  
         }  
     };
+    
     return (
         <div className={styles.example} onClick={() => onClick(value)} onKeyDown={handleKeyDown} role="button" tabIndex={0}>
             <p className={styles.exampleText}>{text}</p>
