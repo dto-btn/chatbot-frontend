@@ -22,6 +22,14 @@ echo "VITE_API_BACKEND=http://127.0.0.1:5000" > .env
 
 NOTE: You can also export then env variable, it will take precedence on the `.env` file(s).
 
+### accessbility testing
+
+```bash
+npm install --save-dev accessibility-checker
+# ensure app is running ...
+npx achecker test/urls.txt 
+```
+
 ## how it is ran in production
 
 In "production" this server is ran via an Azure Linux web app and started via the `http://127.0.0.1:5000` 
@@ -32,3 +40,4 @@ In "production" this server is ran via an Azure Linux web app and started via th
 ## Documentation
 
 - [a11ywatch, tool used to do some accessbility testing (was done locally)](https://github.com/a11ywatch/a11ywatch)
+- [IBM accessibiliy-checker](https://github.com/IBMa/equal-access/tree/master/accessibility-checker)
