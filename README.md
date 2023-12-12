@@ -28,3 +28,7 @@ In "production" this server is ran via an Azure Linux web app and started via th
 (auto build will run `tsc && vite build` and place it it `dist/`) then it is started with the `NODE_ENV=production node server.js` command.
 
 `PORT=8080` is defined on Azure via their `/opt/startup/startup.sh` bootstrapped script and so the instance will run on that port (you also can do the same locally via `.env`)
+
+## Documentation
+
+- [a11ywatch, tool used to do some accessbility testing (was done locally)](https://github.com/a11ywatch/a11ywatch)
