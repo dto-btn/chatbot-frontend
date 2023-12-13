@@ -93,7 +93,7 @@ const Layout = () => {
 
             <Outlet />
 
-            <footer className={styles.footer}>
+            <footer id="footer-navigation" className={styles.footer} aria-label={t("footer.desc")}>
                 <nav aria-labelledby="footer-navigation">
                     <div className={styles.footerContainer}>
                         <ul className={styles.footerNavList}>

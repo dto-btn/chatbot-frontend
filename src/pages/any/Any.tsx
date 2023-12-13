@@ -133,14 +133,14 @@ const Any = () => {
     return (
 
         <div className={styles.container}>
-            <div className={styles.commandsContainer}>
+            <div className={styles.commandsContainer} role="navigation" aria-label="Options">
                 <ClearChatButton className={styles.commandButton} onClick={clearChat} disabled={!lastQuestionRef.current || isLoading} />
                 <SettingsButton className={styles.commandButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} />
             </div>
             <div className={styles.chatRoot}>
                 <div className={styles.chatContainer}>
                     {!lastQuestionRef.current ? (
-                        <div className={styles.chatEmptyState}>
+                        <div className={styles.chatEmptyState} role="contentinfo" aria-label="Exemples">
                             <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />
                             <h2 className={styles.chatEmptyStateSubtitle}>{t("chatwith.sub")}</h2>
                             <ul className={styles.examplesNavList}>
@@ -156,7 +156,7 @@ const Any = () => {
                         </div>
                     ) : (
 
-                    <div className={styles.chatMessageStream}>
+                    <div className={styles.chatMessageStream} role="main">
                         {answers.map((answer, index) => (
                             <div key={index}>
                                 <UserChatMessage message={answer[0]} />
@@ -190,7 +190,7 @@ const Any = () => {
                     )}
 
                     <div className={styles.chatInput}>
-                        <Stack tokens={stackTokens}>
+                        <Stack tokens={stackTokens} role="form" aria-label={t("chatbot.input.label")}>
                             <Stack.Item>
                                 <TextField label={t("prompt")} required underlined placeholder={t("prompt.placeholder")} value={chatPrompt} onChange={onChatPromptChange}/>
                             </Stack.Item>

@@ -73,7 +73,7 @@ export const Answer = ({
             <Stack.Item>
                 <Stack horizontal horizontalAlign="space-between">
                     <AnswerIcon />
-                    <div className={styles.sourcesContainer}>
+                    <div className={styles.sourcesContainer} role="complementary" aria-label="actions">
                         <IconButton iconProps={like} className={styles.menuIcons} title={t("like")} ariaLabel={t("like")} onClick={() => onFeedbackClicked(FeedbackType.Like)}/>
                         <IconButton iconProps={dislike} className={styles.menuIcons} title={t("dislike")} ariaLabel={t("dislike")}  onClick={() => onFeedbackClicked(FeedbackType.Dislike)}/> 
                         <IconButton iconProps={copy} onClick={() => navigator.clipboard.writeText(sanitizedAnswerHtmlPre)} onKeyDown={handleKeyDown} className={styles.menuIcons} title={t("copy")} ariaLabel={t("copy")} />
