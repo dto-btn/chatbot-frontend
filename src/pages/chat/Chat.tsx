@@ -211,21 +211,21 @@ const Chat = () => {
     return (
 
         <div className={styles.container}>
-            <div className={styles.commandsContainer}>
-                <ClearChatButton className={styles.commandButton} onClick={clearChat} disabled={!lastQuestionRef.current || isLoading} />
-                <SettingsButton className={styles.commandButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} />
+            <div className={styles.commandsContainer} role="navigation" aria-label="Options">
+                <ClearChatButton className={styles.commandButton} onClick={clearChat} disabled={!lastQuestionRef.current || isLoading}/>
+                <SettingsButton className={styles.commandButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)}/>
             </div>
             <div className={styles.chatRoot}>
                 <div className={styles.chatContainer}>
                     {!lastQuestionRef.current ? (
-                        <div className={styles.chatEmptyState}>
+                        <div className={styles.chatEmptyState} role="contentinfo" aria-label="Exemples">
                             <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />
                             <h1 className={styles.chatEmptyStateTitle}>{t("chatwith")}</h1>
                             <h2 className={styles.chatEmptyStateSubtitle}>{t("chatwith.sub")}</h2>
                             <ExampleList onExampleClicked={onExampleClicked} />
                         </div>
                     ) : (
-                        <div className={styles.chatMessageStream}>
+                        <div className={styles.chatMessageStream} role="main">
                             {answers.map((answer, index) => (
                                 <div key={index}>
                                     <UserChatMessage message={answer[0]} />
@@ -270,12 +270,12 @@ const Chat = () => {
 
                     <div className={styles.chatInput}>
                         <Stack tokens={stackTokens}>
-                            <Stack.Item>
+                            <Stack.Item role="contentinfo" aria-label={t("feedback.link.label")}>
                                 <MessageBar messageBarType={MessageBarType.success} isMultiline={false} messageBarIconProps={infoIcon}>
                                     <Link href={t("feedback.url")} target="_blank" underline>{t("feedback.long")}</Link>
                                 </MessageBar>
                             </Stack.Item>
-                            <Stack.Item>
+                            <Stack.Item role="form" aria-label={t("chatbot.input.label")}>
                                 <QuestionInput
                                     clearOnSend
                                     placeholder={t("placeholder")}

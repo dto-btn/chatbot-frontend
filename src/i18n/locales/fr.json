@@ -48,5 +48,9 @@
     "gpt-ex2-q": "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/innovations-gouvernement-numerique/utilisation-responsable-ai/guide-utilisation-ai-generative.html",
     "gpt-ex3-s": "Assistant de courriel électronique",
     "gpt-ex3-p": "Vous allez rédiger un e-mail formel pour moi et je vous donnerai le sujet de l'e-mail",
-    "gpt-ex3-q": "Je souhaite collaborer avec l'autre Équipe A afin de pouvoir intégrer mon chatbot avec leur technologie."
+    "gpt-ex3-q": "Je souhaite collaborer avec l'autre Équipe A afin de pouvoir intégrer mon chatbot avec leur technologie.",
+    "ask.btn": "Bouton Poser une question",
+    "footer.desc": "Liens utiles",
+    "feedback.link.label": "Lien du formulaire de commentaires",
+    "chatbot.input.label": "Saisie des questions du chatbot"
 }

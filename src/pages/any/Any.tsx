@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { ChatAnswer } from "../../components/Answer/ChatAnswer";
 import { SparkleFilled } from "@fluentui/react-icons";
 import { useLocation } from "react-router-dom";
+import { StringLiteral } from "typescript";
 
 const Any = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
@@ -120,23 +121,32 @@ const Any = () => {
         }
     }, [location.state])
 
+    // Function to handle keydown events  
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>, prompt: string, query: string) => {  
+        // Check if the key pressed is 'Enter' or 'Space'  
+        if ((event.key === 'Enter' || event.key === ' ')) {  
+            event.preventDefault(); // Prevent the default action (e.g., scrolling when space is pressed)  
+            runExample(prompt, query); // Call the onClick function  
+        }  
+    };
+
     return (
 
         <div className={styles.container}>
-            <div className={styles.commandsContainer}>
+            <div className={styles.commandsContainer} role="navigation" aria-label="Options">
                 <ClearChatButton className={styles.commandButton} onClick={clearChat} disabled={!lastQuestionRef.current || isLoading} />
                 <SettingsButton className={styles.commandButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} />
             </div>
             <div className={styles.chatRoot}>
                 <div className={styles.chatContainer}>
                     {!lastQuestionRef.current ? (
-                        <div className={styles.chatEmptyState}>
+                        <div className={styles.chatEmptyState} role="contentinfo" aria-label="Exemples">
                             <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />
                             <h2 className={styles.chatEmptyStateSubtitle}>{t("chatwith.sub")}</h2>
                             <ul className={styles.examplesNavList}>
                                 {EXAMPLES.map((x, i) => (
                                     <li key={i}>
-                                        <div className={styles.example} onClick={() => runExample(x.prompt, x.query)}>
+                                        <div className={styles.example} onClick={() => runExample(x.prompt, x.query)} tabIndex={0} onKeyDown={(event) => handleKeyDown(event, x.prompt, x.query)}>
                                             <p className={styles.exampleText}>{x.summary}</p>
                                             <p className={styles.exampleTextSmall}>{t('prompt')} {x.prompt}</p>
                                         </div>
@@ -146,7 +156,7 @@ const Any = () => {
                         </div>
                     ) : (
 
-                    <div className={styles.chatMessageStream}>
+                    <div className={styles.chatMessageStream} role="main">
                         {answers.map((answer, index) => (
                             <div key={index}>
                                 <UserChatMessage message={answer[0]} />
@@ -155,7 +165,6 @@ const Any = () => {
                                         key={index}
                                         answer={answer[1]}
                                         isSelected={false}
-                                        onFollowupQuestionClicked={q => makeApiRequest(q)}
                                     />
                                 </div>
                             </div>
@@ -181,7 +190,7 @@ const Any = () => {
                     )}
 
                     <div className={styles.chatInput}>
-                        <Stack tokens={stackTokens}>
+                        <Stack tokens={stackTokens} role="form" aria-label={t("chatbot.input.label")}>
                             <Stack.Item>
                                 <TextField label={t("prompt")} required underlined placeholder={t("prompt.placeholder")} value={chatPrompt} onChange={onChatPromptChange}/>
                             </Stack.Item>

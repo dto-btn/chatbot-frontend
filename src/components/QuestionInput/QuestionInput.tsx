@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Stack, TextField } from "@fluentui/react";
 import { Send28Filled } from "@fluentui/react-icons";
+import { useTranslation } from 'react-i18next';
 
 import styles from "./QuestionInput.module.css";
+import { t } from "i18next";
 
 interface Props {
     onSend: (question: string) => void;
@@ -13,6 +15,7 @@ interface Props {
 
 export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend }: Props) => {
     const [question, setQuestion] = useState<string>("");
+    const { t } = useTranslation();
 
     const sendQuestion = () => {
         if (disabled || !question.trim()) {
@@ -36,7 +39,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend }: Pr
     const onQuestionChange = (_ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         if (!newValue) {
             setQuestion("");
-        } else if (newValue.length <= 1000) {
+        } else {
             setQuestion(newValue);
         }
     };
@@ -58,7 +61,8 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend }: Pr
             <div className={styles.questionInputButtonsContainer}>
                 <div
                     className={`${styles.questionInputSendButton} ${sendQuestionDisabled ? styles.questionInputSendButtonDisabled : ""}`}
-                    aria-label="Ask question button"
+                    aria-label={t("ask.btn")}
+                    role="button"
                     onClick={sendQuestion}
                 >
                     <Send28Filled primaryFill="rgba(115, 118, 225, 1)" />
