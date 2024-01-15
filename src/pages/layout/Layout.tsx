@@ -17,12 +17,6 @@ const Layout = () => {
 
     const { t, i18n } = useTranslation();
 
-    const setDisclaimerCookie = () => {
-        Cookies.set("read_disclaimer", "true", {
-            expires: 30,
-        });
-    };
-
     const setTranslationCookie = () => {
         Cookies.set("lang_setting", i18n.language, {
             expires: 30,
@@ -52,16 +46,15 @@ const Layout = () => {
 
     return (
         <div className={styles.layout}>
-            {Cookies.get("read_disclaimer") != "true" &&
-                <Dialog hidden={hideDialog} onDismiss={toggleHideDialog} dialogContentProps={dialogContentProps} modalProps={modalProps}>
-                    <p>{t("disclaimer.desc")}</p>
-                    <p className={styles.disclaimer}>{t("disclaimer.desc2")}</p>
-                    <DialogFooter>
-                        <PrimaryButton onClick={() => {toggleHideDialog(); setDisclaimerCookie();}} text={t("close")} />
-                        <DefaultButton onClick={() => {changeLanguage(t("langlink.shorthand")); setTranslationCookie();}} text={t("langlink")} />
-                    </DialogFooter>
-                </Dialog>
-            }
+            <Dialog hidden={hideDialog} onDismiss={toggleHideDialog} dialogContentProps={dialogContentProps} modalProps={modalProps}>
+                <p>{t("disclaimer.desc")}</p>
+                <p className={styles.disclaimer}>{t("disclaimer.desc2")}</p>
+                <DialogFooter>
+                    <PrimaryButton onClick={() => {toggleHideDialog();}} text={t("close")} />
+                    <DefaultButton onClick={() => {changeLanguage(t("langlink.shorthand")); setTranslationCookie();}} text={t("langlink")} />
+                </DialogFooter>
+            </Dialog>
+
             <header id="main-menu" className={styles.header} role={"banner"}>
                 <nav aria-labelledby="main-menu">
                     <div className={styles.headerContainer}>
